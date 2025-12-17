@@ -9,20 +9,9 @@
 import SwiftUI
 
 struct LeaderboardView: View {
-    @Environment(\.dismiss) var dismiss
+    @StateObject private var firebaseManager = FirebaseManager.shared
     @ObservedObject var localization = LocalizationManager.shared
-    
-    private var leaders: [(rank: Int, name: String, score: Int)] {
-        [
-            (1, "Aisha", 1500),
-            (2, "Yusuf", 1420),
-            (3, "Fatima", 1350),
-            (4, "Omar", 1200),
-            (5, "Hassan", 1100),
-            (6, localization.ui(\UIData.you), 950),
-            (7, "Zainab", 900)
-        ]
-    }
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -30,6 +19,7 @@ struct LeaderboardView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
+                // Header
                 HStack {
                     Button(action: { dismiss() }) {
                         Image(systemName: "arrow.left")
@@ -40,34 +30,70 @@ struct LeaderboardView: View {
                             .clipShape(Circle())
                             .shadow(radius: 2)
                     }
+                    
                     Spacer()
+                    
                     Text(localization.ui(\UIData.leaderboard))
                         .font(.headline)
                         .foregroundColor(GameTheme.primaryGreen)
+                    
                     Spacer()
+                    
                     Color.clear.frame(width: 44, height: 44)
                 }
                 .padding()
                 
-                ScrollView {
+                // Leaderboard List
+                if firebaseManager.isLoading {
+                    Spacer()
+                    ProgressView()
+                        .scaleEffect(1.5)
+                    Spacer()
+                } else if firebaseManager.leaderboard.isEmpty {
+                    Spacer()
                     VStack(spacing: 16) {
-                        ForEach(leaders, id: \.name) { player in
-                            LeaderRow(rank: player.rank, name: player.name, score: player.score)
-                        }
+                        Image(systemName: "trophy.fill")
+                            .font(.system(size: 60))
+                            .foregroundColor(GameTheme.primaryGreen.opacity(0.3))
+                        
+                        Text("No scores yet")
+                            .font(.title3)
+                            .foregroundColor(GameTheme.textLight)
+                        
+                        Text("Play a level to get on the leaderboard!")
+                            .font(.subheadline)
+                            .foregroundColor(GameTheme.textLight.opacity(0.7))
+                            .multilineTextAlignment(.center)
                     }
                     .padding()
+                    Spacer()
+                } else {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ForEach(Array(firebaseManager.leaderboard.enumerated()), id: \.element.id) { index, entry in
+                                LeaderRow(
+                                    rank: index + 1,
+                                    name: entry.playerName,
+                                    score: entry.score
+                                )
+                            }
+                        }
+                        .padding()
+                    }
                 }
-                
-                VStack {
-                    Text(localization.ui(\UIData.offline_mode))
-                        .font(.caption2)
-                        .foregroundColor(GameTheme.textLight)
-                        .multilineTextAlignment(.center)
-                }
-                .padding()
             }
         }
         .navigationBarHidden(true)
+        .task {
+            await loadLeaderboard()
+        }
+    }
+    
+    private func loadLeaderboard() async {
+        do {
+            _ = try await firebaseManager.fetchLeaderboard(limit: 100)
+        } catch {
+            print("Error loading leaderboard: \(error)")
+        }
     }
 }
-

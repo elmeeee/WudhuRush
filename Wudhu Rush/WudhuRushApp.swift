@@ -7,9 +7,20 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct WudhuRushApp: App {
+    
+    init() {
+        // Configure Firebase first
+        FirebaseApp.configure()
+        
+        // Then initialize managers
+        _ = FirebaseManager.shared
+        _ = UserProfileManager.shared
+    }
+    
     var body: some Scene {
         WindowGroup {
             HomeView()

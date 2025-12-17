@@ -13,39 +13,46 @@ struct LeaderRow: View {
     let name: String
     let score: Int
     
-    private var youText: String {
-        LocalizationManager.shared.ui(\UIData.you)
+    var medalColor: Color {
+        switch rank {
+        case 1: return .yellow
+        case 2: return Color(red: 0.75, green: 0.75, blue: 0.75)
+        case 3: return Color(red: 0.8, green: 0.5, blue: 0.2)
+        default: return .clear
+        }
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: 16) {
+            // Rank with medal for top 3
             ZStack {
                 if rank <= 3 {
-                    Circle()
-                        .fill(GameTheme.gold.opacity(0.2))
-                        .frame(width: 40, height: 40)
+                    Image(systemName: "medal.fill")
+                        .font(.system(size: 32))
+                        .foregroundColor(medalColor)
                 }
+                
                 Text("\(rank)")
-                    .font(.headline)
-                    .foregroundColor(rank <= 3 ? GameTheme.gold : GameTheme.textLight)
+                    .font(.system(size: rank <= 3 ? 14 : 18, weight: .bold))
+                    .foregroundColor(rank <= 3 ? .white : GameTheme.textDark)
+                    .frame(width: 40)
             }
-            .frame(width: 50)
             
+            // Player name
             Text(name)
-                .font(.body)
-                .fontWeight(name == youText ? .bold : .medium)
+                .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(GameTheme.textDark)
             
             Spacer()
             
+            // Score
             Text("\(score)")
-                .monospacedDigit()
-                .fontWeight(.bold)
+                .font(.system(size: 24, weight: .bold))
                 .foregroundColor(GameTheme.primaryGreen)
         }
         .padding()
-        .background(name == youText ? GameTheme.lightGreen : Color.white)
+        .background(Color.white)
         .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.03), radius: 5, x: 0, y: 2)
+        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 4)
     }
 }

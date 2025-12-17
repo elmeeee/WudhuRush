@@ -17,8 +17,9 @@ struct ResultView: View {
     let onHome: () -> Void
     let onNextLevel: (() -> Void)?
     
-    
     @ObservedObject var localization = LocalizationManager.shared
+    @StateObject private var userProfile = UserProfileManager.shared
+    @State private var scoreSubmitted = false
     
     var body: some View {
         ZStack {
@@ -167,5 +168,33 @@ struct ResultView: View {
         .padding(.vertical, 12)
         .background(GameTheme.background)
         .cornerRadius(12)
+        .task {
+            await submitScoreToLeaderboard()
+        }
+    }
+    
+    private func submitScoreToLeaderboard() async {
+        // Only submit once
+        guard !scoreSubmitted else { return }
+        
+        // Only submit for level mode (not practice)
+        guard case .level(let levelData) = mode else { return }
+        
+        // Only submit if won
+        guard case .finished(let result) = engine.gameState, result == .win else { return }
+        
+        scoreSubmitted = true
+        
+        do {
+            try await FirebaseManager.shared.submitScore(
+                playerName: userProfile.playerName,
+                score: score,
+                level: levelData.title
+            )
+            print("✅ Score submitted to leaderboard")
+        } catch {
+            print("❌ Failed to submit score: \(error)")
+        }
     }
 }
+

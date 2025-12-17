@@ -11,6 +11,7 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject private var localization = LocalizationManager.shared
+    @StateObject private var userProfile = UserProfileManager.shared
     @State private var navigateToGame = false
     @State private var selectedLevel: LevelData?
     @State private var gameMode: GameMode = .practice
@@ -21,6 +22,19 @@ struct HomeView: View {
     ]
     
     var body: some View {
+        Group {
+            if !userProfile.hasSetName {
+                WelcomeView {
+                    // User completed welcome
+                }
+            } else {
+                mainContent
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var mainContent: some View {
         NavigationStack {
             ZStack {
                 WRBackground()
