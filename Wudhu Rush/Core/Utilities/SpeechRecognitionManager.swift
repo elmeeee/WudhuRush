@@ -11,7 +11,7 @@ import Speech
 import AVFoundation
 import Combine
 
-class SpeechRecognitionManager: ObservableObject {
+final class SpeechRecognitionManager: NSObject, ObservableObject, @unchecked Sendable {
     @Published var isRecording = false
     @Published var recognizedText = ""
     @Published var authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
@@ -19,19 +19,33 @@ class SpeechRecognitionManager: ObservableObject {
     private var speechRecognizer: SFSpeechRecognizer?
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
-    private let audioEngine = AVAudioEngine()
+    private var audioEngine: AVAudioEngine?
     
-    init() {
-        // Initialize with Arabic language
+    override init() {
+        super.init()
         speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ar-SA"))
         authorizationStatus = SFSpeechRecognizer.authorizationStatus()
     }
     
-    func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        SFSpeechRecognizer.requestAuthorization { status in
+    // MARK: - Permissions
+    
+    func requestAllPermissions(completion: @escaping (Bool) -> Void) {
+        // Request speech first
+        SFSpeechRecognizer.requestAuthorization { [weak self] speechStatus in
             DispatchQueue.main.async {
-                self.authorizationStatus = status
-                completion(status == .authorized)
+                self?.authorizationStatus = speechStatus
+                
+                guard speechStatus == .authorized else {
+                    completion(false)
+                    return
+                }
+                
+                // Then request microphone
+                AVAudioApplication.requestRecordPermission { micGranted in
+                    DispatchQueue.main.async {
+                        completion(micGranted)
+                    }
+                }
             }
         }
     }
@@ -40,6 +54,12 @@ class SpeechRecognitionManager: ObservableObject {
         // Cancel any ongoing task
         recognitionTask?.cancel()
         recognitionTask = nil
+        
+        // Create new audio engine
+        audioEngine = AVAudioEngine()
+        guard let audioEngine = audioEngine else {
+            throw NSError(domain: "SpeechRecognition", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to create audio engine"])
+        }
         
         // Configure audio session
         let audioSession = AVAudioSession.sharedInstance()
@@ -65,14 +85,15 @@ class SpeechRecognitionManager: ObservableObject {
             var isFinal = false
             
             if let result = result {
+                let text = result.bestTranscription.formattedString
                 DispatchQueue.main.async {
-                    self.recognizedText = result.bestTranscription.formattedString
+                    self.recognizedText = text
                 }
                 isFinal = result.isFinal
             }
             
             if error != nil || isFinal {
-                self.audioEngine.stop()
+                self.audioEngine?.stop()
                 inputNode.removeTap(onBus: 0)
                 
                 self.recognitionRequest = nil
@@ -86,8 +107,8 @@ class SpeechRecognitionManager: ObservableObject {
         
         // Configure microphone input
         let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-            recognitionRequest.append(buffer)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
+            self?.recognitionRequest?.append(buffer)
         }
         
         // Start audio engine
@@ -101,15 +122,13 @@ class SpeechRecognitionManager: ObservableObject {
     }
     
     func stopRecording() {
-        audioEngine.stop()
+        audioEngine?.stop()
         recognitionRequest?.endAudio()
         
         DispatchQueue.main.async {
             self.isRecording = false
         }
     }
-    
-    // MARK: - Text Matching
     
     func matchesExpectedText(_ expected: String, tolerance: Double = 0.7) -> Bool {
         let similarity = calculateSimilarity(recognizedText, expected)
@@ -120,7 +139,6 @@ class SpeechRecognitionManager: ObservableObject {
         let normalized1 = normalizeArabicText(text1)
         let normalized2 = normalizeArabicText(text2)
         
-        // Levenshtein distance
         let distance = levenshteinDistance(normalized1, normalized2)
         let maxLength = max(normalized1.count, normalized2.count)
         
@@ -130,7 +148,6 @@ class SpeechRecognitionManager: ObservableObject {
     }
     
     private func normalizeArabicText(_ text: String) -> String {
-        // Remove diacritics (harakat)
         let diacritics: [Character] = ["ً", "ٌ", "ٍ", "َ", "ُ", "ِ", "ّ", "ْ", "ٓ", "ٰ"]
         var normalized = text
         
@@ -138,7 +155,6 @@ class SpeechRecognitionManager: ObservableObject {
             normalized = normalized.replacingOccurrences(of: String(diacritic), with: "")
         }
         
-        // Trim and lowercase
         return normalized.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
     }
     
@@ -147,6 +163,8 @@ class SpeechRecognitionManager: ObservableObject {
         let s2Array = Array(s2)
         let m = s1Array.count
         let n = s2Array.count
+        
+        guard m > 0 && n > 0 else { return max(m, n) }
         
         var matrix = [[Int]](repeating: [Int](repeating: 0, count: n + 1), count: m + 1)
         
@@ -172,3 +190,4 @@ class SpeechRecognitionManager: ObservableObject {
         return matrix[m][n]
     }
 }
+

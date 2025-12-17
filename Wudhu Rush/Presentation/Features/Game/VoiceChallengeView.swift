@@ -139,7 +139,7 @@ struct VoiceChallengeView: View {
     }
     
     private func requestPermissions() {
-        engine.speechRecognizer?.requestAuthorization { granted in
+        engine.speechRecognizer?.requestAllPermissions { granted in
             if !granted {
                 showPermissionAlert = true
             }

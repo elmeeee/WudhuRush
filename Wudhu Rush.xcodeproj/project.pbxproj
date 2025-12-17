@@ -29,22 +29,9 @@
 		363F1A972EF15E2D00E36CD1 /* Wudhu RushUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wudhu RushUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		363F1B4A2EF25B6900E36CD1 /* Exceptions for "Wudhu Rush" folder in "Wudhu Rush" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Wudhu-Rush-Info.plist",
-			);
-			target = 363F1A732EF15E2B00E36CD1 /* Wudhu Rush */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		363F1A762EF15E2B00E36CD1 /* Wudhu Rush */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				363F1B4A2EF25B6900E36CD1 /* Exceptions for "Wudhu Rush" folder in "Wudhu Rush" target */,
-			);
 			path = "Wudhu Rush";
 			sourceTree = "<group>";
 		};
@@ -434,7 +421,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -469,7 +456,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
