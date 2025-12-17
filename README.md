@@ -238,12 +238,12 @@ graph TD
    ```bash
    git clone https://github.com/elmeeee/WudhuRush.git
    cd WudhuRush
-   \`\`\`
+   ```
 
 2. **Open in Xcode**
    ```bash
    open "Wudhu Rush.xcodeproj"
-   \`\`\`
+   ```
 
 3. **Build and Run**
    - Select your target device or simulator
@@ -268,7 +268,7 @@ The game content is fully configurable via `GameContent.json`:
     ]
   }
 }
-\`\`\`
+```
 
 ## Screenshots
 
@@ -319,7 +319,7 @@ The game content is fully configurable via `GameContent.json`:
        ...
      }
    }
-   \`\`\`
+   ```
 
 2. **Update LocalizationManager**
    ```swift
@@ -327,7 +327,7 @@ The game content is fully configurable via `GameContent.json`:
        let fr: LocalizedContent
        // ... other languages
    }
-   \`\`\`
+   ```
 
 3. **Add to Language Picker**
    ```swift
@@ -335,7 +335,7 @@ The game content is fully configurable via `GameContent.json`:
        ("fr", "🇫🇷"),
        // ... other languages
    ]
-   \`\`\`
+   ```
 
 ## Testing
 
@@ -346,7 +346,7 @@ cmd + U
 
 # Or via command line
 xcodebuild test -scheme "Wudhu Rush" -destination 'platform=iOS Simulator,name=iPhone 15'
-\`\`\`
+```
 
 ### UI Tests
 - Automated UI testing for critical user flows
