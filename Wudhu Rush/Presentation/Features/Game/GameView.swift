@@ -246,7 +246,7 @@ struct GameView: View {
                     onRestart: {
                         withAnimation { 
                             engine.startGame()
-                            scene?.forceLayoutUpdate()
+                            scene?.resetForNewLevel()
                         }
                     },
                     onHome: {
