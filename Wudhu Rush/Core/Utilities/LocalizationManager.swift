@@ -51,6 +51,13 @@ struct UIData: Codable {
     let level: String
     let view_top_scores: String
     let you: String
+    let step: String
+    let of: String
+    let you_said: String
+    let tap_to_stop: String
+    let tap_to_start: String
+    let mic_permission_title: String
+    let mic_permission_message: String
 }
 
 struct FeedbackData: Codable {
@@ -70,6 +77,9 @@ struct AchievementData: Codable {
 struct EndlessModeData: Codable {
     let title: String
     let description: String
+    let game_type: String?
+    let arabic_steps: [String]?
+    let romanization: [String]?
 }
 
 struct LevelData: Codable, Identifiable, Hashable {
@@ -81,6 +91,9 @@ struct LevelData: Codable, Identifiable, Hashable {
     let distractors: [String]
     let time_limit: Int
     let rule: String
+    let game_type: String // "drag_drop" or "voice_challenge"
+    let arabic_steps: [String]? // Arabic text for each step
+    let romanization: [String]? // Pronunciation guide
 }
 
 class LocalizationManager: ObservableObject {

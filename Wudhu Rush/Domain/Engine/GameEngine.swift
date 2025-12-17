@@ -39,6 +39,11 @@ class GameEngine: ObservableObject {
     @Published var hintsRemaining: Int = 0
     @Published var maxHints: Int = 0
     
+    // Voice Challenge properties
+    @Published var currentStepIndex: Int = 0
+    @Published var isVoiceChallenge: Bool = false
+    var speechRecognizer: SpeechRecognitionManager?
+    
     var gameMode: GameMode
     var levelData: LevelData?
     
@@ -59,18 +64,27 @@ class GameEngine: ObservableObject {
             self.levelData = data
             self.timeRemaining = TimeInterval(data.time_limit)
             
-            // Set hints based on level
-            switch data.id {
-            case "L01", "L02", "L03", "L04", "L05", "L06", "L07":
-                maxHints = 3
-            case "L08", "L09":
-                maxHints = 1
-            case "L10":
+            // Check if voice challenge
+            isVoiceChallenge = data.game_type == "voice_challenge"
+            if isVoiceChallenge {
+                speechRecognizer = SpeechRecognitionManager()
+                currentStepIndex = 0
                 maxHints = 0
-            default:
-                maxHints = 3
+                hintsRemaining = 0
+            } else {
+                // Set hints based on level for drag & drop
+                switch data.id {
+                case "L01", "L02", "L03", "L04", "L05", "L06", "L07":
+                    maxHints = 3
+                case "L08", "L09":
+                    maxHints = 1
+                case "L10":
+                    maxHints = 0
+                default:
+                    maxHints = 3
+                }
+                hintsRemaining = maxHints
             }
-            hintsRemaining = maxHints
             
             var allCards: [WudhuStepModel] = []
             var correctSteps: [WudhuStepModel] = []
@@ -90,9 +104,14 @@ class GameEngine: ObservableObject {
             self.targetSlotCount = correctSteps.count
             
         case .practice:
-            // Practice mode: unlimited hints
-            maxHints = 999
-            hintsRemaining = 999
+            // Practice mode: unlimited hints (for drag&drop), no hints for voice
+            maxHints = isVoiceChallenge ? 0 : 999
+            hintsRemaining = maxHints
+            
+            if isVoiceChallenge {
+                speechRecognizer = SpeechRecognitionManager()
+                currentStepIndex = 0
+            }
             
             if let content = LocalizationManager.shared.content, let firstLevel = content.levels.first {
                 self.levelData = firstLevel
@@ -127,14 +146,16 @@ class GameEngine: ObservableObject {
         setupGame()
     }
     
-    func useHint() -> Int? {
+    func useHint() -> (slotIndex: Int, correctStep: WudhuStepModel)? {
         guard hintsRemaining > 0 else { return nil }
         hintsRemaining -= 1
         
         // Find next empty slot
         for i in 0..<targetSlotCount {
             if filledSlots[i] == nil {
-                return i
+                // Find the correct step for this slot
+                let correctStep = currentLevelSteps[i]
+                return (i, correctStep)
             }
         }
         return nil
@@ -163,8 +184,8 @@ class GameEngine: ObservableObject {
         stopGame()
         
         let isWin: Bool
-        if case .level = gameMode {
-            isWin = filledSlots.count == targetSlotCount
+        if isVoiceChallenge {
+            isWin = currentStepIndex >= targetSlotCount
         } else {
             isWin = filledSlots.count == targetSlotCount
         }
@@ -186,7 +207,7 @@ class GameEngine: ObservableObject {
             calculateScore(success: true)
             filledSlots[index] = step
 
-            if case .practice = gameMode {
+            if case .practice = gameMode, !isVoiceChallenge {
                 DispatchQueue.main.async {
                     self.lastCorrectStep = step
                     self.showFeedback = true
@@ -225,5 +246,91 @@ class GameEngine: ObservableObject {
         } else {
             score = max(0, score - 20)
         }
+    }
+    
+    // MARK: - Voice Challenge Methods
+    
+    func validateVoiceInput() -> Bool {
+        guard isVoiceChallenge,
+              let recognizer = speechRecognizer else {
+            return false
+        }
+        
+        // Get expected Arabic text
+        let arabicSteps: [String]?
+        if case .practice = gameMode {
+            arabicSteps = LocalizationManager.shared.content?.endless_mode.arabic_steps
+        } else {
+            arabicSteps = levelData?.arabic_steps
+        }
+        
+        guard let steps = arabicSteps,
+              currentStepIndex < steps.count else {
+            return false
+        }
+        
+        let expectedText = steps[currentStepIndex]
+        let isCorrect = recognizer.matchesExpectedText(expectedText, tolerance: 0.7)
+        
+        if isCorrect {
+            calculateScore(success: true)
+            currentStepIndex += 1
+            
+            // Check if all steps completed
+            if currentStepIndex >= targetSlotCount {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.finishGame()
+                }
+            }
+        } else {
+            calculateScore(success: false)
+            mistakes += 1
+        }
+        
+        return isCorrect
+    }
+    
+    func getCurrentArabicText() -> String? {
+        guard isVoiceChallenge else { return nil }
+        
+        // For practice mode with voice, use endless_mode data
+        if case .practice = gameMode {
+            guard let content = LocalizationManager.shared.content,
+                  let arabicSteps = content.endless_mode.arabic_steps,
+                  currentStepIndex < arabicSteps.count else {
+                return nil
+            }
+            return arabicSteps[currentStepIndex]
+        }
+        
+        // For level voice mode, use level data
+        guard let levelData = levelData,
+              let arabicSteps = levelData.arabic_steps,
+              currentStepIndex < arabicSteps.count else {
+            return nil
+        }
+        return arabicSteps[currentStepIndex]
+    }
+    
+    func getCurrentRomanization() -> String? {
+        guard isVoiceChallenge else { return nil }
+        
+        // For practice mode with voice, use endless_mode data
+        if case .practice = gameMode {
+            guard let content = LocalizationManager.shared.content,
+                  let romanization = content.endless_mode.romanization,
+                  currentStepIndex < romanization.count else {
+                return nil
+            }
+            return romanization[currentStepIndex]
+        }
+        
+        // For level voice mode, use level data
+        guard let levelData = levelData,
+              let romanization = levelData.romanization,
+              currentStepIndex < romanization.count else {
+            return nil
+        }
+        return romanization[currentStepIndex]
     }
 }

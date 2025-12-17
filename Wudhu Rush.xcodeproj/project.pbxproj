@@ -29,9 +29,22 @@
 		363F1A972EF15E2D00E36CD1 /* Wudhu RushUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wudhu RushUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		363F1B4A2EF25B6900E36CD1 /* Exceptions for "Wudhu Rush" folder in "Wudhu Rush" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Wudhu-Rush-Info.plist",
+			);
+			target = 363F1A732EF15E2B00E36CD1 /* Wudhu Rush */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		363F1A762EF15E2B00E36CD1 /* Wudhu Rush */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				363F1B4A2EF25B6900E36CD1 /* Exceptions for "Wudhu Rush" folder in "Wudhu Rush" target */,
+			);
 			path = "Wudhu Rush";
 			sourceTree = "<group>";
 		};
@@ -400,6 +413,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NF3JRRP69D;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Wudhu-Rush-Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Wudhu Rush needs microphone access to verify your Arabic pronunciation during voice challenge levels.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Wudhu Rush uses speech recognition to check if you correctly recite the Arabic du'a for Wudhu.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
@@ -432,6 +448,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NF3JRRP69D;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Wudhu-Rush-Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Wudhu Rush needs microphone access to verify your Arabic pronunciation during voice challenge levels.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Wudhu Rush uses speech recognition to check if you correctly recite the Arabic du'a for Wudhu.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;

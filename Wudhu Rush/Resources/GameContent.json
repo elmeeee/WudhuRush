@@ -10,7 +10,7 @@
       "leaderboard": "Leaderboard",
       "play_again": "Play Again",
       "home": "Home",
-      "offline_mode": "Offline Mode — score will sync later",
+      "offline_mode": "Offline Mode",
       "perfect_run": "Perfect Run",
       "mistake": "Mistakes",
       "time_remaining": "Time Remaining",
@@ -21,7 +21,14 @@
       "final_score": "FINAL SCORE",
       "level": "Level",
       "view_top_scores": "View top scores",
-      "you": "You"
+      "you": "You",
+      "step": "Step",
+      "of": "of",
+      "you_said": "You said:",
+      "tap_to_stop": "Tap to stop and check",
+      "tap_to_start": "Tap to start reciting",
+      "mic_permission_title": "Microphone Permission Required",
+      "mic_permission_message": "Please enable microphone access in Settings to use voice challenge mode."
     },
     "feedback": {
       "correct": "Correct!",
@@ -37,200 +44,433 @@
     },
     "endless_mode": {
       "title": "Endless Journey",
-      "description": "How long can you maintain your Wudhu focus? Speed increases over time."
+      "description": "Practice Wudhu steps endlessly",
+      "game_type": "drag_drop",
+      "arabic_steps": [
+        "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+        "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+        "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+        "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+      ],
+      "romanization": [
+        "Nawaytul wudhū'a lillāhi ta'ālā",
+        "Bismillāhir rahmānir rahīm",
+        "Allāhumma a'innī 'alā dzikrika",
+        "Allāhumma arihnī rā'ihatal jannah",
+        "Allāhumma bayidh wajhī"
+      ]
     },
     "levels": [
       {
         "id": "L01",
         "internal_name": "Basics 1",
-        "title": "The Pillars",
-        "description": "Arrange the valid pillars (Rukun) of Wudhu.",
+        "title": "Foundation 1",
+        "description": "Learn the essential steps of Wudhu - Part 1",
         "steps": [
           "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face"
         ],
-        "distractors": [],
-        "time_limit": 90,
-        "rule": "None"
+        "distractors": [
+          "Say Bismillah"
+        ],
+        "time_limit": 85,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L02",
         "internal_name": "Basics 2",
-        "title": "Order Focus",
-        "description": "Keep the order correct. Tertib is key.",
+        "title": "Foundation 2",
+        "description": "Learn the essential steps of Wudhu - Part 2",
         "steps": [
           "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face"
         ],
         "distractors": [
-          "Rinse Mouth"
+          "Say Bismillah",
+          "Repeat 3x"
         ],
         "time_limit": 80,
-        "rule": "None"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L03",
-        "internal_name": "Distraction 1",
-        "title": "Sunnah Check",
-        "description": "Focus only on the Rukun (Obligatory). Ignore the Sunnah for now.",
+        "internal_name": "Basics 3",
+        "title": "Foundation 3",
+        "description": "Learn the essential steps of Wudhu - Part 3",
         "steps": [
           "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face"
         ],
         "distractors": [
           "Say Bismillah",
-          "Rinse Nose"
+          "Repeat 3x",
+          "Wash Right Side"
         ],
-        "time_limit": 70,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 75,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L04",
-        "internal_name": "Speed 1",
-        "title": "Swift & Sure",
-        "description": "Complete the sequence faster.",
+        "internal_name": "Basics 4",
+        "title": "Foundation 4",
+        "description": "Learn the essential steps of Wudhu - Part 4",
         "steps": [
           "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
-        ],
-        "distractors": [
-          "Rinse Mouth",
-          "Wash Right Side"
-        ],
-        "time_limit": 60,
-        "rule": "Speed Up"
-      },
-      {
-        "id": "L05",
-        "internal_name": "Distraction 2",
-        "title": "Focus",
-        "description": "Don't get confused by the extra steps.",
-        "steps": [
-          "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
-        ],
-        "distractors": [
-          "Repeat 3x",
-          "Rinse Nose",
-          "Say Bismillah"
-        ],
-        "time_limit": 60,
-        "rule": "Ignore Optional Steps"
-      },
-      {
-        "id": "L06",
-        "internal_name": "Intermediate",
-        "title": "Halfway There",
-        "description": "Maintain your focus.",
-        "steps": [
-          "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
-        ],
-        "distractors": [
-          "Wash Right Side",
-          "Rinse Mouth"
-        ],
-        "time_limit": 50,
-        "rule": "None"
-      },
-      {
-        "id": "L07",
-        "internal_name": "Speed 2",
-        "title": "Rush Hour",
-        "description": "Time is running out!",
-        "steps": [
-          "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
-        ],
-        "distractors": [
-          "Repeat 3x",
-          "Say Bismillah"
-        ],
-        "time_limit": 40,
-        "rule": "Speed Up"
-      },
-      {
-        "id": "L08",
-        "internal_name": "Advanced",
-        "title": "Precision",
-        "description": "Select carefully.",
-        "steps": [
-          "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
-        ],
-        "distractors": [
+          "Wash Hands",
           "Rinse Mouth",
           "Rinse Nose",
-          "Wash Right Side",
-          "Say Bismillah"
-        ],
-        "time_limit": 45,
-        "rule": "High Distraction"
-      },
-      {
-        "id": "L09",
-        "internal_name": "Mastery Prep",
-        "title": "Almost Master",
-        "description": "One mistake ends the run.",
-        "steps": [
-          "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
-        ],
-        "distractors": [
-          "Repeat 3x",
-          "Rinse Nose"
-        ],
-        "time_limit": 35,
-        "rule": "Sudden Death"
-      },
-      {
-        "id": "L10",
-        "internal_name": "Mastery",
-        "title": "Wudhu Master",
-        "description": "Prove your knowledge.",
-        "steps": [
-          "Intention (Niat)",
-          "Wash Face",
-          "Wash Arms",
-          "Wipe Head",
-          "Wash Feet"
+          "Wash Face"
         ],
         "distractors": [
           "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck"
+        ],
+        "time_limit": 70,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L05",
+        "internal_name": "Basics 5",
+        "title": "Foundation 5",
+        "description": "Learn the essential steps of Wudhu - Part 5",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
           "Rinse Mouth",
           "Rinse Nose",
-          "Wash Right Side",
-          "Repeat 3x"
+          "Wash Face"
         ],
-        "time_limit": 30,
-        "rule": "Sudden Death"
+        "distractors": [
+          "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck",
+          "Wash Between Fingers"
+        ],
+        "time_limit": 65,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L06",
+        "internal_name": "Intermediate 1",
+        "title": "Challenge 1",
+        "description": "Master the complete sequence - Stage 1",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck"
+        ],
+        "time_limit": 55,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L07",
+        "internal_name": "Intermediate 2",
+        "title": "Challenge 2",
+        "description": "Master the complete sequence - Stage 2",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck",
+          "Wash Between Fingers"
+        ],
+        "time_limit": 50,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L08",
+        "internal_name": "Intermediate 3",
+        "title": "Challenge 3",
+        "description": "Master the complete sequence - Stage 3",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck",
+          "Wash Between Fingers",
+          "Use Siwak"
+        ],
+        "time_limit": 45,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L09",
+        "internal_name": "Intermediate 4",
+        "title": "Challenge 4",
+        "description": "Master the complete sequence - Stage 4",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck",
+          "Wash Between Fingers",
+          "Use Siwak",
+          "Face Qibla"
+        ],
+        "time_limit": 40,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L10",
+        "internal_name": "Intermediate 5",
+        "title": "Challenge 5",
+        "description": "Master the complete sequence - Stage 5",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Repeat 3x",
+          "Wash Right Side",
+          "Wipe Neck",
+          "Wash Between Fingers",
+          "Use Siwak",
+          "Face Qibla",
+          "Recite Shahada"
+        ],
+        "time_limit": 35,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L11",
+        "internal_name": "Voice Master 1",
+        "title": "Recitation 1",
+        "description": "Recite the Arabic du'a correctly - Level 1",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika"
+        ]
+      },
+      {
+        "id": "L12",
+        "internal_name": "Voice Master 2",
+        "title": "Recitation 2",
+        "description": "Recite the Arabic du'a correctly - Level 2",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah"
+        ]
+      },
+      {
+        "id": "L13",
+        "internal_name": "Voice Master 3",
+        "title": "Recitation 3",
+        "description": "Recite the Arabic du'a correctly - Level 3",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī"
+        ]
+      },
+      {
+        "id": "L14",
+        "internal_name": "Voice Master 4",
+        "title": "Recitation 4",
+        "description": "Recite the Arabic du'a correctly - Level 4",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī"
+        ]
+      },
+      {
+        "id": "L15",
+        "internal_name": "Voice Master 5",
+        "title": "Recitation 5",
+        "description": "Recite the Arabic du'a correctly - Level 5",
+        "steps": [
+          "Intention (Niat)",
+          "Wash Hands",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ",
+          "اَللّٰهُمَّ حَرِّمْ شَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī",
+          "Allāhumma harrim sya'rī wa basyarī 'alan nār"
+        ]
       }
     ]
   },
@@ -240,15 +480,15 @@
       "code": "id"
     },
     "ui": {
-      "time_attack": "Tantangan Waktu",
+      "time_attack": "Serangan Waktu",
       "practice": "Latihan",
       "leaderboard": "Papan Peringkat",
       "play_again": "Main Lagi",
       "home": "Beranda",
-      "offline_mode": "Mode Offline — skor akan disinkronkan nanti",
+      "offline_mode": "Mode Offline",
       "perfect_run": "Sempurna",
       "mistake": "Kesalahan",
-      "time_remaining": "Sisa Waktu",
+      "time_remaining": "Waktu Tersisa",
       "level_select": "Pilih Level",
       "game_over": "Permainan Selesai",
       "completed": "Level Selesai!",
@@ -256,7 +496,14 @@
       "final_score": "SKOR AKHIR",
       "level": "Level",
       "view_top_scores": "Lihat skor tertinggi",
-      "you": "Kamu"
+      "you": "Kamu",
+      "step": "Langkah",
+      "of": "dari",
+      "you_said": "Kamu bilang:",
+      "tap_to_stop": "Ketuk untuk berhenti dan cek",
+      "tap_to_start": "Ketuk untuk mulai membaca",
+      "mic_permission_title": "Izin Mikrofon Diperlukan",
+      "mic_permission_message": "Mohon aktifkan akses mikrofon di Pengaturan untuk menggunakan mode tantangan suara."
     },
     "feedback": {
       "correct": "Benar!",
@@ -267,205 +514,438 @@
     "achievements": {
       "beginner": "Pemula",
       "focused": "Fokus",
-      "perfect_run": "Langkah Sempurna",
-      "wudhu_master": "Ahli Wudhu"
+      "perfect_run": "Sempurna",
+      "wudhu_master": "Master Wudhu"
     },
     "endless_mode": {
       "title": "Perjalanan Tanpa Batas",
-      "description": "Seberapa lama kamu bisa mempertahankan fokus Wudhumu?"
+      "description": "Latih langkah Wudhu tanpa batas",
+      "game_type": "drag_drop",
+      "arabic_steps": [
+        "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+        "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+        "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+        "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+      ],
+      "romanization": [
+        "Nawaytul wudhū'a lillāhi ta'ālā",
+        "Bismillāhir rahmānir rahīm",
+        "Allāhumma a'innī 'alā dzikrika",
+        "Allāhumma arihnī rā'ihatal jannah",
+        "Allāhumma bayidh wajhī"
+      ]
     },
     "levels": [
       {
         "id": "L01",
         "internal_name": "Basics 1",
-        "title": "Rukun Wudhu",
-        "description": "Susun langkah wajib (Rukun) Wudhu.",
+        "title": "Fondasi 1",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bagian 1",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah"
         ],
-        "distractors": [],
-        "time_limit": 90,
-        "rule": "None"
+        "distractors": [
+          "Ucap Bismillah"
+        ],
+        "time_limit": 85,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L02",
         "internal_name": "Basics 2",
-        "title": "Fokus Urutan",
-        "description": "Jaga urutan tetap benar (Tertib).",
+        "title": "Fondasi 2",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bagian 2",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah"
         ],
         "distractors": [
-          "Kumur-kumur"
+          "Ucap Bismillah",
+          "Ulangi 3x"
         ],
         "time_limit": 80,
-        "rule": "None"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L03",
-        "internal_name": "Distraction 1",
-        "title": "Cek Sunnah",
-        "description": "Fokus hanya pada Rukun. Abaikan Sunnah.",
+        "internal_name": "Basics 3",
+        "title": "Fondasi 3",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bagian 3",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah"
         ],
         "distractors": [
-          "Baca Bismillah",
-          "Membasuh Hidung"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan"
         ],
-        "time_limit": 70,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 75,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L04",
-        "internal_name": "Speed 1",
-        "title": "Cepat & Tepat",
-        "description": "Selesaikan urutan lebih cepat.",
+        "internal_name": "Basics 4",
+        "title": "Fondasi 4",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bagian 4",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah"
         ],
         "distractors": [
-          "Kumur-kumur",
-          "Dahulukan Kanan"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher"
         ],
-        "time_limit": 60,
-        "rule": "Speed Up"
+        "time_limit": 70,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L05",
-        "internal_name": "Distraction 2",
-        "title": "Fokus Penuh",
-        "description": "Jangan bingung dengan langkah tambahan.",
+        "internal_name": "Basics 5",
+        "title": "Fondasi 5",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bagian 5",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah"
         ],
         "distractors": [
-          "Ulang 3x",
-          "Membasuh Hidung",
-          "Baca Bismillah"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher",
+          "Cuci Sela Jari"
         ],
-        "time_limit": 60,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 65,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L06",
-        "internal_name": "Intermediate",
-        "title": "Setengah Jalan",
-        "description": "Pertahankan fokusmu.",
+        "internal_name": "Intermediate 1",
+        "title": "Tantangan 1",
+        "description": "Kuasai urutan lengkap - Tahap 1",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku",
+          "Usap Kepala"
         ],
         "distractors": [
-          "Dahulukan Kanan",
-          "Kumur-kumur"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher"
         ],
-        "time_limit": 50,
-        "rule": "None"
+        "time_limit": 55,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L07",
-        "internal_name": "Speed 2",
-        "title": "Waktu Sempit",
-        "description": "Waktu hampir habis!",
+        "internal_name": "Intermediate 2",
+        "title": "Tantangan 2",
+        "description": "Kuasai urutan lengkap - Tahap 2",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku",
+          "Usap Kepala"
         ],
         "distractors": [
-          "Ulang 3x",
-          "Baca Bismillah"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher",
+          "Cuci Sela Jari"
         ],
-        "time_limit": 40,
-        "rule": "Speed Up"
+        "time_limit": 50,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L08",
-        "internal_name": "Advanced",
-        "title": "Presisi",
-        "description": "Pilih dengan hati-hati.",
+        "internal_name": "Intermediate 3",
+        "title": "Tantangan 3",
+        "description": "Kuasai urutan lengkap - Tahap 3",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku",
+          "Usap Kepala"
         ],
         "distractors": [
-          "Kumur-kumur",
-          "Membasuh Hidung",
-          "Dahulukan Kanan",
-          "Baca Bismillah"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher",
+          "Cuci Sela Jari",
+          "Pakai Siwak"
         ],
         "time_limit": 45,
-        "rule": "High Distraction"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L09",
-        "internal_name": "Mastery Prep",
-        "title": "Calon Ahli",
-        "description": "Satu kesalahan mengakhiri permainan.",
+        "internal_name": "Intermediate 4",
+        "title": "Tantangan 4",
+        "description": "Kuasai urutan lengkap - Tahap 4",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku",
+          "Usap Kepala"
         ],
         "distractors": [
-          "Ulang 3x",
-          "Membasuh Hidung"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher",
+          "Cuci Sela Jari",
+          "Pakai Siwak",
+          "Menghadap Kiblat"
         ],
-        "time_limit": 35,
-        "rule": "Sudden Death"
+        "time_limit": 40,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L10",
-        "internal_name": "Mastery",
-        "title": "Ahli Wudhu",
-        "description": "Buktikan pengetahuanmu.",
+        "internal_name": "Intermediate 5",
+        "title": "Tantangan 5",
+        "description": "Kuasai urutan lengkap - Tahap 5",
         "steps": [
           "Niat",
-          "Membasuh Muka",
-          "Membasuh Tangan",
-          "Mengusap Kepala",
-          "Membasuh Kaki"
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku",
+          "Usap Kepala"
         ],
         "distractors": [
-          "Baca Bismillah",
-          "Kumur-kumur",
-          "Membasuh Hidung",
-          "Dahulukan Kanan",
-          "Ulang 3x"
+          "Ucap Bismillah",
+          "Ulangi 3x",
+          "Cuci Sisi Kanan",
+          "Usap Leher",
+          "Cuci Sela Jari",
+          "Pakai Siwak",
+          "Menghadap Kiblat",
+          "Ucap Syahadat"
         ],
-        "time_limit": 30,
-        "rule": "Sudden Death"
+        "time_limit": 35,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L11",
+        "internal_name": "Voice Master 1",
+        "title": "Bacaan 1",
+        "description": "Ucapkan doa Arab dengan benar - Level 1",
+        "steps": [
+          "Niat",
+          "Cuci Tangan",
+          "Berkumur"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika"
+        ]
+      },
+      {
+        "id": "L12",
+        "internal_name": "Voice Master 2",
+        "title": "Bacaan 2",
+        "description": "Ucapkan doa Arab dengan benar - Level 2",
+        "steps": [
+          "Niat",
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah"
+        ]
+      },
+      {
+        "id": "L13",
+        "internal_name": "Voice Master 3",
+        "title": "Bacaan 3",
+        "description": "Ucapkan doa Arab dengan benar - Level 3",
+        "steps": [
+          "Niat",
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī"
+        ]
+      },
+      {
+        "id": "L14",
+        "internal_name": "Voice Master 4",
+        "title": "Bacaan 4",
+        "description": "Ucapkan doa Arab dengan benar - Level 4",
+        "steps": [
+          "Niat",
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī"
+        ]
+      },
+      {
+        "id": "L15",
+        "internal_name": "Voice Master 5",
+        "title": "Bacaan 5",
+        "description": "Ucapkan doa Arab dengan benar - Level 5",
+        "steps": [
+          "Niat",
+          "Cuci Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Cuci Wajah",
+          "Cuci Tangan hingga Siku",
+          "Usap Kepala"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ",
+          "اَللّٰهُمَّ حَرِّمْ شَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī",
+          "Allāhumma harrim sya'rī wa basyarī 'alan nār"
+        ]
       }
     ]
   },
@@ -475,232 +955,472 @@
       "code": "ms"
     },
     "ui": {
-      "time_attack": "Cabaran Masa",
+      "time_attack": "Serangan Masa",
       "practice": "Latihan",
-      "leaderboard": "Papan Skor",
+      "leaderboard": "Papan Pendahulu",
       "play_again": "Main Lagi",
-      "home": "Laman Utama",
-      "offline_mode": "Mod Luar Talian — skor akan diselaraskan nanti",
-      "perfect_run": "Larian Sempurna",
+      "home": "Utama",
+      "offline_mode": "Mod Luar Talian",
+      "perfect_run": "Sempurna",
       "mistake": "Kesilapan",
-      "time_remaining": "Masa Tinggal",
+      "time_remaining": "Masa Berbaki",
       "level_select": "Pilih Tahap",
-      "game_over": "Tamat Permainan",
+      "game_over": "Permainan Tamat",
       "completed": "Tahap Selesai!",
       "locked_level": "Selesaikan tahap sebelumnya",
       "final_score": "SKOR AKHIR",
       "level": "Tahap",
       "view_top_scores": "Lihat skor tertinggi",
-      "you": "Anda"
+      "you": "Anda",
+      "step": "Langkah",
+      "of": "daripada",
+      "you_said": "Anda berkata:",
+      "tap_to_stop": "Ketik untuk berhenti dan semak",
+      "tap_to_start": "Ketik untuk mula membaca",
+      "mic_permission_title": "Kebenaran Mikrofon Diperlukan",
+      "mic_permission_message": "Sila aktifkan akses mikrofon di Tetapan untuk menggunakan mod cabaran suara."
     },
     "feedback": {
       "correct": "Betul!",
       "incorrect": "Cuba lagi!",
       "level_completed": "MashaAllah! Tahap Selesai.",
-      "high_score": "Rekod Baru!"
+      "high_score": "Skor Tertinggi Baharu!"
     },
     "achievements": {
       "beginner": "Pemula",
       "focused": "Fokus",
-      "perfect_run": "Larian Sempurna",
-      "wudhu_master": "Pakar Wuduk"
+      "perfect_run": "Sempurna",
+      "wudhu_master": "Pakar Wudhu"
     },
     "endless_mode": {
-      "title": "Perjalanan Tanpa Henti",
-      "description": "Berapa lama anda boleh kekalkan fokus Wuduk?"
+      "title": "Perjalanan Tanpa Had",
+      "description": "Latih langkah Wudhu tanpa had",
+      "game_type": "drag_drop",
+      "arabic_steps": [
+        "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+        "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+        "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+        "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+      ],
+      "romanization": [
+        "Nawaytul wudhū'a lillāhi ta'ālā",
+        "Bismillāhir rahmānir rahīm",
+        "Allāhumma a'innī 'alā dzikrika",
+        "Allāhumma arihnī rā'ihatal jannah",
+        "Allāhumma bayidh wajhī"
+      ]
     },
     "levels": [
       {
         "id": "L01",
         "internal_name": "Basics 1",
-        "title": "Rukun Asas",
-        "description": "Susun rukun Wuduk dengan betul.",
+        "title": "Asas 1",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bahagian 1",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka"
         ],
-        "distractors": [],
-        "time_limit": 90,
-        "rule": "None"
+        "distractors": [
+          "Sebut Bismillah"
+        ],
+        "time_limit": 85,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L02",
         "internal_name": "Basics 2",
-        "title": "Fokus Turutan",
-        "description": "Kekalkan turutan (Tertib).",
+        "title": "Asas 2",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bahagian 2",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka"
         ],
         "distractors": [
-          "Kumur-kumur"
+          "Sebut Bismillah",
+          "Ulang 3x"
         ],
         "time_limit": 80,
-        "rule": "None"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L03",
-        "internal_name": "Distraction 1",
-        "title": "Semakan Sunat",
-        "description": "Fokus pada Rukun sahaja. Abaikan Sunat.",
+        "internal_name": "Basics 3",
+        "title": "Asas 3",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bahagian 3",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka"
         ],
         "distractors": [
-          "Baca Bismillah",
-          "Basuh Hidung"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan"
         ],
-        "time_limit": 70,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 75,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L04",
-        "internal_name": "Speed 1",
-        "title": "Cepat & Tepat",
-        "description": "Selesaikan turutan dengan pantas.",
+        "internal_name": "Basics 4",
+        "title": "Asas 4",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bahagian 4",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka"
         ],
         "distractors": [
-          "Kumur-kumur",
-          "Dahulukan Kanan"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher"
         ],
-        "time_limit": 60,
-        "rule": "Speed Up"
+        "time_limit": 70,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L05",
-        "internal_name": "Distraction 2",
-        "title": "Fokus Penuh",
-        "description": "Jangan keliru dengan langkah tambahan.",
+        "internal_name": "Basics 5",
+        "title": "Asas 5",
+        "description": "Pelajari langkah-langkah penting Wudhu - Bahagian 5",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka"
         ],
         "distractors": [
-          "Ulang 3 Kali",
-          "Basuh Hidung",
-          "Baca Bismillah"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher",
+          "Basuh Sela Jari"
         ],
-        "time_limit": 60,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 65,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L06",
-        "internal_name": "Intermediate",
-        "title": "Separuh Jalan",
-        "description": "Kekalkan fokus anda.",
+        "internal_name": "Intermediate 1",
+        "title": "Cabaran 1",
+        "description": "Kuasai urutan lengkap - Peringkat 1",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku",
+          "Sapu Kepala"
         ],
         "distractors": [
-          "Dahulukan Kanan",
-          "Kumur-kumur"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher"
         ],
-        "time_limit": 50,
-        "rule": "None"
+        "time_limit": 55,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L07",
-        "internal_name": "Speed 2",
-        "title": "Masa Suntuk",
-        "description": "Masa semakin tamat!",
+        "internal_name": "Intermediate 2",
+        "title": "Cabaran 2",
+        "description": "Kuasai urutan lengkap - Peringkat 2",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku",
+          "Sapu Kepala"
         ],
         "distractors": [
-          "Ulang 3 Kali",
-          "Baca Bismillah"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher",
+          "Basuh Sela Jari"
         ],
-        "time_limit": 40,
-        "rule": "Speed Up"
+        "time_limit": 50,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L08",
-        "internal_name": "Advanced",
-        "title": "Ketepatan",
-        "description": "Pilih dengan teliti.",
+        "internal_name": "Intermediate 3",
+        "title": "Cabaran 3",
+        "description": "Kuasai urutan lengkap - Peringkat 3",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku",
+          "Sapu Kepala"
         ],
         "distractors": [
-          "Kumur-kumur",
-          "Basuh Hidung",
-          "Dahulukan Kanan",
-          "Baca Bismillah"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher",
+          "Basuh Sela Jari",
+          "Guna Siwak"
         ],
         "time_limit": 45,
-        "rule": "High Distraction"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L09",
-        "internal_name": "Mastery Prep",
-        "title": "Hampir Pakar",
-        "description": "Satu kesilapan menamatkan permainan.",
+        "internal_name": "Intermediate 4",
+        "title": "Cabaran 4",
+        "description": "Kuasai urutan lengkap - Peringkat 4",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku",
+          "Sapu Kepala"
         ],
         "distractors": [
-          "Ulang 3 Kali",
-          "Basuh Hidung"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher",
+          "Basuh Sela Jari",
+          "Guna Siwak",
+          "Menghadap Kiblat"
         ],
-        "time_limit": 35,
-        "rule": "Sudden Death"
+        "time_limit": 40,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L10",
-        "internal_name": "Mastery",
-        "title": "Pakar Wuduk",
-        "description": "Buktikan pengetahuan anda.",
+        "internal_name": "Intermediate 5",
+        "title": "Cabaran 5",
+        "description": "Kuasai urutan lengkap - Peringkat 5",
         "steps": [
           "Niat",
-          "Basuh Muka",
           "Basuh Tangan",
-          "Sapu Kepala",
-          "Basuh Kaki"
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku",
+          "Sapu Kepala"
         ],
         "distractors": [
-          "Baca Bismillah",
-          "Kumur-kumur",
-          "Basuh Hidung",
-          "Dahulukan Kanan",
-          "Ulang 3 Kali"
+          "Sebut Bismillah",
+          "Ulang 3x",
+          "Basuh Sebelah Kanan",
+          "Sapu Leher",
+          "Basuh Sela Jari",
+          "Guna Siwak",
+          "Menghadap Kiblat",
+          "Sebut Syahadat"
         ],
-        "time_limit": 30,
-        "rule": "Sudden Death"
+        "time_limit": 35,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L11",
+        "internal_name": "Voice Master 1",
+        "title": "Bacaan 1",
+        "description": "Sebut doa Arab dengan betul - Tahap 1",
+        "steps": [
+          "Niat",
+          "Basuh Tangan",
+          "Berkumur"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika"
+        ]
+      },
+      {
+        "id": "L12",
+        "internal_name": "Voice Master 2",
+        "title": "Bacaan 2",
+        "description": "Sebut doa Arab dengan betul - Tahap 2",
+        "steps": [
+          "Niat",
+          "Basuh Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah"
+        ]
+      },
+      {
+        "id": "L13",
+        "internal_name": "Voice Master 3",
+        "title": "Bacaan 3",
+        "description": "Sebut doa Arab dengan betul - Tahap 3",
+        "steps": [
+          "Niat",
+          "Basuh Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī"
+        ]
+      },
+      {
+        "id": "L14",
+        "internal_name": "Voice Master 4",
+        "title": "Bacaan 4",
+        "description": "Sebut doa Arab dengan betul - Tahap 4",
+        "steps": [
+          "Niat",
+          "Basuh Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī"
+        ]
+      },
+      {
+        "id": "L15",
+        "internal_name": "Voice Master 5",
+        "title": "Bacaan 5",
+        "description": "Sebut doa Arab dengan betul - Tahap 5",
+        "steps": [
+          "Niat",
+          "Basuh Tangan",
+          "Berkumur",
+          "Istinsyaq (Hirup Air)",
+          "Basuh Muka",
+          "Basuh Tangan hingga Siku",
+          "Sapu Kepala"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ",
+          "اَللّٰهُمَّ حَرِّمْ شَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī",
+          "Allāhumma harrim sya'rī wa basyarī 'alan nār"
+        ]
       }
     ]
   },
@@ -712,11 +1432,11 @@
     "ui": {
       "time_attack": "タイムアタック",
       "practice": "練習",
-      "leaderboard": "ランキング",
+      "leaderboard": "リーダーボード",
       "play_again": "もう一度",
       "home": "ホーム",
-      "offline_mode": "オフラインモード — スコアは後で同期されます",
-      "perfect_run": "パーフェクト",
+      "offline_mode": "オフラインモード",
+      "perfect_run": "完璧",
       "mistake": "ミス",
       "time_remaining": "残り時間",
       "level_select": "レベル選択",
@@ -726,216 +1446,456 @@
       "final_score": "最終スコア",
       "level": "レベル",
       "view_top_scores": "トップスコアを見る",
-      "you": "あなた"
+      "you": "あなた",
+      "step": "ステップ",
+      "of": "の",
+      "you_said": "あなたが言った：",
+      "tap_to_stop": "タップして停止と確認",
+      "tap_to_start": "タップして朗読開始",
+      "mic_permission_title": "マイクの許可が必要",
+      "mic_permission_message": "音声チャレンジモードを使用するには、設定でマイクアクセスを有効にしてください。"
     },
     "feedback": {
       "correct": "正解！",
       "incorrect": "もう一度！",
-      "level_completed": "素晴らしい！",
-      "high_score": "ハイスコア更新！"
+      "level_completed": "マーシャーアッラー！レベルクリア。",
+      "high_score": "新記録！"
     },
     "achievements": {
       "beginner": "初心者",
-      "focused": "集中力",
-      "perfect_run": "完全制覇",
-      "wudhu_master": "ウドゥの達人"
+      "focused": "集中",
+      "perfect_run": "完璧",
+      "wudhu_master": "ウドゥーマスター"
     },
     "endless_mode": {
-      "title": "エンドレスモード",
-      "description": "集中力を維持できるか挑戦しましょう。"
+      "title": "エンドレスジャーニー",
+      "description": "ウドゥーの手順を無限に練習",
+      "game_type": "drag_drop",
+      "arabic_steps": [
+        "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+        "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+        "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+        "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+      ],
+      "romanization": [
+        "Nawaytul wudhū'a lillāhi ta'ālā",
+        "Bismillāhir rahmānir rahīm",
+        "Allāhumma a'innī 'alā dzikrika",
+        "Allāhumma arihnī rā'ihatal jannah",
+        "Allāhumma bayidh wajhī"
+      ]
     },
     "levels": [
       {
         "id": "L01",
         "internal_name": "Basics 1",
-        "title": "基礎",
-        "description": "ウドゥの義務（ルクン）を正しく並べましょう。",
+        "title": "基礎 1",
+        "description": "ウドゥーの重要な手順を学ぶ - パート1",
         "steps": [
-          "意思 (Niat)",
-          "顔を洗う",
-          "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う"
         ],
-        "distractors": [],
-        "time_limit": 90,
-        "rule": "None"
+        "distractors": [
+          "ビスミッラーを唱える"
+        ],
+        "time_limit": 85,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L02",
         "internal_name": "Basics 2",
-        "title": "順序",
-        "description": "正しい順序（Tertib）を守りましょう。",
+        "title": "基礎 2",
+        "description": "ウドゥーの重要な手順を学ぶ - パート2",
         "steps": [
-          "意思 (Niat)",
-          "顔を洗う",
-          "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う"
         ],
         "distractors": [
-          "口をすすぐ"
+          "ビスミッラーを唱える",
+          "3回繰り返す"
         ],
         "time_limit": 80,
-        "rule": "None"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L03",
-        "internal_name": "Distraction 1",
-        "title": "スンナの確認",
-        "description": "義務だけに集中してください。スンナは無視します。",
+        "internal_name": "Basics 3",
+        "title": "基礎 3",
+        "description": "ウドゥーの重要な手順を学ぶ - パート3",
         "steps": [
-          "意思 (Niat)",
-          "顔を洗う",
-          "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う"
         ],
         "distractors": [
-          "ビスミッラー",
-          "鼻を洗う"
+          "ビスミッラーを唱える",
+          "3回繰り返す",
+          "右側を洗う"
         ],
-        "time_limit": 70,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 75,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L04",
-        "internal_name": "Speed 1",
-        "title": "スピード",
-        "description": "素早く完了させましょう。",
+        "internal_name": "Basics 4",
+        "title": "基礎 4",
+        "description": "ウドゥーの重要な手順を学ぶ - パート4",
         "steps": [
-          "意思 (Niat)",
-          "顔を洗う",
-          "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う"
         ],
         "distractors": [
-          "口をすすぐ",
-          "右から洗う"
+          "ビスミッラーを唱える",
+          "3回繰り返す",
+          "右側を洗う",
+          "首を拭く"
         ],
-        "time_limit": 60,
-        "rule": "Speed Up"
+        "time_limit": 70,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L05",
-        "internal_name": "Distraction 2",
-        "title": "集中",
-        "description": "余計な手順に惑わされないでください。",
+        "internal_name": "Basics 5",
+        "title": "基礎 5",
+        "description": "ウドゥーの重要な手順を学ぶ - パート5",
         "steps": [
-          "意思 (Niat)",
-          "顔を洗う",
-          "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う"
         ],
         "distractors": [
+          "ビスミッラーを唱える",
           "3回繰り返す",
-          "鼻を洗う",
-          "ビスミッラー"
+          "右側を洗う",
+          "首を拭く",
+          "指の間を洗う"
         ],
-        "time_limit": 60,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 65,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L06",
-        "internal_name": "Intermediate",
-        "title": "中級",
-        "description": "集中力を保ちましょう。",
+        "internal_name": "Intermediate 1",
+        "title": "チャレンジ 1",
+        "description": "完全な順序をマスター - ステージ1",
         "steps": [
-          "意思 (Niat)",
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
           "顔を洗う",
           "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "頭を拭く"
         ],
         "distractors": [
-          "右から洗う",
-          "口をすすぐ"
+          "ビスミッラーを唱える",
+          "3回繰り返す",
+          "右側を洗う",
+          "首を拭く"
         ],
-        "time_limit": 50,
-        "rule": "None"
+        "time_limit": 55,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L07",
-        "internal_name": "Speed 2",
-        "title": "時間制限",
-        "description": "時間が迫っています！",
+        "internal_name": "Intermediate 2",
+        "title": "チャレンジ 2",
+        "description": "完全な順序をマスター - ステージ2",
         "steps": [
-          "意思 (Niat)",
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
           "顔を洗う",
           "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "頭を拭く"
         ],
         "distractors": [
+          "ビスミッラーを唱える",
           "3回繰り返す",
-          "ビスミッラー"
+          "右側を洗う",
+          "首を拭く",
+          "指の間を洗う"
         ],
-        "time_limit": 40,
-        "rule": "Speed Up"
+        "time_limit": 50,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L08",
-        "internal_name": "Advanced",
-        "title": "精密",
-        "description": "慎重に選んでください。",
+        "internal_name": "Intermediate 3",
+        "title": "チャレンジ 3",
+        "description": "完全な順序をマスター - ステージ3",
         "steps": [
-          "意思 (Niat)",
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
           "顔を洗う",
           "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "頭を拭く"
         ],
         "distractors": [
-          "口をすすぐ",
-          "鼻を洗う",
-          "右から洗う",
-          "ビスミッラー"
+          "ビスミッラーを唱える",
+          "3回繰り返す",
+          "右側を洗う",
+          "首を拭く",
+          "指の間を洗う",
+          "シワークを使う"
         ],
         "time_limit": 45,
-        "rule": "High Distraction"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L09",
-        "internal_name": "Mastery Prep",
-        "title": "達人への道",
-        "description": "1つのミスで終了です。",
+        "internal_name": "Intermediate 4",
+        "title": "チャレンジ 4",
+        "description": "完全な順序をマスター - ステージ4",
         "steps": [
-          "意思 (Niat)",
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
           "顔を洗う",
           "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "頭を拭く"
         ],
         "distractors": [
+          "ビスミッラーを唱える",
           "3回繰り返す",
-          "鼻を洗う"
+          "右側を洗う",
+          "首を拭く",
+          "指の間を洗う",
+          "シワークを使う",
+          "キブラに向く"
         ],
-        "time_limit": 35,
-        "rule": "Sudden Death"
+        "time_limit": 40,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L10",
-        "internal_name": "Mastery",
-        "title": "ウドゥの達人",
-        "description": "知識を証明しましょう。",
+        "internal_name": "Intermediate 5",
+        "title": "チャレンジ 5",
+        "description": "完全な順序をマスター - ステージ5",
         "steps": [
-          "意思 (Niat)",
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
           "顔を洗う",
           "腕を洗う",
-          "頭を拭く",
-          "足を洗う"
+          "頭を拭く"
         ],
         "distractors": [
-          "ビスミッラー",
-          "口をすすぐ",
-          "鼻を洗う",
-          "右から洗う",
-          "3回繰り返す"
+          "ビスミッラーを唱える",
+          "3回繰り返す",
+          "右側を洗う",
+          "首を拭く",
+          "指の間を洗う",
+          "シワークを使う",
+          "キブラに向く",
+          "シャハーダを唱える"
         ],
-        "time_limit": 30,
-        "rule": "Sudden Death"
+        "time_limit": 35,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L11",
+        "internal_name": "Voice Master 1",
+        "title": "朗読 1",
+        "description": "アラビア語の祈りを正しく唱える - レベル1",
+        "steps": [
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika"
+        ]
+      },
+      {
+        "id": "L12",
+        "internal_name": "Voice Master 2",
+        "title": "朗読 2",
+        "description": "アラビア語の祈りを正しく唱える - レベル2",
+        "steps": [
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah"
+        ]
+      },
+      {
+        "id": "L13",
+        "internal_name": "Voice Master 3",
+        "title": "朗読 3",
+        "description": "アラビア語の祈りを正しく唱える - レベル3",
+        "steps": [
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī"
+        ]
+      },
+      {
+        "id": "L14",
+        "internal_name": "Voice Master 4",
+        "title": "朗読 4",
+        "description": "アラビア語の祈りを正しく唱える - レベル4",
+        "steps": [
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う",
+          "腕を洗う"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī"
+        ]
+      },
+      {
+        "id": "L15",
+        "internal_name": "Voice Master 5",
+        "title": "朗読 5",
+        "description": "アラビア語の祈りを正しく唱える - レベル5",
+        "steps": [
+          "ニーヤ（意図）",
+          "手を洗う",
+          "口をすすぐ",
+          "鼻をすすぐ",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ",
+          "اَللّٰهُمَّ حَرِّمْ شَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī",
+          "Allāhumma harrim sya'rī wa basyarī 'alan nār"
+        ]
       }
     ]
   },
@@ -945,232 +1905,472 @@
       "code": "th"
     },
     "ui": {
-      "time_attack": "แข่งกับเวลา",
+      "time_attack": "โหมดจับเวลา",
       "practice": "ฝึกฝน",
-      "leaderboard": "อันดับคะแนน",
+      "leaderboard": "กระดานผู้นำ",
       "play_again": "เล่นอีกครั้ง",
       "home": "หน้าหลัก",
-      "offline_mode": "โหมดออฟไลน์ — คะแนนจะซิงค์ภายหลัง",
+      "offline_mode": "โหมดออฟไลน์",
       "perfect_run": "สมบูรณ์แบบ",
       "mistake": "ข้อผิดพลาด",
       "time_remaining": "เวลาที่เหลือ",
-      "level_select": "เลือกระดับ",
-      "game_over": "จบเกม",
+      "level_select": "เลือกด่าน",
+      "game_over": "เกมจบ",
       "completed": "ผ่านด่าน!",
       "locked_level": "ผ่านด่านก่อนหน้า",
       "final_score": "คะแนนสุดท้าย",
       "level": "ระดับ",
       "view_top_scores": "ดูคะแนนสูงสุด",
-      "you": "คุณ"
+      "you": "คุณ",
+      "step": "ขั้นตอน",
+      "of": "จาก",
+      "you_said": "คุณพูดว่า:",
+      "tap_to_stop": "แตะเพื่อหยุดและตรวจสอบ",
+      "tap_to_start": "แตะเพื่อเริ่มอ่าน",
+      "mic_permission_title": "ต้องการสิทธิ์ไมโครโฟน",
+      "mic_permission_message": "กรุณาเปิดการเข้าถึงไมโครโฟนในการตั้งค่าเพื่อใช้โหมดท้าทายด้วยเสียง"
     },
     "feedback": {
       "correct": "ถูกต้อง!",
-      "incorrect": "ลองใหม่อีกครั้ง!",
-      "level_completed": "ยอดเยี่ยม! ผ่านด่านแล้ว",
+      "incorrect": "ลองอีกครั้ง!",
+      "level_completed": "มาชาอัลลอฮ์! ผ่านด่าน",
       "high_score": "คะแนนสูงสุดใหม่!"
     },
     "achievements": {
-      "beginner": "ผู้เริ่มต้น",
-      "focused": "มีสมาธิ",
+      "beginner": "มือใหม่",
+      "focused": "มุ่งมั่น",
       "perfect_run": "สมบูรณ์แบบ",
-      "wudhu_master": "ผู้เชี่ยวชาญวุฎู"
+      "wudhu_master": "ผู้เชี่ยวชาญวูฎู"
     },
     "endless_mode": {
-      "title": "โหมดต่อเนื่อง",
-      "description": "คุณจะรักษาความถูกต้องของวุฎูได้นานแค่ไหน?"
+      "title": "การเดินทางไม่สิ้นสุด",
+      "description": "ฝึกขั้นตอนวูฎูแบบไม่สิ้นสุด",
+      "game_type": "drag_drop",
+      "arabic_steps": [
+        "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+        "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+        "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+        "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+      ],
+      "romanization": [
+        "Nawaytul wudhū'a lillāhi ta'ālā",
+        "Bismillāhir rahmānir rahīm",
+        "Allāhumma a'innī 'alā dzikrika",
+        "Allāhumma arihnī rā'ihatal jannah",
+        "Allāhumma bayidh wajhī"
+      ]
     },
     "levels": [
       {
         "id": "L01",
         "internal_name": "Basics 1",
-        "title": "พื้นฐาน",
-        "description": "เรียงลำดับขั้นตอนบังคับ (รูกุน) ของการอาบน้ำละหมาด",
+        "title": "พื้นฐาน 1",
+        "description": "เรียนรู้ขั้นตอนสำคัญของวูฎู - ส่วนที่ 1",
         "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า"
         ],
-        "distractors": [],
-        "time_limit": 90,
-        "rule": "None"
+        "distractors": [
+          "กล่าวบิสมิลลาห์"
+        ],
+        "time_limit": 85,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L02",
         "internal_name": "Basics 2",
-        "title": "ลำดับ",
-        "description": "รักษาลำดับให้ถูกต้อง",
+        "title": "พื้นฐาน 2",
+        "description": "เรียนรู้ขั้นตอนสำคัญของวูฎู - ส่วนที่ 2",
         "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า"
         ],
         "distractors": [
-          "บ้วนปาก"
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง"
         ],
         "time_limit": 80,
-        "rule": "None"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L03",
-        "internal_name": "Distraction 1",
-        "title": "ตรวจสอบซุนนะห์",
-        "description": "โฟกัสเฉพาะขั้นตอนบังคับ ข้ามขั้นตอนซุนนะห์",
+        "internal_name": "Basics 3",
+        "title": "พื้นฐาน 3",
+        "description": "เรียนรู้ขั้นตอนสำคัญของวูฎู - ส่วนที่ 3",
         "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า"
         ],
         "distractors": [
           "กล่าวบิสมิลลาห์",
-          "ล้างจมูก"
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา"
         ],
-        "time_limit": 70,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 75,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L04",
-        "internal_name": "Speed 1",
-        "title": "รวดเร็ว",
-        "description": "ทำให้เสร็จเร็วขึ้น",
+        "internal_name": "Basics 4",
+        "title": "พื้นฐาน 4",
+        "description": "เรียนรู้ขั้นตอนสำคัญของวูฎู - ส่วนที่ 4",
         "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
-        ],
-        "distractors": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
           "บ้วนปาก",
-          "เริ่มข้างขวา"
-        ],
-        "time_limit": 60,
-        "rule": "Speed Up"
-      },
-      {
-        "id": "L05",
-        "internal_name": "Distraction 2",
-        "title": "โฟกัส",
-        "description": "อย่าสับสนกับขั้นตอนเพิ่มเติม",
-        "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
-        ],
-        "distractors": [
-          "ทำ 3 ครั้ง",
-          "ล้างจมูก",
-          "กล่าวบิสมิลลาห์"
-        ],
-        "time_limit": 60,
-        "rule": "Ignore Optional Steps"
-      },
-      {
-        "id": "L06",
-        "internal_name": "Intermediate",
-        "title": "ระดับกลาง",
-        "description": "รักษาความตั้งใจ",
-        "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
-        ],
-        "distractors": [
-          "เริ่มข้างขวา",
-          "บ้วนปาก"
-        ],
-        "time_limit": 50,
-        "rule": "None"
-      },
-      {
-        "id": "L07",
-        "internal_name": "Speed 2",
-        "title": "เวลาจำกัด",
-        "description": "เวลาใกล้หมดแล้ว!",
-        "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
-        ],
-        "distractors": [
-          "ทำ 3 ครั้ง",
-          "กล่าวบิสมิลลาห์"
-        ],
-        "time_limit": 40,
-        "rule": "Speed Up"
-      },
-      {
-        "id": "L08",
-        "internal_name": "Advanced",
-        "title": "แม่นยำ",
-        "description": "เลือกอย่างระมัดระวัง",
-        "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
-        ],
-        "distractors": [
-          "บ้วนปาก",
-          "ล้างจมูก",
-          "เริ่มข้างขวา",
-          "กล่าวบิสมิลลาห์"
-        ],
-        "time_limit": 45,
-        "rule": "High Distraction"
-      },
-      {
-        "id": "L09",
-        "internal_name": "Mastery Prep",
-        "title": "เกือบเชี่ยวชาญ",
-        "description": "ผิดพลาดครั้งเดียวจบเกม",
-        "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
-        ],
-        "distractors": [
-          "ทำ 3 ครั้ง",
-          "ล้างจมูก"
-        ],
-        "time_limit": 35,
-        "rule": "Sudden Death"
-      },
-      {
-        "id": "L10",
-        "internal_name": "Mastery",
-        "title": "ผู้เชี่ยวชาญ",
-        "description": "พิสูจน์ความรู้ของคุณ",
-        "steps": [
-          "เจตนา (เนียต)",
-          "ล้างหน้า",
-          "ล้างแขน",
-          "เช็ดศีรษะ",
-          "ล้างเท้า"
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า"
         ],
         "distractors": [
           "กล่าวบิสมิลลาห์",
-          "บ้วนปาก",
-          "ล้างจมูก",
-          "เริ่มข้างขวา",
-          "ทำ 3 ครั้ง"
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ"
         ],
-        "time_limit": 30,
-        "rule": "Sudden Death"
+        "time_limit": 70,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L05",
+        "internal_name": "Basics 5",
+        "title": "พื้นฐาน 5",
+        "description": "เรียนรู้ขั้นตอนสำคัญของวูฎู - ส่วนที่ 5",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ",
+          "ล้างซอกนิ้ว"
+        ],
+        "time_limit": 65,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L06",
+        "internal_name": "Intermediate 1",
+        "title": "ท้าทาย 1",
+        "description": "เชี่ยวชาญลำดับที่สมบูรณ์ - ขั้นที่ 1",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก",
+          "เช็ดศีรษะ"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ"
+        ],
+        "time_limit": 55,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L07",
+        "internal_name": "Intermediate 2",
+        "title": "ท้าทาย 2",
+        "description": "เชี่ยวชาญลำดับที่สมบูรณ์ - ขั้นที่ 2",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก",
+          "เช็ดศีรษะ"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ",
+          "ล้างซอกนิ้ว"
+        ],
+        "time_limit": 50,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L08",
+        "internal_name": "Intermediate 3",
+        "title": "ท้าทาย 3",
+        "description": "เชี่ยวชาญลำดับที่สมบูรณ์ - ขั้นที่ 3",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก",
+          "เช็ดศีรษะ"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ",
+          "ล้างซอกนิ้ว",
+          "ใช้มิสวัก"
+        ],
+        "time_limit": 45,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L09",
+        "internal_name": "Intermediate 4",
+        "title": "ท้าทาย 4",
+        "description": "เชี่ยวชาญลำดับที่สมบูรณ์ - ขั้นที่ 4",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก",
+          "เช็ดศีรษะ"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ",
+          "ล้างซอกนิ้ว",
+          "ใช้มิสวัก",
+          "หันหน้าไปทางกิบลัต"
+        ],
+        "time_limit": 40,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L10",
+        "internal_name": "Intermediate 5",
+        "title": "ท้าทาย 5",
+        "description": "เชี่ยวชาญลำดับที่สมบูรณ์ - ขั้นที่ 5",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก",
+          "เช็ดศีรษะ"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ทำซ้ำ 3 ครั้ง",
+          "ล้างด้านขวา",
+          "เช็ดคอ",
+          "ล้างซอกนิ้ว",
+          "ใช้มิสวัก",
+          "หันหน้าไปทางกิบลัต",
+          "กล่าวชะฮาดะห์"
+        ],
+        "time_limit": 35,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L11",
+        "internal_name": "Voice Master 1",
+        "title": "การสวด 1",
+        "description": "สวดคำอธิษฐานภาษาอาหรับอย่างถูกต้อง - ระดับ 1",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika"
+        ]
+      },
+      {
+        "id": "L12",
+        "internal_name": "Voice Master 2",
+        "title": "การสวด 2",
+        "description": "สวดคำอธิษฐานภาษาอาหรับอย่างถูกต้อง - ระดับ 2",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah"
+        ]
+      },
+      {
+        "id": "L13",
+        "internal_name": "Voice Master 3",
+        "title": "การสวด 3",
+        "description": "สวดคำอธิษฐานภาษาอาหรับอย่างถูกต้อง - ระดับ 3",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī"
+        ]
+      },
+      {
+        "id": "L14",
+        "internal_name": "Voice Master 4",
+        "title": "การสวด 4",
+        "description": "สวดคำอธิษฐานภาษาอาหรับอย่างถูกต้อง - ระดับ 4",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī"
+        ]
+      },
+      {
+        "id": "L15",
+        "internal_name": "Voice Master 5",
+        "title": "การสวด 5",
+        "description": "สวดคำอธิษฐานภาษาอาหรับอย่างถูกต้อง - ระดับ 5",
+        "steps": [
+          "นิยัต (ตั้งใจ)",
+          "ล้างมือ",
+          "บ้วนปาก",
+          "สูดน้ำเข้าจมูก",
+          "ล้างหน้า",
+          "ล้างแขนถึงข้อศอก",
+          "เช็ดศีรษะ"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ",
+          "اَللّٰهُمَّ حَرِّمْ شَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī",
+          "Allāhumma harrim sya'rī wa basyarī 'alan nār"
+        ]
       }
     ]
   },
@@ -1185,8 +2385,8 @@
       "leaderboard": "Clasificación",
       "play_again": "Jugar de nuevo",
       "home": "Inicio",
-      "offline_mode": "Modo sin conexión — la puntuación se sincronizará luego",
-      "perfect_run": "Partida Perfecta",
+      "offline_mode": "Modo sin conexión",
+      "perfect_run": "Perfecto",
       "mistake": "Errores",
       "time_remaining": "Tiempo Restante",
       "level_select": "Seleccionar Nivel",
@@ -1196,216 +2396,456 @@
       "final_score": "PUNTUACIÓN FINAL",
       "level": "Nivel",
       "view_top_scores": "Ver mejores puntuaciones",
-      "you": "Tú"
+      "you": "Tú",
+      "step": "Paso",
+      "of": "de",
+      "you_said": "Dijiste:",
+      "tap_to_stop": "Toca para detener y verificar",
+      "tap_to_start": "Toca para comenzar a recitar",
+      "mic_permission_title": "Se Requiere Permiso de Micrófono",
+      "mic_permission_message": "Por favor, habilita el acceso al micrófono en Configuración para usar el modo de desafío de voz."
     },
     "feedback": {
       "correct": "¡Correcto!",
       "incorrect": "¡Inténtalo de nuevo!",
-      "level_completed": "¡Excelente! Nivel completado.",
+      "level_completed": "¡MashaAllah! Nivel Completado.",
       "high_score": "¡Nuevo Récord!"
     },
     "achievements": {
       "beginner": "Principiante",
       "focused": "Enfocado",
-      "perfect_run": "Partida Perfecta",
+      "perfect_run": "Perfecto",
       "wudhu_master": "Maestro del Wudhu"
     },
     "endless_mode": {
-      "title": "Modo Infinito",
-      "description": "¿Cuánto tiempo puedes mantener tu enfoque en el Wudhu?"
+      "title": "Viaje Infinito",
+      "description": "Practica los pasos del Wudhu infinitamente",
+      "game_type": "drag_drop",
+      "arabic_steps": [
+        "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+        "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+        "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+        "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+      ],
+      "romanization": [
+        "Nawaytul wudhū'a lillāhi ta'ālā",
+        "Bismillāhir rahmānir rahīm",
+        "Allāhumma a'innī 'alā dzikrika",
+        "Allāhumma arihnī rā'ihatal jannah",
+        "Allāhumma bayidh wajhī"
+      ]
     },
     "levels": [
       {
         "id": "L01",
         "internal_name": "Basics 1",
-        "title": "Los Pilares",
-        "description": "Ordena los pasos obligatorios (Rukun) del Wudhu.",
+        "title": "Fundamentos 1",
+        "description": "Aprende los pasos esenciales del Wudhu - Parte 1",
         "steps": [
           "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara"
         ],
-        "distractors": [],
-        "time_limit": 90,
-        "rule": "None"
+        "distractors": [
+          "Decir Bismillah"
+        ],
+        "time_limit": 85,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L02",
         "internal_name": "Basics 2",
-        "title": "Enfoque en Orden",
-        "description": "Mantén el orden correcto (Tertib).",
+        "title": "Fundamentos 2",
+        "description": "Aprende los pasos esenciales del Wudhu - Parte 2",
         "steps": [
           "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara"
         ],
         "distractors": [
-          "Enjuagar Boca"
+          "Decir Bismillah",
+          "Repetir 3 veces"
         ],
         "time_limit": 80,
-        "rule": "None"
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L03",
-        "internal_name": "Distraction 1",
-        "title": "Verificación Sunnah",
-        "description": "Concéntrate solo en lo obligatorio. Ignora lo opcional.",
+        "internal_name": "Basics 3",
+        "title": "Fundamentos 3",
+        "description": "Aprende los pasos esenciales del Wudhu - Parte 3",
         "steps": [
           "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara"
         ],
         "distractors": [
           "Decir Bismillah",
-          "Lavar Nariz"
+          "Repetir 3 veces",
+          "Lavar Lado Derecho"
         ],
-        "time_limit": 70,
-        "rule": "Ignore Optional Steps"
+        "time_limit": 75,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
       },
       {
         "id": "L04",
-        "internal_name": "Speed 1",
-        "title": "Rápido y Seguro",
-        "description": "Completa la secuencia más rápido.",
+        "internal_name": "Basics 4",
+        "title": "Fundamentos 4",
+        "description": "Aprende los pasos esenciales del Wudhu - Parte 4",
         "steps": [
           "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
-        ],
-        "distractors": [
+          "Lavar Manos",
           "Enjuagar Boca",
-          "Empezar por la Derecha"
-        ],
-        "time_limit": 60,
-        "rule": "Speed Up"
-      },
-      {
-        "id": "L05",
-        "internal_name": "Distraction 2",
-        "title": "Enfoque Total",
-        "description": "No te confundas con pasos extra.",
-        "steps": [
-          "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
-        ],
-        "distractors": [
-          "Repetir 3 veces",
-          "Lavar Nariz",
-          "Decir Bismillah"
-        ],
-        "time_limit": 60,
-        "rule": "Ignore Optional Steps"
-      },
-      {
-        "id": "L06",
-        "internal_name": "Intermediate",
-        "title": "A Medio Camino",
-        "description": "Mantén tu concentración.",
-        "steps": [
-          "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
-        ],
-        "distractors": [
-          "Empezar por la Derecha",
-          "Enjuagar Boca"
-        ],
-        "time_limit": 50,
-        "rule": "None"
-      },
-      {
-        "id": "L07",
-        "internal_name": "Speed 2",
-        "title": "Hora Punta",
-        "description": "¡El tiempo se acaba!",
-        "steps": [
-          "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
-        ],
-        "distractors": [
-          "Repetir 3 veces",
-          "Decir Bismillah"
-        ],
-        "time_limit": 40,
-        "rule": "Speed Up"
-      },
-      {
-        "id": "L08",
-        "internal_name": "Advanced",
-        "title": "Precisión",
-        "description": "Selecciona cuidadosamente.",
-        "steps": [
-          "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
-        ],
-        "distractors": [
-          "Enjuagar Boca",
-          "Lavar Nariz",
-          "Empezar por la Derecha",
-          "Decir Bismillah"
-        ],
-        "time_limit": 45,
-        "rule": "High Distraction"
-      },
-      {
-        "id": "L09",
-        "internal_name": "Mastery Prep",
-        "title": "Casi Maestro",
-        "description": "Un error termina la partida.",
-        "steps": [
-          "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
-        ],
-        "distractors": [
-          "Repetir 3 veces",
-          "Lavar Nariz"
-        ],
-        "time_limit": 35,
-        "rule": "Sudden Death"
-      },
-      {
-        "id": "L10",
-        "internal_name": "Mastery",
-        "title": "Maestro del Wudhu",
-        "description": "Demuestra tu conocimiento.",
-        "steps": [
-          "Intención (Niat)",
-          "Lavar Cara",
-          "Lavar Brazos",
-          "Limpiar Cabeza",
-          "Lavar Pies"
+          "Enjuagar Nariz",
+          "Lavar Cara"
         ],
         "distractors": [
           "Decir Bismillah",
-          "Enjuagar Boca",
-          "Lavar Nariz",
-          "Empezar por la Derecha",
-          "Repetir 3 veces"
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello"
         ],
-        "time_limit": 30,
-        "rule": "Sudden Death"
+        "time_limit": 70,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L05",
+        "internal_name": "Basics 5",
+        "title": "Fundamentos 5",
+        "description": "Aprende los pasos esenciales del Wudhu - Parte 5",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello",
+          "Lavar Entre Dedos"
+        ],
+        "time_limit": 65,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L06",
+        "internal_name": "Intermediate 1",
+        "title": "Desafío 1",
+        "description": "Domina la secuencia completa - Etapa 1",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello"
+        ],
+        "time_limit": 55,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L07",
+        "internal_name": "Intermediate 2",
+        "title": "Desafío 2",
+        "description": "Domina la secuencia completa - Etapa 2",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello",
+          "Lavar Entre Dedos"
+        ],
+        "time_limit": 50,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L08",
+        "internal_name": "Intermediate 3",
+        "title": "Desafío 3",
+        "description": "Domina la secuencia completa - Etapa 3",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello",
+          "Lavar Entre Dedos",
+          "Usar Siwak"
+        ],
+        "time_limit": 45,
+        "rule": "None",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L09",
+        "internal_name": "Intermediate 4",
+        "title": "Desafío 4",
+        "description": "Domina la secuencia completa - Etapa 4",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello",
+          "Lavar Entre Dedos",
+          "Usar Siwak",
+          "Mirar a la Qibla"
+        ],
+        "time_limit": 40,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L10",
+        "internal_name": "Intermediate 5",
+        "title": "Desafío 5",
+        "description": "Domina la secuencia completa - Etapa 5",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Repetir 3 veces",
+          "Lavar Lado Derecho",
+          "Limpiar Cuello",
+          "Lavar Entre Dedos",
+          "Usar Siwak",
+          "Mirar a la Qibla",
+          "Recitar Shahada"
+        ],
+        "time_limit": 35,
+        "rule": "Sudden Death",
+        "game_type": "drag_drop",
+        "arabic_steps": null,
+        "romanization": null
+      },
+      {
+        "id": "L11",
+        "internal_name": "Voice Master 1",
+        "title": "Recitación 1",
+        "description": "Recita la oración árabe correctamente - Nivel 1",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika"
+        ]
+      },
+      {
+        "id": "L12",
+        "internal_name": "Voice Master 2",
+        "title": "Recitación 2",
+        "description": "Recita la oración árabe correctamente - Nivel 2",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah"
+        ]
+      },
+      {
+        "id": "L13",
+        "internal_name": "Voice Master 3",
+        "title": "Recitación 3",
+        "description": "Recita la oración árabe correctamente - Nivel 3",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī"
+        ]
+      },
+      {
+        "id": "L14",
+        "internal_name": "Voice Master 4",
+        "title": "Recitación 4",
+        "description": "Recita la oración árabe correctamente - Nivel 4",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī"
+        ]
+      },
+      {
+        "id": "L15",
+        "internal_name": "Voice Master 5",
+        "title": "Recitación 5",
+        "description": "Recita la oración árabe correctamente - Nivel 5",
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Manos",
+          "Enjuagar Boca",
+          "Enjuagar Nariz",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza"
+        ],
+        "distractors": [],
+        "time_limit": 120,
+        "rule": "Voice Recognition",
+        "game_type": "voice_challenge",
+        "arabic_steps": [
+          "نَوَيْتُ الوُضُوْءَ لِلهِ تَعَالَى",
+          "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+          "اَللّٰهُمَّ أَعِنِّيْ عَلَى ذِكْرِكَ",
+          "اَللّٰهُمَّ أَرِحْنِيْ رَائِحَةَ الْجَنَّةِ",
+          "اَللّٰهُمَّ بَيِّضْ وَجْهِيْ",
+          "اَللّٰهُمَّ أَعْطِنِيْ كِتَابِيْ بِيَمِيْنِيْ",
+          "اَللّٰهُمَّ حَرِّمْ شَعْرِيْ وَبَشَرِيْ عَلَى النَّارِ"
+        ],
+        "romanization": [
+          "Nawaytul wudhū'a lillāhi ta'ālā",
+          "Bismillāhir rahmānir rahīm",
+          "Allāhumma a'innī 'alā dzikrika",
+          "Allāhumma arihnī rā'ihatal jannah",
+          "Allāhumma bayidh wajhī",
+          "Allāhumma a'thinī kitābī biyamīnī",
+          "Allāhumma harrim sya'rī wa basyarī 'alan nār"
+        ]
       }
     ]
   }

@@ -30,9 +30,37 @@ class GameScene: SKScene {
         slot.strokeColor = GameTheme.skGold
         slot.lineWidth = 4
         
+        // Add number indicator
+        let numberLabel = SKLabelNode(text: "\(index + 1)")
+        numberLabel.fontName = "SFProRounded-Bold"
+        numberLabel.fontSize = 24
+        numberLabel.fontColor = GameTheme.skGold
+        numberLabel.position = CGPoint(x: 0, y: 0)
+        numberLabel.name = "hintNumber"
+        slot.addChild(numberLabel)
+        
         slot.run(repeat3) {
             slot.strokeColor = originalColor
             slot.lineWidth = 2
+            numberLabel.removeFromParent()
+        }
+    }
+    
+    func highlightCard(step: WudhuStepModel) {
+        // Find the card with matching step
+        guard let card = cards.first(where: { $0.step.title == step.title }) else { return }
+        
+        // Pulse animation
+        let scaleUp = SKAction.scale(to: 1.15, duration: 0.3)
+        let scaleDown = SKAction.scale(to: 1.0, duration: 0.3)
+        let pulse = SKAction.sequence([scaleUp, scaleDown])
+        let repeat3 = SKAction.repeat(pulse, count: 3)
+        
+        // Highlight effect
+        card.setHighlight(true)
+        
+        card.run(repeat3) {
+            card.setHighlight(false)
         }
     }
     

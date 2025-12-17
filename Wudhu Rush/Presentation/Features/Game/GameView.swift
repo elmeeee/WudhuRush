@@ -25,124 +25,155 @@ struct GameView: View {
             GameTheme.background
                 .ignoresSafeArea()
 
-            GeometryReader { proxy in
-                if let scene = scene {
-                    SpriteView(scene: scene, options: [.allowsTransparency])
-                        .frame(width: proxy.size.width, height: proxy.size.height)
-                        .focusable(false)
-                        .focusEffectDisabled(true)
-                } else {
-                    Color.clear
-                        .onAppear {
-                            let newScene = GameScene()
-                            newScene.size = proxy.size
-                            newScene.scaleMode = .aspectFill
-                            newScene.gameEngine = engine
-                            self.scene = newScene
-                        }
+            // Conditional Content: Voice Challenge or Drag & Drop
+            if engine.isVoiceChallenge {
+                // Voice Challenge Mode
+                VoiceChallengeView(engine: engine)
+            } else {
+                // Drag & Drop Mode (SpriteKit)
+                GeometryReader { proxy in
+                    if let scene = scene {
+                        SpriteView(scene: scene, options: [.allowsTransparency])
+                            .frame(width: proxy.size.width, height: proxy.size.height)
+                            .focusable(false)
+                            .focusEffectDisabled(true)
+                    } else {
+                        Color.clear
+                            .onAppear {
+                                let newScene = GameScene()
+                                newScene.size = proxy.size
+                                newScene.scaleMode = .aspectFill
+                                newScene.gameEngine = engine
+                                self.scene = newScene
+                            }
+                    }
                 }
+                .ignoresSafeArea()
+                .focusable(false)
             }
-            .ignoresSafeArea()
-            .focusable(false)
             
             VStack {
-                HStack(alignment: .center) {
-                    Button(action: {
-                        engine.stopGame()
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(GameTheme.textDark)
-                            .padding(10)
-                            .background(Color.white)
-                            .clipShape(Circle())
-                            .shadow(radius: 2)
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 2) {
-                        if case .level(let level) = engine.gameMode {
-                            Text(localization.ui(\UIData.time_attack).uppercased())
-                                .font(.caption2)
-                                .fontWeight(.black)
-                                .foregroundColor(GameTheme.primaryGreen.opacity(0.6))
-                            Text(level.internal_name)
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(GameTheme.primaryGreen)
-                        } else {
-                            Text(localization.ui(\UIData.practice).uppercased())
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(GameTheme.primaryGreen)
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color.white.opacity(0.9))
-                    .cornerRadius(20)
-                    .shadow(radius: 2)
-                        
-                    Spacer().allowsHitTesting(false)
-                    
-                    // Hint Button (for levels with hints)
-                    if engine.maxHints > 0 {
+                // Only show HUD for drag & drop mode
+                if !engine.isVoiceChallenge {
+                    HStack(alignment: .center) {
                         Button(action: {
-                            if let slotIndex = engine.useHint() {
-                                highlightedSlot = slotIndex
-                                scene?.highlightSlot(at: slotIndex)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                    highlightedSlot = nil
-                                }
-                            }
+                            engine.stopGame()
+                            dismiss()
                         }) {
-                            HStack(spacing: 4) {
-                                Image(systemName: "lightbulb.fill")
-                                Text("\(engine.hintsRemaining)")
-                                    .monospacedDigit()
-                            }
-                            .font(.headline)
-                            .foregroundColor(engine.hintsRemaining > 0 ? GameTheme.gold : GameTheme.textLight)
-                            .padding(10)
-                            .background(Color.white)
-                            .cornerRadius(20)
-                            .shadow(radius: 2)
-                        }
-                        .disabled(engine.hintsRemaining == 0)
-                    }
-                    
-                    if case .level = engine.gameMode {
-                        HStack(spacing: 4) {
-                            Image(systemName: "timer")
-                            Text("\(Int(engine.timeRemaining))")
-                                .monospacedDigit()
-                        }
-                        .font(.headline)
-                        .foregroundColor(getTimeColor())
-                        .padding(10)
-                        .background(Color.white)
-                        .cornerRadius(20)
-                        .shadow(radius: 2)
-                    } else {
-                        Button(action: {
-                            withAnimation { engine.resetGame() }
-                            scene?.forceLayoutUpdate()
-                        }) {
-                            Image(systemName: "arrow.counterclockwise")
+                            Image(systemName: "xmark")
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(GameTheme.primaryGreen)
+                                .foregroundColor(GameTheme.textDark)
                                 .padding(10)
                                 .background(Color.white)
                                 .clipShape(Circle())
                                 .shadow(radius: 2)
                         }
+                        
+                        Spacer()
+                        
+                        VStack(spacing: 2) {
+                            if case .level(let level) = engine.gameMode {
+                                Text(localization.ui(\UIData.time_attack).uppercased())
+                                    .font(.caption2)
+                                    .fontWeight(.black)
+                                    .foregroundColor(GameTheme.primaryGreen.opacity(0.6))
+                                Text(level.internal_name)
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(GameTheme.primaryGreen)
+                            } else {
+                                Text(localization.ui(\UIData.practice).uppercased())
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(GameTheme.primaryGreen)
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(20)
+                        .shadow(radius: 2)
+                            
+                        Spacer().allowsHitTesting(false)
+                        
+                        // Hint Button (for levels with hints)
+                        if engine.maxHints > 0 {
+                            Button(action: {
+                                if let hint = engine.useHint() {
+                                    highlightedSlot = hint.slotIndex
+                                    // Highlight both slot and card
+                                    scene?.highlightSlot(at: hint.slotIndex)
+                                    scene?.highlightCard(step: hint.correctStep)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                        highlightedSlot = nil
+                                    }
+                                }
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "lightbulb.fill")
+                                    Text("\(engine.hintsRemaining)")
+                                        .monospacedDigit()
+                                }
+                                .font(.headline)
+                                .foregroundColor(engine.hintsRemaining > 0 ? GameTheme.gold : GameTheme.textLight)
+                                .padding(10)
+                                .background(Color.white)
+                                .cornerRadius(20)
+                                .shadow(radius: 2)
+                            }
+                            .disabled(engine.hintsRemaining == 0)
+                        }
+                        
+                        if case .level = engine.gameMode {
+                            HStack(spacing: 4) {
+                                Image(systemName: "timer")
+                                Text("\(Int(engine.timeRemaining))")
+                                    .monospacedDigit()
+                            }
+                            .font(.headline)
+                            .foregroundColor(getTimeColor())
+                            .padding(10)
+                            .background(Color.white)
+                            .cornerRadius(20)
+                            .shadow(radius: 2)
+                        } else {
+                            Button(action: {
+                                withAnimation { engine.resetGame() }
+                                scene?.forceLayoutUpdate()
+                            }) {
+                                Image(systemName: "arrow.counterclockwise")
+                                    .font(.system(size: 18, weight: .bold))
+                                    .foregroundColor(GameTheme.primaryGreen)
+                                    .padding(10)
+                                    .background(Color.white)
+                                    .clipShape(Circle())
+                                    .shadow(radius: 2)
+                            }
+                        }
                     }
+                    .padding(.horizontal)
+                } else {
+                    // Voice Challenge: Only show close button
+                    HStack {
+                        Button(action: {
+                            engine.stopGame()
+                            engine.speechRecognizer?.stopRecording()
+                            dismiss()
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(GameTheme.textDark)
+                                .padding(10)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 2)
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
                 
-                if case .level = engine.gameMode {
+                if case .level = engine.gameMode, !engine.isVoiceChallenge {
                     Text("Score: \(engine.score)")
                         .font(.caption)
                         .fontWeight(.bold)
