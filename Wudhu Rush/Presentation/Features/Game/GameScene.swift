@@ -233,35 +233,69 @@ class GameScene: SKScene {
     }
     
     private func handleSuccessfulDrop(card: CardNode, slot: SKShapeNode) {
-        let moveAction = SKAction.move(to: slot.position, duration: 0.15)
-        moveAction.timingMode = .easeOut
-        card.run(moveAction)
+        // Smooth move with spring effect
+        let moveAction = SKAction.move(to: slot.position, duration: 0.3)
+        moveAction.timingMode = .easeInEaseOut
         
-        card.isInteractive = false
-        card.zPosition = 5
+        // Scale animation for emphasis
+        let scaleUp = SKAction.scale(to: 1.1, duration: 0.15)
+        let scaleDown = SKAction.scale(to: 1.0, duration: 0.15)
+        scaleUp.timingMode = .easeOut
+        scaleDown.timingMode = .easeIn
+        
+        // Combine animations
+        let scaleSequence = SKAction.sequence([scaleUp, scaleDown])
+        let group = SKAction.group([moveAction, scaleSequence])
+        
+        card.run(group) {
+            card.isInteractive = false
+            card.zPosition = 5
+        }
+        
+        // Slot animation
+        let slotPulse = SKAction.sequence([
+            SKAction.scale(to: 1.05, duration: 0.1),
+            SKAction.scale(to: 1.0, duration: 0.1)
+        ])
+        slot.run(slotPulse)
         
         slot.fillColor = GameTheme.skSuccess.withAlphaComponent(0.15)
         slot.strokeColor = GameTheme.skSuccess
         
+        // Enhanced particles
         emitParticles(at: slot.position)
-        let sound = SKAction.playSoundFileNamed("success.wav", waitForCompletion: false)
-        run(sound)
+        
+        // Haptic feedback
+        let impact = UIImpactFeedbackGenerator(style: .medium)
+        impact.impactOccurred()
     }
     
     private func returnCardToOriginal(card: CardNode) {
-        let moveBack = SKAction.move(to: originalPosition, duration: 0.2)
+        // Elastic bounce back
+        let moveBack = SKAction.move(to: originalPosition, duration: 0.3)
         moveBack.timingMode = .easeOut
-        card.run(moveBack)
         
+        // Shake with rotation
         let shake = SKAction.sequence([
-            SKAction.moveBy(x: -5, y: 0, duration: 0.05),
-            SKAction.moveBy(x: 10, y: 0, duration: 0.05),
-            SKAction.moveBy(x: -5, y: 0, duration: 0.05)
+            SKAction.group([
+                SKAction.moveBy(x: -8, y: 0, duration: 0.06),
+                SKAction.rotate(byAngle: -0.1, duration: 0.06)
+            ]),
+            SKAction.group([
+                SKAction.moveBy(x: 16, y: 0, duration: 0.06),
+                SKAction.rotate(byAngle: 0.2, duration: 0.06)
+            ]),
+            SKAction.group([
+                SKAction.moveBy(x: -8, y: 0, duration: 0.06),
+                SKAction.rotate(byAngle: -0.1, duration: 0.06)
+            ])
         ])
-        card.run(shake)
         
-        let impact = UIImpactFeedbackGenerator(style: .medium)
-        impact.impactOccurred()
+        card.run(SKAction.sequence([shake, moveBack]))
+        
+        // Error haptic
+        let impact = UINotificationFeedbackGenerator()
+        impact.notificationOccurred(.error)
     }
     
     private func emitParticles(at pos: CGPoint) {
