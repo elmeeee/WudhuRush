@@ -106,43 +106,62 @@ class GameScene: SKScene {
     private var isGameStarted = false
     
     private func setupLayout() {
-        
-        if isGameStarted {
-            return
-        }
-        
+        isGameStarted = true
         removeAllChildren()
         slots.removeAll()
         cards.removeAll()
         
         guard let engine = gameEngine else { return }
         
-        isGameStarted = true
+        // ============================================
+        // 🎨 RESPONSIVE LAYOUT SYSTEM
+        // Works beautifully on all iPhone sizes
+        // ============================================
         
-        let safeAreaTop = view?.safeAreaInsets.top ?? 47
-        let topBarHeight: CGFloat = 180 
-        let totalTopOffset = safeAreaTop + topBarHeight
+        let safeTop = view?.safeAreaInsets.top ?? 47
+        let safeBottom = view?.safeAreaInsets.bottom ?? 34
         
-        let startY = (size.height / 2) - totalTopOffset
-        let slotSpacing: CGFloat = 72
+        // Screen zones (percentage based for responsiveness)
+        let screenHeight = size.height
+        let usableHeight = screenHeight - safeTop - safeBottom
+        
+        // Zone allocation:
+        // - Top 15%: Header (score, timer, buttons)
+        // - Middle 55%: Slots area
+        // - Bottom 30%: Cards area
+        
+        let headerHeight = usableHeight * 0.15
+        let slotsAreaHeight = usableHeight * 0.55
+        _ = usableHeight * 0.30
+        
+        // Slots positioning
+        let totalSlots = engine.currentLevelSteps.count
+        let slotSpacing: CGFloat = min(70, slotsAreaHeight / CGFloat(totalSlots + 1))
+        
+        // Calculate total height needed for all slots
+        let totalSlotsHeight = CGFloat(totalSlots - 1) * slotSpacing
+        
+        // Center slots in their zone
+        let slotsZoneTop = (screenHeight / 2) - safeTop - headerHeight
+        let slotsZoneBottom = slotsZoneTop - slotsAreaHeight
+        let slotsZoneCenter = (slotsZoneTop + slotsZoneBottom) / 2
+        
+        // Start from top of slots group
+        let startY = slotsZoneCenter + (totalSlotsHeight / 2)
         
         for (i, _) in engine.currentLevelSteps.enumerated() {
             let slot = SKShapeNode(rectOf: slotSize, cornerRadius: 16)
-            slot.fillColor = SKColor.white.withAlphaComponent(0.6)
-            slot.strokeColor = GameTheme.skPrimaryGreen.withAlphaComponent(0.2)
-            slot.lineWidth = 2
-            
+            slot.fillColor = SKColor.white.withAlphaComponent(0.7)
+            slot.strokeColor = GameTheme.skPrimaryGreen.withAlphaComponent(0.3)
+            slot.lineWidth = 2.5
             slot.userData = ["index": i]
             slot.position = CGPoint(x: 0, y: startY - (CGFloat(i) * slotSpacing))
             
-            // Determine if we should show numbers
+            // Step number indicator
             let shouldShowNumber: Bool
             if case .practice = engine.gameMode {
-                // Practice mode: always show numbers
                 shouldShowNumber = true
             } else if case .level(let levelData) = engine.gameMode {
-                // Level 1: show numbers only for first 3 slots
-                // Level 2+: no numbers
                 shouldShowNumber = levelData.id == "L01" && i < 3
             } else {
                 shouldShowNumber = false
@@ -163,6 +182,7 @@ class GameScene: SKScene {
                 indicator.addChild(num)
             }
             
+            // Placeholder text
             let placeholder = SKLabelNode(text: "Step \(i+1)")
             placeholder.fontName = "SFProRounded-Medium"
             placeholder.fontSize = 14
@@ -173,25 +193,30 @@ class GameScene: SKScene {
             addChild(slot)
             slots.append(slot)
         }
-
+        
         setupCards(steps: engine.activeCards)
     }
     
     private func setupCards(steps: [WudhuStepModel]) {
-        let safeAreaBottom = view?.safeAreaInsets.bottom ?? 34
-        // Increased from 120 to 180 to give more space between cards and slots
-        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 180
-        let spacingX: CGFloat = 145
-        let spacingY: CGFloat = 65
+        let safeBottom = view?.safeAreaInsets.bottom ?? 34
+        let screenHeight = size.height
+        
+        // Cards positioned in bottom 25% of usable area
+        // With some padding from bottom
+        let cardsBaseY = (-screenHeight / 2) + safeBottom + 100
+        
+        // 2x2 grid layout
+        let spacingX: CGFloat = 140
+        let spacingY: CGFloat = 70
         
         for (i, step) in steps.enumerated() {
             let card = CardNode(step: step, size: cardSize)
             
-            let col = i % 2 
-            let row = i / 2 
+            let col = i % 2
+            let row = i / 2
             
             let xPos = (CGFloat(col) * spacingX) - (spacingX / 2)
-            let yPos = cardsCenterY + spacingY - (CGFloat(row) * spacingY)
+            let yPos = cardsBaseY + CGFloat(1 - row) * spacingY
             
             card.position = CGPoint(x: xPos, y: yPos)
             card.zPosition = 10
@@ -269,14 +294,17 @@ class GameScene: SKScene {
 
         let swapBlock = SKAction.run { [weak self] in
             guard let self = self else { return }
+            
             let finalCard = CardNode(step: card.step, size: self.slotSize)
             finalCard.position = card.position
             finalCard.zPosition = 5
             finalCard.isInteractive = false
             finalCard.name = "placed-card-\(card.step.id)"
-
+            
             self.addChild(finalCard)
             card.removeFromParent()
+            
+            // Nice bounce animation
             let bounceScale = SKAction.sequence([
                 SKAction.scale(to: 1.05, duration: 0.1),
                 SKAction.scale(to: 1.0, duration: 0.1)
@@ -284,7 +312,6 @@ class GameScene: SKScene {
             finalCard.run(bounceScale)
         }
         
-        // 3. Create the sequence: Move -> Swap
         let moveAction = SKAction.move(to: slot.position, duration: 0.3)
         moveAction.timingMode = .easeInEaseOut
         
@@ -293,10 +320,8 @@ class GameScene: SKScene {
             swapBlock
         ])
         
-        // Run sequence
         card.run(sequence)
         
-        // Slot animation (visual feedback for slot)
         let slotPulse = SKAction.sequence([
             SKAction.scale(to: 1.05, duration: 0.1),
             SKAction.scale(to: 1.0, duration: 0.1)

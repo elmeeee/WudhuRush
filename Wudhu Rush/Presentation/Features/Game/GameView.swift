@@ -36,13 +36,10 @@ struct GameView: View {
         ZStack {
             GameTheme.background
                 .ignoresSafeArea()
-
-            // Conditional Content: Voice Challenge or Drag & Drop
+            
             if engine.isVoiceChallenge {
-                // Voice Challenge Mode
                 VoiceChallengeView(engine: engine)
             } else {
-                // Drag & Drop Mode (SpriteKit)
                 GeometryReader { proxy in
                     if let scene = scene {
                         SpriteView(scene: scene, options: [.allowsTransparency])
@@ -65,7 +62,6 @@ struct GameView: View {
             }
             
             VStack {
-                // Only show HUD for drag & drop mode
                 if !engine.isVoiceChallenge {
                     HStack(alignment: .center) {
                         Button(action: {
@@ -108,12 +104,10 @@ struct GameView: View {
                             
                         Spacer().allowsHitTesting(false)
                         
-                        // Hint Button (for levels with hints)
                         if engine.maxHints > 0 {
                             Button(action: {
                                 if let hint = engine.useHint() {
                                     highlightedSlot = hint.slotIndex
-                                    // Highlight both slot and card
                                     scene?.highlightSlot(at: hint.slotIndex)
                                     scene?.highlightCard(step: hint.correctStep)
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -136,21 +130,6 @@ struct GameView: View {
                             .disabled(engine.hintsRemaining == 0)
                         }
                         
-                        // Shuffle button (available in all modes)
-                        Button(action: {
-                            withAnimation {
-                                engine.shuffleVisibleCards()
-                                scene?.forceLayoutUpdate()
-                            }
-                        }) {
-                            Image(systemName: "shuffle")
-                                .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(GameTheme.primaryGreen)
-                                .padding(10)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                                .shadow(radius: 2)
-                        }
                         
                         if case .level = engine.gameMode {
                             HStack(spacing: 4) {
@@ -164,10 +143,12 @@ struct GameView: View {
                             .background(Color.white)
                             .cornerRadius(20)
                             .shadow(radius: 2)
-                        } else {
+                            
                             Button(action: {
-                                withAnimation { engine.resetGame() }
-                                scene?.forceLayoutUpdate()
+                                withAnimation {
+                                    engine.shuffleVisibleCards()
+                                    scene?.forceLayoutUpdate()
+                                }
                             }) {
                                 Image(systemName: "arrow.counterclockwise")
                                     .font(.system(size: 18, weight: .bold))
@@ -181,7 +162,6 @@ struct GameView: View {
                     }
                     .padding(.horizontal)
                 } else {
-                    // Voice Challenge: Only show close button
                     HStack {
                         Button(action: {
                             engine.stopGame()
@@ -274,13 +254,11 @@ struct GameView: View {
                     },
                     onNextLevel: getNextLevel() != nil ? {
                         if let nextLevel = getNextLevel() {
-                            // Unlock next level
                             if let allLevels = LocalizationManager.shared.content?.levels,
                                let nextIndex = allLevels.firstIndex(where: { $0.id == nextLevel.id }) {
                                 LevelProgressManager.shared.unlockLevel(at: nextIndex)
                             }
                             
-                            // Load and start next level
                             withAnimation {
                                 engine.loadNextLevel(nextLevel)
                                 engine.startGame()
