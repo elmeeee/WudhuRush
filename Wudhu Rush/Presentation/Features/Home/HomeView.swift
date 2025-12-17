@@ -55,15 +55,11 @@ struct HomeView: View {
                     Spacer()
                     
                     VStack(spacing: 16) {
-                        Circle()
-                            .fill(GameTheme.lightGreen)
-                            .frame(width: 100, height: 100)
-                            .overlay(
-                                Image(systemName: "drop.fill")
-                                    .font(.system(size: 50))
-                                    .foregroundColor(GameTheme.primaryGreen)
-                            )
-                            .shadow(color: GameTheme.primaryGreen.opacity(0.2), radius: 15, x: 0, y: 8)
+                        Image("main-icon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 102, height: 127)
+                            .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 20, x: 0, y: 10)
                             
                         Text("Wudhu Rush")
                             .font(.system(size: 40, weight: .heavy, design: .rounded))
