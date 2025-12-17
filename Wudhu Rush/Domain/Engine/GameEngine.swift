@@ -36,6 +36,7 @@ class GameEngine: ObservableObject {
     @Published var targetSlotCount: Int = 0
     @Published var lastCorrectStep: WudhuStepModel?
     @Published var showFeedback: Bool = false
+    @Published var showIncorrectFeedback: Bool = false
     @Published var hintsRemaining: Int = 0
     @Published var maxHints: Int = 0
     
@@ -288,6 +289,12 @@ class GameEngine: ObservableObject {
         } else {
             calculateScore(success: false)
             mistakes += 1
+            
+            // Show incorrect feedback
+            showIncorrectFeedback = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.showIncorrectFeedback = false
+            }
             
              if let rule = levelData?.rule, rule == "Sudden Death" {
                  finishGame()

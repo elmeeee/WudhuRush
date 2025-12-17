@@ -231,6 +231,30 @@ struct GameView: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                     .animation(.spring(), value: engine.showFeedback)
                 }
+                
+                // Incorrect Feedback
+                if engine.showIncorrectFeedback {
+                    HStack(spacing: 16) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.white)
+                        
+                        Text(localization.feedback(\FeedbackData.incorrect))
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                    }
+                    .padding()
+                    .background(GameTheme.error.opacity(0.95))
+                    .cornerRadius(16)
+                    .shadow(radius: 10)
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 32)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .animation(.spring(), value: engine.showIncorrectFeedback)
+                }
             }
             
             if case .finished = engine.gameState {

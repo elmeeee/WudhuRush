@@ -12,6 +12,9 @@ struct VoiceChallengeView: View {
     @ObservedObject var engine: GameEngine
     @ObservedObject var localization = LocalizationManager.shared
     @State private var showPermissionAlert = false
+    @State private var showFeedbackAlert = false
+    @State private var feedbackMessage = ""
+    @State private var feedbackIsCorrect = false
     @State private var recordingPulse = false
     
     var body: some View {
@@ -51,76 +54,77 @@ struct VoiceChallengeView: View {
                 if let romanization = engine.getCurrentRomanization() {
                     Text(romanization)
                         .font(.title3)
-                        .foregroundColor(GameTheme.textDark)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                }
-                
-                // English Translation
-                if engine.currentStepIndex < engine.currentLevelSteps.count {
-                    Text(engine.currentLevelSteps[engine.currentStepIndex].title)
-                        .font(.subheadline)
                         .foregroundColor(GameTheme.textLight)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
             }
             .padding()
-            .background(Color.white.opacity(0.8))
-            .cornerRadius(20)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.white)
+                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
+            )
             .padding(.horizontal)
             
             Spacer()
             
-            // Recognized Text Display
-            if let recognizer = engine.speechRecognizer, !recognizer.recognizedText.isEmpty {
-                VStack(spacing: 8) {
-                    Text(localization.ui(\UIData.you_said))
-                        .font(.caption)
-                        .foregroundColor(GameTheme.textLight)
-                    
-                    Text(recognizer.recognizedText)
-                        .font(.body)
-                        .foregroundColor(GameTheme.textDark)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .background(GameTheme.lightGreen.opacity(0.3))
-                        .cornerRadius(12)
-                }
-                .padding(.horizontal)
+            // Voice Recognition Display
+            VStack(spacing: 12) {
+                Text(localization.ui(\UIData.you_said))
+                    .font(.caption)
+                    .foregroundColor(GameTheme.textLight)
+                
+                Text(engine.speechRecognizer?.recognizedText ?? "...")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(GameTheme.textDark)
+                    .multilineTextAlignment(.center)
+                    .frame(minHeight: 60)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(GameTheme.background)
+                    )
             }
+            .padding(.horizontal)
+            
+            Spacer()
             
             // Microphone Button
-            Button(action: {
-                handleMicrophoneTap()
-            }) {
+            Button(action: handleMicrophoneTap) {
                 ZStack {
-                    // Pulse effect when recording
-                    if let recognizer = engine.speechRecognizer, recognizer.isRecording {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [GameTheme.primaryGreen, GameTheme.primaryGreen.opacity(0.8)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 100, height: 100)
+                        .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 20, x: 0, y: 10)
+                    
+                    if recordingPulse {
                         Circle()
-                            .fill(GameTheme.primaryGreen.opacity(0.3))
+                            .stroke(GameTheme.primaryGreen.opacity(0.5), lineWidth: 4)
                             .frame(width: 120, height: 120)
                             .scaleEffect(recordingPulse ? 1.2 : 1.0)
+                            .opacity(recordingPulse ? 0 : 1)
                             .animation(
-                                Animation.easeInOut(duration: 1.0)
-                                    .repeatForever(autoreverses: true),
+                                .easeInOut(duration: 1.0).repeatForever(autoreverses: false),
                                 value: recordingPulse
                             )
                     }
                     
-                    Circle()
-                        .fill(engine.speechRecognizer?.isRecording == true ? GameTheme.error : GameTheme.primaryGreen)
-                        .frame(width: 80, height: 80)
-                        .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 10, x: 0, y: 5)
-                    
                     Image(systemName: engine.speechRecognizer?.isRecording == true ? "stop.fill" : "mic.fill")
-                        .font(.system(size: 32))
+                        .font(.system(size: 40))
                         .foregroundColor(.white)
                 }
             }
             .padding(.bottom, 40)
             
-            // Instructions
             Text(engine.speechRecognizer?.isRecording == true ? 
                  localization.ui(\UIData.tap_to_stop) : 
                  localization.ui(\UIData.tap_to_start))
@@ -128,13 +132,16 @@ struct VoiceChallengeView: View {
                 .foregroundColor(GameTheme.textLight)
                 .padding(.bottom, 20)
         }
-        .onAppear {
-            requestPermissions()
-        }
         .alert(localization.ui(\UIData.mic_permission_title), isPresented: $showPermissionAlert) {
             Button("OK", role: .cancel) { }
         } message: {
             Text(localization.ui(\UIData.mic_permission_message))
+        }
+        .alert(feedbackMessage, isPresented: $showFeedbackAlert) {
+            Button("OK", role: .cancel) { }
+        }
+        .onAppear {
+            requestPermissions()
         }
     }
     
@@ -158,15 +165,20 @@ struct VoiceChallengeView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let isCorrect = engine.validateVoiceInput()
                 
-                // Show feedback
-                if isCorrect {
-                    // Success haptic
-                    let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(.success)
-                } else {
-                    // Error haptic
-                    let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(.error)
+                // Show feedback alert
+                feedbackIsCorrect = isCorrect
+                feedbackMessage = isCorrect ? 
+                    localization.feedback(\FeedbackData.correct) : 
+                    localization.feedback(\FeedbackData.incorrect)
+                showFeedbackAlert = true
+                
+                // Haptic feedback
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(isCorrect ? .success : .error)
+                
+                // Auto-dismiss alert after 1.5 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    showFeedbackAlert = false
                 }
             }
         } else {
