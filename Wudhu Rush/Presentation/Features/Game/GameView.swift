@@ -15,10 +15,22 @@ struct GameView: View {
     @ObservedObject var localization = LocalizationManager.shared
     @State private var scene: GameScene?
     @State private var highlightedSlot: Int? = nil
+    @State private var navigationPath: [NavigationDestination] = []
     
     init(mode: GameMode) {
         _engine = StateObject(wrappedValue: GameEngine(mode: mode))
     }
+    
+    private func getNextLevel() -> LevelData? {
+        guard case .level(let currentLevel) = engine.gameMode,
+              let allLevels = LocalizationManager.shared.content?.levels,
+              let currentIndex = allLevels.firstIndex(where: { $0.id == currentLevel.id }),
+              currentIndex + 1 < allLevels.count else {
+            return nil
+        }
+        return allLevels[currentIndex + 1]
+    }
+    
     
     var body: some View {
         ZStack {
@@ -122,6 +134,22 @@ struct GameView: View {
                                 .shadow(radius: 2)
                             }
                             .disabled(engine.hintsRemaining == 0)
+                        }
+                        
+                        // Shuffle button (available in all modes)
+                        Button(action: {
+                            withAnimation {
+                                engine.shuffleVisibleCards()
+                                scene?.forceLayoutUpdate()
+                            }
+                        }) {
+                            Image(systemName: "shuffle")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(GameTheme.primaryGreen)
+                                .padding(10)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 2)
                         }
                         
                         if case .level = engine.gameMode {
@@ -243,7 +271,23 @@ struct GameView: View {
                     },
                     onHome: {
                         dismiss()
-                    }
+                    },
+                    onNextLevel: getNextLevel() != nil ? {
+                        if let nextLevel = getNextLevel() {
+                            // Unlock next level
+                            if let allLevels = LocalizationManager.shared.content?.levels,
+                               let nextIndex = allLevels.firstIndex(where: { $0.id == nextLevel.id }) {
+                                LevelProgressManager.shared.unlockLevel(at: nextIndex)
+                            }
+                            
+                            // Load and start next level
+                            withAnimation {
+                                engine.loadNextLevel(nextLevel)
+                                engine.startGame()
+                                scene?.resetForNewLevel()
+                            }
+                        }
+                    } : nil
                 )
                 .transition(.scale(scale: 0.8).combined(with: .opacity))
                 .zIndex(100)

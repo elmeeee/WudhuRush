@@ -60,12 +60,12 @@ class CardNode: SKNode {
         
         self.name = "card-\(step.id)"
         
-        // Initial subtle animation
+        // Initial subtle animation with a key so we can remove it later
         let float = SKAction.sequence([
             SKAction.moveBy(x: 0, y: 3, duration: 1.5),
             SKAction.moveBy(x: 0, y: -3, duration: 1.5)
         ])
-        run(SKAction.repeatForever(float))
+        run(SKAction.repeatForever(float), withKey: "floatAnimation")
     }
     
     func containsTouch(_ point: CGPoint) -> Bool {
@@ -106,5 +106,15 @@ class CardNode: SKNode {
             background.lineWidth = 2
             background.fillColor = GameTheme.skSurface
         }
+    }
+    
+    func resizeToFit(targetSize: CGSize) {
+        // Calculate scale factors
+        let scaleX = targetSize.width / cardSize.width
+        let scaleY = targetSize.height / cardSize.height
+        
+        // Apply scale to the entire node
+        self.xScale = scaleX
+        self.yScale = scaleY
     }
 }

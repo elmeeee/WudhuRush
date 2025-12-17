@@ -39,6 +39,10 @@ class GameEngine: ObservableObject {
     @Published var hintsRemaining: Int = 0
     @Published var maxHints: Int = 0
     
+    // Card pool system - only show 4 cards at a time
+    private var availableCardPool: [WudhuStepModel] = []
+    private let maxVisibleCards = 4
+    
     // Voice Challenge properties
     @Published var currentStepIndex: Int = 0
     @Published var isVoiceChallenge: Bool = false
@@ -100,7 +104,18 @@ class GameEngine: ObservableObject {
             }
             
             self.currentLevelSteps = correctSteps
-            self.activeCards = allCards.shuffled()
+            
+            // Initialize card pool system
+            let shuffledCards = allCards.shuffled()
+            self.availableCardPool = shuffledCards
+            
+            // Show only first 4 cards (or less if total cards < 4)
+            let cardsToShow = min(maxVisibleCards, shuffledCards.count)
+            self.activeCards = Array(shuffledCards.prefix(cardsToShow))
+            
+            // Remove shown cards from pool
+            self.availableCardPool.removeFirst(cardsToShow)
+            
             self.targetSlotCount = correctSteps.count
             
         case .practice:
@@ -122,7 +137,14 @@ class GameEngine: ObservableObject {
                     steps.append(WudhuStepModel(title: title, order: index + 1, isDistractor: false))
                 }
                 self.currentLevelSteps = steps
-                self.activeCards = steps.shuffled()
+                
+                // Use card pool for practice mode too
+                let shuffledSteps = steps.shuffled()
+                self.availableCardPool = shuffledSteps
+                let cardsToShow = min(maxVisibleCards, shuffledSteps.count)
+                self.activeCards = Array(shuffledSteps.prefix(cardsToShow))
+                self.availableCardPool.removeFirst(cardsToShow)
+                
                 self.targetSlotCount = steps.count
             }
         }
@@ -146,6 +168,20 @@ class GameEngine: ObservableObject {
         setupGame()
     }
     
+    func loadNextLevel(_ level: LevelData) {
+        gameMode = .level(level)
+        score = 0
+        mistakes = 0
+        gameState = .playing
+        filledSlots = [:]
+        lastCorrectStep = nil
+        showFeedback = false
+        currentStepIndex = 0
+        
+        setupGame()
+    }
+    
+    
     func useHint() -> (slotIndex: Int, correctStep: WudhuStepModel)? {
         guard hintsRemaining > 0 else { return nil }
         hintsRemaining -= 1
@@ -159,6 +195,21 @@ class GameEngine: ObservableObject {
             }
         }
         return nil
+    }
+    
+    func shuffleVisibleCards() {
+        // Combine current visible cards with pool
+        var allAvailableCards = activeCards + availableCardPool
+        
+        // Shuffle all available cards
+        allAvailableCards.shuffle()
+        
+        // Take up to 4 cards for display
+        let cardsToShow = min(maxVisibleCards, allAvailableCards.count)
+        activeCards = Array(allAvailableCards.prefix(cardsToShow))
+        
+        // Rest goes back to pool
+        availableCardPool = Array(allAvailableCards.dropFirst(cardsToShow))
     }
     
     func stopGame() {
@@ -206,6 +257,17 @@ class GameEngine: ObservableObject {
         if !step.isDistractor && correctIndex == index {
             calculateScore(success: true)
             filledSlots[index] = step
+            
+            // Remove the used card from activeCards
+            if let cardIndex = activeCards.firstIndex(where: { $0.title == step.title && $0.order == step.order }) {
+                activeCards.remove(at: cardIndex)
+                
+                // Add a new card from the pool if available
+                if !availableCardPool.isEmpty {
+                    let newCard = availableCardPool.removeFirst()
+                    activeCards.append(newCard)
+                }
+            }
 
             if case .practice = gameMode, !isVoiceChallenge {
                 DispatchQueue.main.async {

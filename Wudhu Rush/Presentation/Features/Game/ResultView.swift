@@ -15,6 +15,8 @@ struct ResultView: View {
     let engine: GameEngine
     let onRestart: () -> Void
     let onHome: () -> Void
+    let onNextLevel: (() -> Void)?
+    
     
     @ObservedObject var localization = LocalizationManager.shared
     
@@ -81,6 +83,34 @@ struct ResultView: View {
                         }
                     }
                     .padding(.horizontal)
+                    
+                    
+                    // Next Level Button (if available and won)
+                    if let onNext = onNextLevel, 
+                       case .finished(let result) = engine.gameState, 
+                       result == .win {
+                        Button(action: onNext) {
+                            HStack {
+                                Text("Next Level")
+                                Image(systemName: "arrow.right.circle.fill")
+                            }
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(
+                                LinearGradient(
+                                    colors: [GameTheme.primaryGreen, GameTheme.darkGreen],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(16)
+                            .shadow(color: GameTheme.primaryGreen.opacity(0.4), radius: 15, x: 0, y: 8)
+                        }
+                        .padding(.horizontal, 24)
+                    }
                     
                     HStack(spacing: 16) {
                         Button(action: onHome) {

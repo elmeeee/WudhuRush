@@ -12,6 +12,22 @@ import SpriteKit
 class GameScene: SKScene {
     
     func forceLayoutUpdate() {
+        for card in cards {
+            if let name = card.name, name.starts(with: "placed-card-") {
+                continue
+            }
+            card.removeFromParent()
+        }
+        cards.removeAll()
+        
+        // Recreate cards from engine's activeCards
+        if let engine = gameEngine {
+            setupCards(steps: engine.activeCards)
+        }
+    }
+    
+    func resetForNewLevel() {
+        isGameStarted = false
         setupLayout()
     }
     
@@ -87,12 +103,21 @@ class GameScene: SKScene {
         setupLayout()
     }
     
+    private var isGameStarted = false
+    
     private func setupLayout() {
+        
+        if isGameStarted {
+            return
+        }
+        
         removeAllChildren()
         slots.removeAll()
         cards.removeAll()
         
         guard let engine = gameEngine else { return }
+        
+        isGameStarted = true
         
         let safeAreaTop = view?.safeAreaInsets.top ?? 47
         let topBarHeight: CGFloat = 180 
@@ -154,7 +179,8 @@ class GameScene: SKScene {
     
     private func setupCards(steps: [WudhuStepModel]) {
         let safeAreaBottom = view?.safeAreaInsets.bottom ?? 34
-        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 120
+        // Increased from 120 to 180 to give more space between cards and slots
+        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 180
         let spacingX: CGFloat = 145
         let spacingY: CGFloat = 65
         
@@ -233,26 +259,44 @@ class GameScene: SKScene {
     }
     
     private func handleSuccessfulDrop(card: CardNode, slot: SKShapeNode) {
-        // Smooth move with spring effect
+        card.removeAction(forKey: "floatAnimation")
+        card.removeAllActions()
+        card.isInteractive = false
+        
+        if let index = self.cards.firstIndex(where: { $0 === card }) {
+            self.cards.remove(at: index)
+        }
+
+        let swapBlock = SKAction.run { [weak self] in
+            guard let self = self else { return }
+            let finalCard = CardNode(step: card.step, size: self.slotSize)
+            finalCard.position = card.position
+            finalCard.zPosition = 5
+            finalCard.isInteractive = false
+            finalCard.name = "placed-card-\(card.step.id)"
+
+            self.addChild(finalCard)
+            card.removeFromParent()
+            let bounceScale = SKAction.sequence([
+                SKAction.scale(to: 1.05, duration: 0.1),
+                SKAction.scale(to: 1.0, duration: 0.1)
+            ])
+            finalCard.run(bounceScale)
+        }
+        
+        // 3. Create the sequence: Move -> Swap
         let moveAction = SKAction.move(to: slot.position, duration: 0.3)
         moveAction.timingMode = .easeInEaseOut
         
-        // Scale animation for emphasis
-        let scaleUp = SKAction.scale(to: 1.1, duration: 0.15)
-        let scaleDown = SKAction.scale(to: 1.0, duration: 0.15)
-        scaleUp.timingMode = .easeOut
-        scaleDown.timingMode = .easeIn
+        let sequence = SKAction.sequence([
+            moveAction,
+            swapBlock
+        ])
         
-        // Combine animations
-        let scaleSequence = SKAction.sequence([scaleUp, scaleDown])
-        let group = SKAction.group([moveAction, scaleSequence])
+        // Run sequence
+        card.run(sequence)
         
-        card.run(group) {
-            card.isInteractive = false
-            card.zPosition = 5
-        }
-        
-        // Slot animation
+        // Slot animation (visual feedback for slot)
         let slotPulse = SKAction.sequence([
             SKAction.scale(to: 1.05, duration: 0.1),
             SKAction.scale(to: 1.0, duration: 0.1)
