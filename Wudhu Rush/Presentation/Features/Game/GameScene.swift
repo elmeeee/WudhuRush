@@ -1,110 +1,13 @@
+//
+//  GameScene.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import Swift
 import SpriteKit
-
-// MARK: - Components
-
-class CardNode: SKNode {
-    let step: WudhuStepModel
-    private let background: SKShapeNode
-    private let label: SKLabelNode
-    private let cardSize: CGSize // Store size for hit testing
-    
-    init(step: WudhuStepModel, size: CGSize) {
-        self.step = step
-        self.cardSize = size
-        self.background = SKShapeNode(rectOf: size, cornerRadius: 12)
-        self.label = SKLabelNode(fontNamed: "SFProRounded-Bold")
-        
-        super.init()
-        
-        // Shadow optimized
-        let shadow = SKShapeNode(rectOf: size, cornerRadius: 12)
-        shadow.fillColor = .black
-        shadow.alpha = 0.15
-        shadow.lineWidth = 0
-        shadow.position = CGPoint(x: 2, y: -3)
-        shadow.zPosition = -1
-        addChild(shadow)
-        
-        // Background
-        background.fillColor = GameTheme.skSurface
-        background.strokeColor = GameTheme.skLightGreen
-        background.lineWidth = 1.5
-        addChild(background)
-        
-        // Text configuration
-        label.text = step.title
-        label.fontSize = 14
-        label.fontColor = GameTheme.skTextDark
-        label.verticalAlignmentMode = .center
-        label.horizontalAlignmentMode = .center
-        label.preferredMaxLayoutWidth = size.width - 16
-        label.numberOfLines = 2
-        label.position = CGPoint(x: 0, y: -size.height * 0.05)
-        label.zPosition = 1
-        addChild(label)
-        
-        // Number Bubble (Cleaner look) 
-        // Only show number if not a distractor and order > 0? 
-        // The previous design showed numbers on cards. 
-        // If it's a distractor, maybe no number or '?'?
-        if !step.isDistractor {
-            let bubbleRadius: CGFloat = 10
-            let numberBubble = SKShapeNode(circleOfRadius: bubbleRadius)
-            numberBubble.fillColor = GameTheme.skPrimaryGreen.withAlphaComponent(0.1)
-            numberBubble.strokeColor = .clear
-            numberBubble.position = CGPoint(x: -size.width/2 + 18, y: size.height/2 - 18)
-            addChild(numberBubble)
-            
-            let numText = SKLabelNode(text: "\(step.order)")
-            numText.fontName = "SFProRounded-Bold"
-            numText.fontSize = 12
-            numText.fontColor = GameTheme.skPrimaryGreen
-            numText.verticalAlignmentMode = .center
-            numText.position = CGPoint(x: 0, y: 0)
-            numberBubble.addChild(numText)
-        }
-        
-        self.name = "card-\(step.id)"
-    }
-    
-    // Manual hit test is more reliable for SKNodes
-    func containsTouch(_ point: CGPoint) -> Bool {
-        // Point is in parent (Scene) coordinates.
-        // Check relative distance.
-        let dx = point.x - self.position.x
-        let dy = point.y - self.position.y
-        
-        let halfW = (cardSize.width / 2) + 20 // 20pt buffer for easier grabbing
-        let halfH = (cardSize.height / 2) + 20
-        
-        return abs(dx) < halfW && abs(dy) < halfH
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setHighlight(_ highlight: Bool) {
-        removeAllActions()
-        if highlight {
-            run(SKAction.scale(to: 1.1, duration: 0.05))
-            background.strokeColor = GameTheme.skGold
-            background.lineWidth = 3
-            background.fillColor = SKColor.white
-            run(SKAction.rotate(byAngle: CGFloat.random(in: -0.05...0.05), duration: 0.05))
-        } else {
-            run(SKAction.scale(to: 1.0, duration: 0.05))
-            run(SKAction.rotate(toAngle: 0, duration: 0.05))
-            background.strokeColor = GameTheme.skLightGreen
-            background.lineWidth = 1.5
-            background.fillColor = GameTheme.skSurface
-        }
-    }
-}
-
-// MARK: - Scene
 
 class GameScene: SKScene {
     
@@ -114,7 +17,6 @@ class GameScene: SKScene {
     
     weak var gameEngine: GameEngine? {
         didSet {
-             // If engine is set/changed, trigger layout
              if self.scene != nil { setupLayout() }
         }
     }
@@ -125,8 +27,6 @@ class GameScene: SKScene {
     private var draggingCard: CardNode?
     private var touchOffset: CGPoint = .zero
     private var originalPosition: CGPoint = .zero
-    
-    // Layout Constants
     private let slotSize = CGSize(width: 300, height: 60)
     private let cardSize = CGSize(width: 130, height: 55)
     
@@ -134,7 +34,7 @@ class GameScene: SKScene {
         backgroundColor = GameTheme.skBackground
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.scaleMode = .aspectFill
-        self.isUserInteractionEnabled = true // Explicitly enable
+        self.isUserInteractionEnabled = true
         setupLayout()
     }
     
@@ -145,16 +45,13 @@ class GameScene: SKScene {
         
         guard let engine = gameEngine else { return }
         
-        // Layout Config - FIXED OVERLAP
         let safeAreaTop = view?.safeAreaInsets.top ?? 47
-        // Increase top offset significantly (old: 80, new: 180) to clear the HUD
         let topBarHeight: CGFloat = 180 
         let totalTopOffset = safeAreaTop + topBarHeight
         
         let startY = (size.height / 2) - totalTopOffset
-        let slotSpacing: CGFloat = 72 // Slightly increased spacing
+        let slotSpacing: CGFloat = 72
         
-        // Render Slots based on engine.currentLevelSteps (Correct Slots)
         for (i, _) in engine.currentLevelSteps.enumerated() {
             let slot = SKShapeNode(rectOf: slotSize, cornerRadius: 16)
             slot.fillColor = SKColor.white.withAlphaComponent(0.6)
@@ -164,9 +61,6 @@ class GameScene: SKScene {
             slot.userData = ["index": i]
             slot.position = CGPoint(x: 0, y: startY - (CGFloat(i) * slotSpacing))
             
-            // Indicator
-            // Always show 1..N for slots
-            // (Unless hard mode hides indicators, which could be a level.rule check later)
             let indicator = SKShapeNode(circleOfRadius: 14)
             indicator.fillColor = GameTheme.skPrimaryGreen
             indicator.strokeColor = .clear
@@ -180,7 +74,7 @@ class GameScene: SKScene {
             num.verticalAlignmentMode = .center
             indicator.addChild(num)
             
-            let placeholder = SKLabelNode(text: "Step \(i+1)") // Simplified
+            let placeholder = SKLabelNode(text: "Step \(i+1)")
             placeholder.fontName = "SFProRounded-Medium"
             placeholder.fontSize = 14
             placeholder.fontColor = GameTheme.skTextDark.withAlphaComponent(0.3)
@@ -190,16 +84,13 @@ class GameScene: SKScene {
             addChild(slot)
             slots.append(slot)
         }
-        
-        // Setup Cards using engine.activeCards (includes distractors)
+
         setupCards(steps: engine.activeCards)
     }
     
     private func setupCards(steps: [WudhuStepModel]) {
         let safeAreaBottom = view?.safeAreaInsets.bottom ?? 34
-        // Ensure cards are at bottom but accessible
-        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 120 
-        
+        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 120
         let spacingX: CGFloat = 145
         let spacingY: CGFloat = 65
         
@@ -220,39 +111,26 @@ class GameScene: SKScene {
         }
     }
     
-    // MARK: - Interactions
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         
-        // Manual Hit Test (Brute Force)
-        // This is superior to nodes(at:) for this specific use case because:
-        // 1. It ignores SpriteKit's internal hit-test logic which can fail on SKNodes
-        // 2. It uses our custom 'containsTouch' with buffer
-        // 3. It respects Z-order explicitly by reversing the array
-        
         for card in cards.reversed() {
-            // Check interaction enabled
-            if !card.isUserInteractionEnabled { continue }
-            
-            // Use the geometric check
+            if !card.isInteractive { continue }
             if card.containsTouch(location) {
-                // Found the card!
                 dragStart(card: card, location: location)
                 return
             }
         }
     }
     
-    // Helper to start drag (extracted for clarity)
     private func dragStart(card: CardNode, location: CGPoint) {
         draggingCard = card
         originalPosition = card.position
         touchOffset = CGPoint(x: location.x - card.position.x, y: location.y - card.position.y)
         
         card.setHighlight(true)
-        card.zPosition = 1000 // Bring to top
+        card.zPosition = 1000
         
         let impact = UIImpactFeedbackGenerator(style: .medium)
         impact.impactOccurred()
@@ -295,7 +173,7 @@ class GameScene: SKScene {
         moveAction.timingMode = .easeOut
         card.run(moveAction)
         
-        card.isUserInteractionEnabled = false
+        card.isInteractive = false
         card.zPosition = 5
         
         slot.fillColor = GameTheme.skSuccess.withAlphaComponent(0.15)

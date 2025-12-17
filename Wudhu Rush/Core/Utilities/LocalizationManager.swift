@@ -1,8 +1,14 @@
+//
+//  LocalizationManager.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import Foundation
 import Combine
 
-// MARK: - Models matching JSON
 
 struct GameContentRoot: Codable {
     let en: LocalizedContent
@@ -72,8 +78,6 @@ struct LevelData: Codable, Identifiable, Hashable {
     let rule: String
 }
 
-// MARK: - Manager
-
 class LocalizationManager: ObservableObject {
     static let shared = LocalizationManager()
     
@@ -84,7 +88,6 @@ class LocalizationManager: ObservableObject {
     
     private init() {
         loadData()
-        // Default to English or System if available
         let systemLang = Locale.current.language.languageCode?.identifier ?? "en"
         if ["en", "id", "ms", "ja", "th", "es"].contains(systemLang) {
             setLanguage(systemLang)
@@ -94,10 +97,7 @@ class LocalizationManager: ObservableObject {
     }
     
     func loadData() {
-        // Try precise path first
         var url = Bundle.main.url(forResource: "GameContent", withExtension: "json")
-        
-        // Fallback: search anywhere in bundle if moved
         if url == nil {
             url = Bundle.main.url(forResource: "GameContent", withExtension: "json", subdirectory: "Resources")
         }
@@ -134,7 +134,6 @@ class LocalizationManager: ObservableObject {
         }
     }
     
-    // Helpers
     func ui(_ key: KeyPath<UIData, String>) -> String {
         return content?.ui[keyPath: key] ?? ""
     }

@@ -1,3 +1,11 @@
+//
+//  HomeView.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
+
 
 import SwiftUI
 
@@ -7,7 +15,6 @@ struct HomeView: View {
     @State private var selectedLevel: LevelData?
     @State private var gameMode: GameMode = .practice
     
-    // Supported Languages
     let languages = [
         ("en", "🇺🇸"), ("id", "🇮🇩"), ("ms", "🇲🇾"), 
         ("ja", "🇯🇵"), ("th", "🇹🇭"), ("es", "🇪🇸")
@@ -53,7 +60,6 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    // Header Section
                     VStack(spacing: 16) {
                         Circle()
                             .fill(GameTheme.lightGreen)
@@ -69,7 +75,7 @@ struct HomeView: View {
                             .font(.system(size: 40, weight: .heavy, design: .rounded))
                             .foregroundColor(GameTheme.primaryGreen)
                         
-                        Text(localization.ui(\UIData.home)) // Or some other description if available?
+                        Text(localization.ui(\UIData.home))
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(GameTheme.textDark.opacity(0.6))
@@ -80,7 +86,6 @@ struct HomeView: View {
                     }
                     .padding(.bottom, 30)
                     
-                    // Levels Scroll View
                     VStack(alignment: .leading, spacing: 10) {
                         Text(localization.ui(\UIData.time_attack))
                             .font(.caption)
@@ -104,17 +109,16 @@ struct HomeView: View {
                                 }
                             }
                             .padding(.horizontal, 30)
-                            .padding(.bottom, 20) // Shadow space
+                            .padding(.bottom, 20)
                         }
                     }
                     
-                    // Practice & Leaderboard
                     VStack(spacing: 16) {
                         NavigationLink(value: NavigationDestination.game(.practice)) {
                             MenuButton(
                                 icon: "book.fill",
                                 title: localization.ui(\UIData.practice),
-                                subtitle: localization.content?.endless_mode.title ?? "Endless" // Fallback
+                                subtitle: localization.content?.endless_mode.title ?? ""
                             )
                         }
                         
@@ -135,11 +139,6 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20)
-
-                    Text("v2.2 • Localization Ready")
-                        .font(.caption2)
-                        .foregroundColor(GameTheme.textLight)
-                        .padding(.bottom, 10)
                 }
             }
             .navigationDestination(for: NavigationDestination.self) { destination in
@@ -151,121 +150,5 @@ struct HomeView: View {
                 }
             }
         }
-    }
-}
-
-struct LevelCard: View {
-    let level: LevelData
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text(level.id)
-                    .font(.caption2)
-                    .fontWeight(.black)
-                    .padding(6)
-                    .background(GameTheme.lightGreen)
-                    .foregroundColor(GameTheme.primaryGreen)
-                    .clipShape(Circle())
-                Spacer()
-                Text("\(level.time_limit)s")
-                    .font(.caption2)
-                    .fontWeight(.bold)
-                    .foregroundColor(GameTheme.textLight)
-            }
-            
-            Text(level.title)
-                .font(.headline)
-                .fontWeight(.bold)
-                .foregroundColor(GameTheme.textDark)
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
-            
-            Text(level.description)
-                .font(.caption)
-                .foregroundColor(GameTheme.textLight)
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
-        }
-        .padding()
-        .frame(width: 160, height: 140)
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 3)
-    }
-}
-
-struct LockedLevelCard: View {
-    let level: LevelData
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                // Lock Icon
-                ZStack {
-                    Circle()
-                        .fill(GameTheme.textLight.opacity(0.2))
-                        .frame(width: 32, height: 32)
-                    Image(systemName: "lock.fill")
-                        .font(.caption)
-                        .foregroundColor(GameTheme.textLight)
-                }
-                Spacer()
-            }
-            
-            Text(level.title)
-                .font(.headline)
-                .fontWeight(.bold)
-                .foregroundColor(GameTheme.textLight) // Grayed out
-                .multilineTextAlignment(.leading)
-            
-            Text("Complete previous level")
-                .font(.caption)
-                .foregroundColor(GameTheme.textLight.opacity(0.6))
-                .multilineTextAlignment(.leading)
-        }
-        .padding()
-        .frame(width: 160, height: 140)
-        .background(Color.white.opacity(0.6)) // Dimmed background
-        .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.black.opacity(0.05), lineWidth: 1)
-        )
-    }
-}
-
-struct MenuButton: View {
-    let icon: String
-    let title: String
-    let subtitle: String
-    
-    var body: some View {
-        HStack {
-            ZStack {
-                Circle()
-                    .fill(GameTheme.lightGreen)
-                    .frame(width: 44, height: 44)
-                Image(systemName: icon)
-                    .foregroundColor(GameTheme.primaryGreen)
-            }
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(GameTheme.primaryGreen)
-                Text(subtitle)
-                    .font(.caption)
-                    .foregroundColor(GameTheme.textLight)
-            }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(GameTheme.textLight)
-        }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: 4)
     }
 }

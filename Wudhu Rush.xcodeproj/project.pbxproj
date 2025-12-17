@@ -172,6 +172,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
+				ORGANIZATIONNAME = "https://kamy.co";
 				TargetAttributes = {
 					363F1A732EF15E2B00E36CD1 = {
 						CreatedOnToolsVersion = 26.2;

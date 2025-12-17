@@ -1,29 +1,28 @@
+//
+//  GameTheme.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import SwiftUI
 import SpriteKit
 
-// MARK: - Color Palette
+
 struct GameTheme {
-    // Primary Brand Colors
     static let primaryGreen = Color(hex: "1E6F5C")
     static let darkGreen = Color(hex: "144D40")
     static let lightGreen = Color(hex: "E6F2EE")
-    
-    // Backgrounds
     static let background = Color(hex: "F7F9F8")
     static let surface = Color.white
-    
-    // Accents
     static let gold = Color(hex: "D4AF37")
     static let goldHighlight = Color(hex: "F4D06F")
     static let error = Color(hex: "D9534F")
     static let success = Color(hex: "2ECC71")
-    
-    // Text
     static let textDark = Color(hex: "2C3E50")
     static let textLight = Color(hex: "95A5A6")
     
-    // SpriteKit Variants
     static let skPrimaryGreen = SKColor(red: 0x1E/255.0, green: 0x6F/255.0, blue: 0x5C/255.0, alpha: 1.0)
     static let skDarkGreen = SKColor(red: 0x14/255.0, green: 0x4D/255.0, blue: 0x40/255.0, alpha: 1.0)
     static let skLightGreen = SKColor(red: 0xE6/255.0, green: 0xF2/255.0, blue: 0xEE/255.0, alpha: 1.0)
@@ -35,7 +34,6 @@ struct GameTheme {
     static let skTextDark = SKColor(red: 0x2C/255.0, green: 0x3E/255.0, blue: 0x50/255.0, alpha: 1.0)
 }
 
-// MARK: - Color Extension
 extension Color {
     init(hex: String) {
         let scanner = Scanner(string: hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted))

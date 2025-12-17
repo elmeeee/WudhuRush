@@ -1,3 +1,10 @@
+//
+//  GameDifficulty.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import Foundation
 
@@ -19,8 +26,8 @@ enum GameDifficulty: String, CaseIterable, Identifiable {
     var showSlotNumbers: Bool {
         switch self {
         case .easy: return true
-        case .normal: return true // Show numbers to guide
-        case .hard: return false // Hide numbers for challenge
+        case .normal: return true
+        case .hard: return false
         }
     }
     

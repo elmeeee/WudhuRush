@@ -1,3 +1,10 @@
+//
+//  GameEngine.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import Foundation
 import SwiftUI
@@ -5,7 +12,7 @@ import Combine
 
 enum GameMode: Hashable {
     case level(LevelData)
-    case practice // Endless/Practice
+    case practice
 }
 
 enum GameState {
@@ -15,7 +22,7 @@ enum GameState {
 
 enum GameResult {
     case win
-    case loss // Time's up or sudden death
+    case loss
 }
 
 class GameEngine: ObservableObject {
@@ -23,14 +30,10 @@ class GameEngine: ObservableObject {
     @Published var timeRemaining: TimeInterval = 60.0
     @Published var mistakes: Int = 0
     @Published var gameState: GameState = .playing
-    @Published var filledSlots: [Int: WudhuStepModel] = [:] 
-    
-    // Loaded Content
+    @Published var filledSlots: [Int: WudhuStepModel] = [:]
     @Published var currentLevelSteps: [WudhuStepModel] = []
-    @Published var activeCards: [WudhuStepModel] = [] // Steps + Distractors
+    @Published var activeCards: [WudhuStepModel] = []
     @Published var targetSlotCount: Int = 0
-    
-    // Feedback
     @Published var lastCorrectStep: WudhuStepModel?
     @Published var showFeedback: Bool = false
     
@@ -39,7 +42,6 @@ class GameEngine: ObservableObject {
     
     private var timer: Timer?
     
-    // Mock Leaderboard
     @Published var leaderboard: [(name: String, score: Int)] = [
         ("Ali", 1200), ("Fatima", 1150), ("Omar", 980)
     ]
@@ -54,19 +56,14 @@ class GameEngine: ObservableObject {
         case .level(let data):
             self.levelData = data
             self.timeRemaining = TimeInterval(data.time_limit)
-            
-            // Parse Steps
             var allCards: [WudhuStepModel] = []
             var correctSteps: [WudhuStepModel] = []
-            
-            // Correct Steps
             for (index, title) in data.steps.enumerated() {
                 let step = WudhuStepModel(title: title, order: index + 1, isDistractor: false)
                 correctSteps.append(step)
                 allCards.append(step)
             }
             
-            // Distractors
             for title in data.distractors {
                 let step = WudhuStepModel(title: title, order: -1, isDistractor: true)
                 allCards.append(step)
@@ -77,7 +74,6 @@ class GameEngine: ObservableObject {
             self.targetSlotCount = correctSteps.count
             
         case .practice:
-             // Load Level 1 as base for practice but no timer
             if let content = LocalizationManager.shared.content, let firstLevel = content.levels.first {
                 self.levelData = firstLevel
                 self.timeRemaining = 0
@@ -87,7 +83,7 @@ class GameEngine: ObservableObject {
                     steps.append(WudhuStepModel(title: title, order: index + 1, isDistractor: false))
                 }
                 self.currentLevelSteps = steps
-                self.activeCards = steps.shuffled() // No distractors in basic practice for now? Or keep simple
+                self.activeCards = steps.shuffled()
                 self.targetSlotCount = steps.count
             }
         }
@@ -108,7 +104,7 @@ class GameEngine: ObservableObject {
         lastCorrectStep = nil
         showFeedback = false
         
-        setupGame() // Re-shuffle and reset time
+        setupGame()
     }
     
     func stopGame() {
@@ -135,18 +131,12 @@ class GameEngine: ObservableObject {
         
         let isWin: Bool
         if case .level = gameMode {
-            // Win if all target slots are filled correctly
-            // (Assuming validation happens on drop, so filledSlots only contains correct drops?
-            // Wait, validateDrop adds to filledSlots ONLY if correct. So check count.)
             isWin = filledSlots.count == targetSlotCount
         } else {
-            // Practice mode doesn't really 'win' unless endless logic steps in, 
-            // but for now let's say filling all slots is a win.
             isWin = filledSlots.count == targetSlotCount
         }
         
         if isWin, case .level(let levelData) = gameMode {
-             // Unlock next level logic
              if let allLevels = LocalizationManager.shared.content?.levels,
                 let currentIndex = allLevels.firstIndex(where: { $0.id == levelData.id }) {
                  LevelProgressManager.shared.unlockLevel(at: currentIndex + 1)
@@ -157,18 +147,12 @@ class GameEngine: ObservableObject {
     }
     
     func validateDrop(step: WudhuStepModel, atSlotIndex index: Int) -> Bool {
-        // Slot Index is 0-based, Step Order is 1-based
         let correctIndex = step.order - 1
-        
-        // Logic:
-        // 1. Must not be a distractor (order > 0)
-        // 2. Must match the slot index
         
         if !step.isDistractor && correctIndex == index {
             calculateScore(success: true)
             filledSlots[index] = step
-            
-            // Feedback
+
             if case .practice = gameMode {
                 DispatchQueue.main.async {
                     self.lastCorrectStep = step
@@ -189,11 +173,7 @@ class GameEngine: ObservableObject {
             calculateScore(success: false)
             mistakes += 1
             
-            // Sudden death rule check?
              if let rule = levelData?.rule, rule == "Sudden Death" {
-                 // Immediate Fail
-                 // For now just finish game? Or specific fail state? 
-                 // Simple finish for MVP
                  finishGame()
              }
             
@@ -205,7 +185,6 @@ class GameEngine: ObservableObject {
         if success {
             var points = 100
             
-            // Time bonus
             if case .level = gameMode {
                 points += Int(timeRemaining)
             }

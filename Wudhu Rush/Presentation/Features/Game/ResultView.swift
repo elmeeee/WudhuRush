@@ -1,3 +1,10 @@
+//
+//  ResultView.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import SwiftUI
 
@@ -5,7 +12,7 @@ struct ResultView: View {
     let score: Int
     let mistakes: Int
     let mode: GameMode
-    let engine: GameEngine // Pass engine to check state
+    let engine: GameEngine
     let onRestart: () -> Void
     let onHome: () -> Void
     
@@ -13,12 +20,10 @@ struct ResultView: View {
     
     var body: some View {
         ZStack {
-            // Card
             VStack(spacing: 0) {
-                // Top Banner
                 ZStack {
                     if case .finished(let result) = engine.gameState, result == .loss {
-                        GameTheme.error // Red background for loss
+                        GameTheme.error
                     } else {
                         GameTheme.primaryGreen
                     }
@@ -32,13 +37,12 @@ struct ResultView: View {
                                     .multilineTextAlignment(.center)
                                     .padding()
                             } else {
-                                Text(localization.ui(\UIData.game_over).uppercased()) // "GAME OVER"
+                                Text(localization.ui(\UIData.game_over).uppercased())
                                     .font(.system(size: 24, weight: .black))
-                                    .foregroundColor(.white) // White text on Red background
+                                    .foregroundColor(.white)
                                     .padding()
                             }
                         } else {
-                             // Fallback
                             Text(localization.ui(\UIData.completed).uppercased())
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(.white)
@@ -47,13 +51,11 @@ struct ResultView: View {
                 }
                 .frame(height: 100)
                 
-                // Content
                 VStack(spacing: 24) {
                     
-                    // Score Display
                     if case .level = mode {
                         VStack(spacing: 4) {
-                            Text("FINAL SCORE") // Maybe localized? Not in JSON currently explicitly, can use "Score" if added or hardcode for now
+                            Text("FINAL SCORE")
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(GameTheme.textLight)
@@ -71,7 +73,6 @@ struct ResultView: View {
                             .padding(.bottom, 10)
                     }
                     
-                    // Grid Stats
                     HStack(spacing: 20) {
                         statBox(title: localization.ui(\UIData.mistake), value: "\(mistakes)", color: GameTheme.error)
                         
@@ -81,7 +82,6 @@ struct ResultView: View {
                     }
                     .padding(.horizontal)
                     
-                    // Actions
                     HStack(spacing: 16) {
                         Button(action: onHome) {
                             HStack {

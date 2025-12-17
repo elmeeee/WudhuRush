@@ -1,3 +1,10 @@
+//
+//  GameView.swift
+//  Wudhu Rush
+//
+//  Created by Elmee on 17/12/2025.
+//  Copyright © 2025 https://kamy.co. All rights reserved.
+//
 
 import SwiftUI
 import SpriteKit
@@ -6,8 +13,6 @@ struct GameView: View {
     @StateObject private var engine: GameEngine
     @Environment(\.dismiss) var dismiss
     @ObservedObject var localization = LocalizationManager.shared
-    
-    // Cache the scene to prevent recreation during view updates
     @State private var scene: GameScene?
     
     init(mode: GameMode) {
@@ -18,20 +23,17 @@ struct GameView: View {
         ZStack {
             GameTheme.background
                 .ignoresSafeArea()
-            
-            // SpriteKit Layer
-            // We use GeometryReader to get the size, but we only create the scene ONCE.
+
             GeometryReader { proxy in
                 if let scene = scene {
                     SpriteView(scene: scene, options: [.allowsTransparency])
                         .frame(width: proxy.size.width, height: proxy.size.height)
-                        .focusable(false) // Disable focus engine for this view
-                        .focusEffectDisabled(true) // Disable focus effects
+                        .focusable(false)
+                        .focusEffectDisabled(true)
                 } else {
                     Color.clear
                         .onAppear {
-                            // Initialize scene once we know the size
-                            let newScene = GameScene() // We'll set size immediately
+                            let newScene = GameScene()
                             newScene.size = proxy.size
                             newScene.scaleMode = .aspectFill
                             newScene.gameEngine = engine
@@ -40,11 +42,9 @@ struct GameView: View {
                 }
             }
             .ignoresSafeArea()
-            .focusable(false) // Ensure container is also not focusable
+            .focusable(false)
             
-            // HUD Layer
             VStack {
-                // Header
                 HStack(alignment: .center) {
                     Button(action: {
                         engine.stopGame()
@@ -61,7 +61,6 @@ struct GameView: View {
                     
                     Spacer()
                     
-                    // Title
                     VStack(spacing: 2) {
                         if case .level(let level) = engine.gameMode {
                             Text(localization.ui(\UIData.time_attack).uppercased())
@@ -87,7 +86,6 @@ struct GameView: View {
                         
                     Spacer().allowsHitTesting(false)
                     
-                    // Timer / Reset
                     if case .level = engine.gameMode {
                         HStack(spacing: 4) {
                             Image(systemName: "timer")
@@ -102,9 +100,7 @@ struct GameView: View {
                         .shadow(radius: 2)
                     } else {
                         Button(action: {
-                            // Reset scene logic safely
                             withAnimation { engine.resetGame() }
-                            // Force scene refresh if needed, but Engine binding should handle it
                             scene?.forceLayoutUpdate()
                         }) {
                             Image(systemName: "arrow.counterclockwise")
@@ -118,9 +114,7 @@ struct GameView: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.top, 50)
                 
-                // Score / Progress
                 if case .level = engine.gameMode {
                     Text("Score: \(engine.score)")
                         .font(.caption)
@@ -145,7 +139,6 @@ struct GameView: View {
                 
                 Spacer().allowsHitTesting(false)
                 
-                // Feedback Toast
                 if let step = engine.lastCorrectStep, engine.showFeedback {
                     HStack(spacing: 16) {
                         Image(systemName: "info.circle.fill")
@@ -168,13 +161,12 @@ struct GameView: View {
                     .cornerRadius(16)
                     .shadow(radius: 10)
                     .padding(.horizontal, 30)
-                    .padding(.bottom, 150)
+                    .padding(.bottom, 32)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                     .animation(.spring(), value: engine.showFeedback)
                 }
             }
             
-            // Result Overlay
             if case .finished = engine.gameState {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
