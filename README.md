@@ -34,7 +34,7 @@ An interactive educational game that teaches the proper sequence of Wudhu (Islam
 
 ### Project Structure
 
-\`\`\`mermaid
+```mermaid
 graph TD
     A[Wudhu Rush] --> B[Core]
     A --> C[Data]
@@ -66,11 +66,11 @@ graph TD
     style D fill:#E6F2EE
     style E fill:#E6F2EE
     style F fill:#E6F2EE
-\`\`\`
+```
 
 ### Clean Architecture Layers
 
-\`\`\`mermaid
+```mermaid
 graph LR
     A[Presentation Layer] --> B[Domain Layer]
     B --> C[Data Layer]
@@ -87,11 +87,11 @@ graph LR
     style A fill:#1E6F5C,color:#fff
     style B fill:#144D40,color:#fff
     style C fill:#2C3E50,color:#fff
-\`\`\`
+```
 
 ### Game Flow
 
-\`\`\`mermaid
+```mermaid
 graph TD
     Start([App Launch]) --> Home[Home View]
     Home --> Lang{Select Language}
@@ -141,11 +141,11 @@ graph TD
     style Loss fill:#D9534F,color:#fff
     style Home fill:#1E6F5C,color:#fff
     style Game fill:#144D40,color:#fff
-\`\`\`
+```
 
 ### Data Flow
 
-\`\`\`mermaid
+```mermaid
 graph LR
     A[GameContent.json] --> B[LocalizationManager]
     B --> C[Content Models]
@@ -167,11 +167,11 @@ graph LR
     style B fill:#1E6F5C,color:#fff
     style D fill:#144D40,color:#fff
     style G fill:#2C3E50,color:#fff
-\`\`\`
+```
 
 ### Component Hierarchy
 
-\`\`\`mermaid
+```mermaid
 graph TD
     App[WudhuRushApp] --> Nav[NavigationStack]
     
@@ -202,7 +202,7 @@ graph TD
     style App fill:#1E6F5C,color:#fff
     style Scene fill:#2C3E50,color:#fff
     style Result fill:#D4AF37
-\`\`\`
+```
 
 ## Technical Stack
 
@@ -235,13 +235,13 @@ graph TD
 ### Installation
 
 1. **Clone the repository**
-   \`\`\`bash
+   ```bash
    git clone https://github.com/elmeeee/WudhuRush.git
    cd WudhuRush
    \`\`\`
 
 2. **Open in Xcode**
-   \`\`\`bash
+   ```bash
    open "Wudhu Rush.xcodeproj"
    \`\`\`
 
@@ -253,7 +253,7 @@ graph TD
 
 The game content is fully configurable via `GameContent.json`:
 
-\`\`\`json
+```json
 {
   "en": {
     "levels": [
@@ -311,7 +311,7 @@ The game content is fully configurable via `GameContent.json`:
 ### Adding a New Language
 
 1. **Update GameContent.json**
-   \`\`\`json
+   ```json
    {
      "fr": {
        "ui": { "home": "Accueil", ... },
@@ -322,7 +322,7 @@ The game content is fully configurable via `GameContent.json`:
    \`\`\`
 
 2. **Update LocalizationManager**
-   \`\`\`swift
+   ```swift
    struct GameContentRoot: Codable {
        let fr: LocalizedContent
        // ... other languages
@@ -330,7 +330,7 @@ The game content is fully configurable via `GameContent.json`:
    \`\`\`
 
 3. **Add to Language Picker**
-   \`\`\`swift
+   ```swift
    let languages = [
        ("fr", "🇫🇷"),
        // ... other languages
@@ -340,7 +340,7 @@ The game content is fully configurable via `GameContent.json`:
 ## Testing
 
 ### Unit Tests
-\`\`\`bash
+```bash
 # Run all tests
 cmd + U
 
