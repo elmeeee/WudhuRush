@@ -36,6 +36,8 @@ class GameEngine: ObservableObject {
     @Published var targetSlotCount: Int = 0
     @Published var lastCorrectStep: WudhuStepModel?
     @Published var showFeedback: Bool = false
+    @Published var hintsRemaining: Int = 0
+    @Published var maxHints: Int = 0
     
     var gameMode: GameMode
     var levelData: LevelData?
@@ -56,6 +58,20 @@ class GameEngine: ObservableObject {
         case .level(let data):
             self.levelData = data
             self.timeRemaining = TimeInterval(data.time_limit)
+            
+            // Set hints based on level
+            switch data.id {
+            case "L01", "L02", "L03", "L04", "L05", "L06", "L07":
+                maxHints = 3
+            case "L08", "L09":
+                maxHints = 1
+            case "L10":
+                maxHints = 0
+            default:
+                maxHints = 3
+            }
+            hintsRemaining = maxHints
+            
             var allCards: [WudhuStepModel] = []
             var correctSteps: [WudhuStepModel] = []
             for (index, title) in data.steps.enumerated() {
@@ -74,6 +90,10 @@ class GameEngine: ObservableObject {
             self.targetSlotCount = correctSteps.count
             
         case .practice:
+            // Practice mode: unlimited hints
+            maxHints = 999
+            hintsRemaining = 999
+            
             if let content = LocalizationManager.shared.content, let firstLevel = content.levels.first {
                 self.levelData = firstLevel
                 self.timeRemaining = 0
@@ -105,6 +125,19 @@ class GameEngine: ObservableObject {
         showFeedback = false
         
         setupGame()
+    }
+    
+    func useHint() -> Int? {
+        guard hintsRemaining > 0 else { return nil }
+        hintsRemaining -= 1
+        
+        // Find next empty slot
+        for i in 0..<targetSlotCount {
+            if filledSlots[i] == nil {
+                return i
+            }
+        }
+        return nil
     }
     
     func stopGame() {

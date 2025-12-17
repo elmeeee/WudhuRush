@@ -13,6 +13,10 @@ struct LeaderRow: View {
     let name: String
     let score: Int
     
+    private var youText: String {
+        LocalizationManager.shared.ui(\UIData.you)
+    }
+    
     var body: some View {
         HStack {
             ZStack {
@@ -29,7 +33,7 @@ struct LeaderRow: View {
             
             Text(name)
                 .font(.body)
-                .fontWeight(name == "You" ? .bold : .medium)
+                .fontWeight(name == youText ? .bold : .medium)
                 .foregroundColor(GameTheme.textDark)
             
             Spacer()
@@ -40,7 +44,7 @@ struct LeaderRow: View {
                 .foregroundColor(GameTheme.primaryGreen)
         }
         .padding()
-        .background(name == "You" ? GameTheme.lightGreen : Color.white)
+        .background(name == youText ? GameTheme.lightGreen : Color.white)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.03), radius: 5, x: 0, y: 2)
     }

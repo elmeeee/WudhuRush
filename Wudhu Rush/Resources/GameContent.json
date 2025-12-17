@@ -16,7 +16,12 @@
       "time_remaining": "Time Remaining",
       "level_select": "Select Level",
       "game_over": "Game Over",
-      "completed": "Level Complete!"
+      "completed": "Level Complete!",
+      "locked_level": "Complete previous level",
+      "final_score": "FINAL SCORE",
+      "level": "Level",
+      "view_top_scores": "View top scores",
+      "you": "You"
     },
     "feedback": {
       "correct": "Correct!",
@@ -40,7 +45,13 @@
         "internal_name": "Basics 1",
         "title": "The Pillars",
         "description": "Arrange the valid pillars (Rukun) of Wudhu.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
         "distractors": [],
         "time_limit": 90,
         "rule": "None"
@@ -50,8 +61,16 @@
         "internal_name": "Basics 2",
         "title": "Order Focus",
         "description": "Keep the order correct. Tertib is key.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Rinse Mouth"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Rinse Mouth"
+        ],
         "time_limit": 80,
         "rule": "None"
       },
@@ -60,8 +79,17 @@
         "internal_name": "Distraction 1",
         "title": "Sunnah Check",
         "description": "Focus only on the Rukun (Obligatory). Ignore the Sunnah for now.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Say Bismillah", "Rinse Nose"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Rinse Nose"
+        ],
         "time_limit": 70,
         "rule": "Ignore Optional Steps"
       },
@@ -70,8 +98,17 @@
         "internal_name": "Speed 1",
         "title": "Swift & Sure",
         "description": "Complete the sequence faster.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Rinse Mouth", "Wash Right Side"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Rinse Mouth",
+          "Wash Right Side"
+        ],
         "time_limit": 60,
         "rule": "Speed Up"
       },
@@ -80,8 +117,18 @@
         "internal_name": "Distraction 2",
         "title": "Focus",
         "description": "Don't get confused by the extra steps.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Repeat 3x", "Rinse Nose", "Say Bismillah"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Repeat 3x",
+          "Rinse Nose",
+          "Say Bismillah"
+        ],
         "time_limit": 60,
         "rule": "Ignore Optional Steps"
       },
@@ -90,8 +137,17 @@
         "internal_name": "Intermediate",
         "title": "Halfway There",
         "description": "Maintain your focus.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Wash Right Side", "Rinse Mouth"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Wash Right Side",
+          "Rinse Mouth"
+        ],
         "time_limit": 50,
         "rule": "None"
       },
@@ -100,8 +156,17 @@
         "internal_name": "Speed 2",
         "title": "Rush Hour",
         "description": "Time is running out!",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Repeat 3x", "Say Bismillah"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Repeat 3x",
+          "Say Bismillah"
+        ],
         "time_limit": 40,
         "rule": "Speed Up"
       },
@@ -110,8 +175,19 @@
         "internal_name": "Advanced",
         "title": "Precision",
         "description": "Select carefully.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Rinse Mouth", "Rinse Nose", "Wash Right Side", "Say Bismillah"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Right Side",
+          "Say Bismillah"
+        ],
         "time_limit": 45,
         "rule": "High Distraction"
       },
@@ -120,8 +196,17 @@
         "internal_name": "Mastery Prep",
         "title": "Almost Master",
         "description": "One mistake ends the run.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Repeat 3x", "Rinse Nose"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Repeat 3x",
+          "Rinse Nose"
+        ],
         "time_limit": 35,
         "rule": "Sudden Death"
       },
@@ -130,15 +215,30 @@
         "internal_name": "Mastery",
         "title": "Wudhu Master",
         "description": "Prove your knowledge.",
-        "steps": ["Intention (Niat)", "Wash Face", "Wash Arms", "Wipe Head", "Wash Feet"],
-        "distractors": ["Say Bismillah", "Rinse Mouth", "Rinse Nose", "Wash Right Side", "Repeat 3x"],
+        "steps": [
+          "Intention (Niat)",
+          "Wash Face",
+          "Wash Arms",
+          "Wipe Head",
+          "Wash Feet"
+        ],
+        "distractors": [
+          "Say Bismillah",
+          "Rinse Mouth",
+          "Rinse Nose",
+          "Wash Right Side",
+          "Repeat 3x"
+        ],
         "time_limit": 30,
         "rule": "Sudden Death"
       }
     ]
   },
   "id": {
-    "meta": { "language": "Indonesian", "code": "id" },
+    "meta": {
+      "language": "Indonesian",
+      "code": "id"
+    },
     "ui": {
       "time_attack": "Tantangan Waktu",
       "practice": "Latihan",
@@ -151,7 +251,12 @@
       "time_remaining": "Sisa Waktu",
       "level_select": "Pilih Level",
       "game_over": "Permainan Selesai",
-      "completed": "Level Selesai!"
+      "completed": "Level Selesai!",
+      "locked_level": "Selesaikan level sebelumnya",
+      "final_score": "SKOR AKHIR",
+      "level": "Level",
+      "view_top_scores": "Lihat skor tertinggi",
+      "you": "Kamu"
     },
     "feedback": {
       "correct": "Benar!",
@@ -175,7 +280,13 @@
         "internal_name": "Basics 1",
         "title": "Rukun Wudhu",
         "description": "Susun langkah wajib (Rukun) Wudhu.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
         "distractors": [],
         "time_limit": 90,
         "rule": "None"
@@ -185,8 +296,16 @@
         "internal_name": "Basics 2",
         "title": "Fokus Urutan",
         "description": "Jaga urutan tetap benar (Tertib).",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Kumur-kumur"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Kumur-kumur"
+        ],
         "time_limit": 80,
         "rule": "None"
       },
@@ -195,8 +314,17 @@
         "internal_name": "Distraction 1",
         "title": "Cek Sunnah",
         "description": "Fokus hanya pada Rukun. Abaikan Sunnah.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Baca Bismillah", "Membasuh Hidung"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Baca Bismillah",
+          "Membasuh Hidung"
+        ],
         "time_limit": 70,
         "rule": "Ignore Optional Steps"
       },
@@ -205,8 +333,17 @@
         "internal_name": "Speed 1",
         "title": "Cepat & Tepat",
         "description": "Selesaikan urutan lebih cepat.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Kumur-kumur", "Dahulukan Kanan"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Kumur-kumur",
+          "Dahulukan Kanan"
+        ],
         "time_limit": 60,
         "rule": "Speed Up"
       },
@@ -215,8 +352,18 @@
         "internal_name": "Distraction 2",
         "title": "Fokus Penuh",
         "description": "Jangan bingung dengan langkah tambahan.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Ulang 3x", "Membasuh Hidung", "Baca Bismillah"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Ulang 3x",
+          "Membasuh Hidung",
+          "Baca Bismillah"
+        ],
         "time_limit": 60,
         "rule": "Ignore Optional Steps"
       },
@@ -225,8 +372,17 @@
         "internal_name": "Intermediate",
         "title": "Setengah Jalan",
         "description": "Pertahankan fokusmu.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Dahulukan Kanan", "Kumur-kumur"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Dahulukan Kanan",
+          "Kumur-kumur"
+        ],
         "time_limit": 50,
         "rule": "None"
       },
@@ -235,8 +391,17 @@
         "internal_name": "Speed 2",
         "title": "Waktu Sempit",
         "description": "Waktu hampir habis!",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Ulang 3x", "Baca Bismillah"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Ulang 3x",
+          "Baca Bismillah"
+        ],
         "time_limit": 40,
         "rule": "Speed Up"
       },
@@ -245,8 +410,19 @@
         "internal_name": "Advanced",
         "title": "Presisi",
         "description": "Pilih dengan hati-hati.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Kumur-kumur", "Membasuh Hidung", "Dahulukan Kanan", "Baca Bismillah"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Kumur-kumur",
+          "Membasuh Hidung",
+          "Dahulukan Kanan",
+          "Baca Bismillah"
+        ],
         "time_limit": 45,
         "rule": "High Distraction"
       },
@@ -255,8 +431,17 @@
         "internal_name": "Mastery Prep",
         "title": "Calon Ahli",
         "description": "Satu kesalahan mengakhiri permainan.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Ulang 3x", "Membasuh Hidung"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Ulang 3x",
+          "Membasuh Hidung"
+        ],
         "time_limit": 35,
         "rule": "Sudden Death"
       },
@@ -265,15 +450,30 @@
         "internal_name": "Mastery",
         "title": "Ahli Wudhu",
         "description": "Buktikan pengetahuanmu.",
-        "steps": ["Niat", "Membasuh Muka", "Membasuh Tangan", "Mengusap Kepala", "Membasuh Kaki"],
-        "distractors": ["Baca Bismillah", "Kumur-kumur", "Membasuh Hidung", "Dahulukan Kanan", "Ulang 3x"],
+        "steps": [
+          "Niat",
+          "Membasuh Muka",
+          "Membasuh Tangan",
+          "Mengusap Kepala",
+          "Membasuh Kaki"
+        ],
+        "distractors": [
+          "Baca Bismillah",
+          "Kumur-kumur",
+          "Membasuh Hidung",
+          "Dahulukan Kanan",
+          "Ulang 3x"
+        ],
         "time_limit": 30,
         "rule": "Sudden Death"
       }
     ]
   },
   "ms": {
-    "meta": { "language": "Malay", "code": "ms" },
+    "meta": {
+      "language": "Malay",
+      "code": "ms"
+    },
     "ui": {
       "time_attack": "Cabaran Masa",
       "practice": "Latihan",
@@ -286,7 +486,12 @@
       "time_remaining": "Masa Tinggal",
       "level_select": "Pilih Tahap",
       "game_over": "Tamat Permainan",
-      "completed": "Tahap Selesai!"
+      "completed": "Tahap Selesai!",
+      "locked_level": "Selesaikan tahap sebelumnya",
+      "final_score": "SKOR AKHIR",
+      "level": "Tahap",
+      "view_top_scores": "Lihat skor tertinggi",
+      "you": "Anda"
     },
     "feedback": {
       "correct": "Betul!",
@@ -310,7 +515,13 @@
         "internal_name": "Basics 1",
         "title": "Rukun Asas",
         "description": "Susun rukun Wuduk dengan betul.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
         "distractors": [],
         "time_limit": 90,
         "rule": "None"
@@ -320,8 +531,16 @@
         "internal_name": "Basics 2",
         "title": "Fokus Turutan",
         "description": "Kekalkan turutan (Tertib).",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Kumur-kumur"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Kumur-kumur"
+        ],
         "time_limit": 80,
         "rule": "None"
       },
@@ -330,8 +549,17 @@
         "internal_name": "Distraction 1",
         "title": "Semakan Sunat",
         "description": "Fokus pada Rukun sahaja. Abaikan Sunat.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Baca Bismillah", "Basuh Hidung"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Baca Bismillah",
+          "Basuh Hidung"
+        ],
         "time_limit": 70,
         "rule": "Ignore Optional Steps"
       },
@@ -340,8 +568,17 @@
         "internal_name": "Speed 1",
         "title": "Cepat & Tepat",
         "description": "Selesaikan turutan dengan pantas.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Kumur-kumur", "Dahulukan Kanan"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Kumur-kumur",
+          "Dahulukan Kanan"
+        ],
         "time_limit": 60,
         "rule": "Speed Up"
       },
@@ -350,8 +587,18 @@
         "internal_name": "Distraction 2",
         "title": "Fokus Penuh",
         "description": "Jangan keliru dengan langkah tambahan.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Ulang 3 Kali", "Basuh Hidung", "Baca Bismillah"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Ulang 3 Kali",
+          "Basuh Hidung",
+          "Baca Bismillah"
+        ],
         "time_limit": 60,
         "rule": "Ignore Optional Steps"
       },
@@ -360,8 +607,17 @@
         "internal_name": "Intermediate",
         "title": "Separuh Jalan",
         "description": "Kekalkan fokus anda.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Dahulukan Kanan", "Kumur-kumur"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Dahulukan Kanan",
+          "Kumur-kumur"
+        ],
         "time_limit": 50,
         "rule": "None"
       },
@@ -370,8 +626,17 @@
         "internal_name": "Speed 2",
         "title": "Masa Suntuk",
         "description": "Masa semakin tamat!",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Ulang 3 Kali", "Baca Bismillah"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Ulang 3 Kali",
+          "Baca Bismillah"
+        ],
         "time_limit": 40,
         "rule": "Speed Up"
       },
@@ -380,8 +645,19 @@
         "internal_name": "Advanced",
         "title": "Ketepatan",
         "description": "Pilih dengan teliti.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Kumur-kumur", "Basuh Hidung", "Dahulukan Kanan", "Baca Bismillah"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Kumur-kumur",
+          "Basuh Hidung",
+          "Dahulukan Kanan",
+          "Baca Bismillah"
+        ],
         "time_limit": 45,
         "rule": "High Distraction"
       },
@@ -390,8 +666,17 @@
         "internal_name": "Mastery Prep",
         "title": "Hampir Pakar",
         "description": "Satu kesilapan menamatkan permainan.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Ulang 3 Kali", "Basuh Hidung"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Ulang 3 Kali",
+          "Basuh Hidung"
+        ],
         "time_limit": 35,
         "rule": "Sudden Death"
       },
@@ -400,15 +685,30 @@
         "internal_name": "Mastery",
         "title": "Pakar Wuduk",
         "description": "Buktikan pengetahuan anda.",
-        "steps": ["Niat", "Basuh Muka", "Basuh Tangan", "Sapu Kepala", "Basuh Kaki"],
-        "distractors": ["Baca Bismillah", "Kumur-kumur", "Basuh Hidung", "Dahulukan Kanan", "Ulang 3 Kali"],
+        "steps": [
+          "Niat",
+          "Basuh Muka",
+          "Basuh Tangan",
+          "Sapu Kepala",
+          "Basuh Kaki"
+        ],
+        "distractors": [
+          "Baca Bismillah",
+          "Kumur-kumur",
+          "Basuh Hidung",
+          "Dahulukan Kanan",
+          "Ulang 3 Kali"
+        ],
         "time_limit": 30,
         "rule": "Sudden Death"
       }
     ]
   },
   "ja": {
-    "meta": { "language": "Japanese", "code": "ja" },
+    "meta": {
+      "language": "Japanese",
+      "code": "ja"
+    },
     "ui": {
       "time_attack": "タイムアタック",
       "practice": "練習",
@@ -421,7 +721,12 @@
       "time_remaining": "残り時間",
       "level_select": "レベル選択",
       "game_over": "ゲームオーバー",
-      "completed": "レベルクリア！"
+      "completed": "レベルクリア！",
+      "locked_level": "前のレベルをクリア",
+      "final_score": "最終スコア",
+      "level": "レベル",
+      "view_top_scores": "トップスコアを見る",
+      "you": "あなた"
     },
     "feedback": {
       "correct": "正解！",
@@ -445,7 +750,13 @@
         "internal_name": "Basics 1",
         "title": "基礎",
         "description": "ウドゥの義務（ルクン）を正しく並べましょう。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
         "distractors": [],
         "time_limit": 90,
         "rule": "None"
@@ -455,8 +766,16 @@
         "internal_name": "Basics 2",
         "title": "順序",
         "description": "正しい順序（Tertib）を守りましょう。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["口をすすぐ"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "口をすすぐ"
+        ],
         "time_limit": 80,
         "rule": "None"
       },
@@ -465,8 +784,17 @@
         "internal_name": "Distraction 1",
         "title": "スンナの確認",
         "description": "義務だけに集中してください。スンナは無視します。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["ビスミッラー", "鼻を洗う"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "ビスミッラー",
+          "鼻を洗う"
+        ],
         "time_limit": 70,
         "rule": "Ignore Optional Steps"
       },
@@ -475,8 +803,17 @@
         "internal_name": "Speed 1",
         "title": "スピード",
         "description": "素早く完了させましょう。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["口をすすぐ", "右から洗う"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "口をすすぐ",
+          "右から洗う"
+        ],
         "time_limit": 60,
         "rule": "Speed Up"
       },
@@ -485,8 +822,18 @@
         "internal_name": "Distraction 2",
         "title": "集中",
         "description": "余計な手順に惑わされないでください。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["3回繰り返す", "鼻を洗う", "ビスミッラー"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "3回繰り返す",
+          "鼻を洗う",
+          "ビスミッラー"
+        ],
         "time_limit": 60,
         "rule": "Ignore Optional Steps"
       },
@@ -495,8 +842,17 @@
         "internal_name": "Intermediate",
         "title": "中級",
         "description": "集中力を保ちましょう。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["右から洗う", "口をすすぐ"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "右から洗う",
+          "口をすすぐ"
+        ],
         "time_limit": 50,
         "rule": "None"
       },
@@ -505,8 +861,17 @@
         "internal_name": "Speed 2",
         "title": "時間制限",
         "description": "時間が迫っています！",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["3回繰り返す", "ビスミッラー"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "3回繰り返す",
+          "ビスミッラー"
+        ],
         "time_limit": 40,
         "rule": "Speed Up"
       },
@@ -515,8 +880,19 @@
         "internal_name": "Advanced",
         "title": "精密",
         "description": "慎重に選んでください。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["口をすすぐ", "鼻を洗う", "右から洗う", "ビスミッラー"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "口をすすぐ",
+          "鼻を洗う",
+          "右から洗う",
+          "ビスミッラー"
+        ],
         "time_limit": 45,
         "rule": "High Distraction"
       },
@@ -525,8 +901,17 @@
         "internal_name": "Mastery Prep",
         "title": "達人への道",
         "description": "1つのミスで終了です。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["3回繰り返す", "鼻を洗う"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "3回繰り返す",
+          "鼻を洗う"
+        ],
         "time_limit": 35,
         "rule": "Sudden Death"
       },
@@ -535,15 +920,30 @@
         "internal_name": "Mastery",
         "title": "ウドゥの達人",
         "description": "知識を証明しましょう。",
-        "steps": ["意思 (Niat)", "顔を洗う", "腕を洗う", "頭を拭く", "足を洗う"],
-        "distractors": ["ビスミッラー", "口をすすぐ", "鼻を洗う", "右から洗う", "3回繰り返す"],
+        "steps": [
+          "意思 (Niat)",
+          "顔を洗う",
+          "腕を洗う",
+          "頭を拭く",
+          "足を洗う"
+        ],
+        "distractors": [
+          "ビスミッラー",
+          "口をすすぐ",
+          "鼻を洗う",
+          "右から洗う",
+          "3回繰り返す"
+        ],
         "time_limit": 30,
         "rule": "Sudden Death"
       }
     ]
   },
   "th": {
-    "meta": { "language": "Thai", "code": "th" },
+    "meta": {
+      "language": "Thai",
+      "code": "th"
+    },
     "ui": {
       "time_attack": "แข่งกับเวลา",
       "practice": "ฝึกฝน",
@@ -556,7 +956,12 @@
       "time_remaining": "เวลาที่เหลือ",
       "level_select": "เลือกระดับ",
       "game_over": "จบเกม",
-      "completed": "ผ่านด่าน!"
+      "completed": "ผ่านด่าน!",
+      "locked_level": "ผ่านด่านก่อนหน้า",
+      "final_score": "คะแนนสุดท้าย",
+      "level": "ระดับ",
+      "view_top_scores": "ดูคะแนนสูงสุด",
+      "you": "คุณ"
     },
     "feedback": {
       "correct": "ถูกต้อง!",
@@ -580,7 +985,13 @@
         "internal_name": "Basics 1",
         "title": "พื้นฐาน",
         "description": "เรียงลำดับขั้นตอนบังคับ (รูกุน) ของการอาบน้ำละหมาด",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
         "distractors": [],
         "time_limit": 90,
         "rule": "None"
@@ -590,8 +1001,16 @@
         "internal_name": "Basics 2",
         "title": "ลำดับ",
         "description": "รักษาลำดับให้ถูกต้อง",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["บ้วนปาก"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "บ้วนปาก"
+        ],
         "time_limit": 80,
         "rule": "None"
       },
@@ -600,8 +1019,17 @@
         "internal_name": "Distraction 1",
         "title": "ตรวจสอบซุนนะห์",
         "description": "โฟกัสเฉพาะขั้นตอนบังคับ ข้ามขั้นตอนซุนนะห์",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["กล่าวบิสมิลลาห์", "ล้างจมูก"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "ล้างจมูก"
+        ],
         "time_limit": 70,
         "rule": "Ignore Optional Steps"
       },
@@ -610,8 +1038,17 @@
         "internal_name": "Speed 1",
         "title": "รวดเร็ว",
         "description": "ทำให้เสร็จเร็วขึ้น",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["บ้วนปาก", "เริ่มข้างขวา"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "บ้วนปาก",
+          "เริ่มข้างขวา"
+        ],
         "time_limit": 60,
         "rule": "Speed Up"
       },
@@ -620,8 +1057,18 @@
         "internal_name": "Distraction 2",
         "title": "โฟกัส",
         "description": "อย่าสับสนกับขั้นตอนเพิ่มเติม",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["ทำ 3 ครั้ง", "ล้างจมูก", "กล่าวบิสมิลลาห์"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "ทำ 3 ครั้ง",
+          "ล้างจมูก",
+          "กล่าวบิสมิลลาห์"
+        ],
         "time_limit": 60,
         "rule": "Ignore Optional Steps"
       },
@@ -630,8 +1077,17 @@
         "internal_name": "Intermediate",
         "title": "ระดับกลาง",
         "description": "รักษาความตั้งใจ",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["เริ่มข้างขวา", "บ้วนปาก"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "เริ่มข้างขวา",
+          "บ้วนปาก"
+        ],
         "time_limit": 50,
         "rule": "None"
       },
@@ -640,8 +1096,17 @@
         "internal_name": "Speed 2",
         "title": "เวลาจำกัด",
         "description": "เวลาใกล้หมดแล้ว!",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["ทำ 3 ครั้ง", "กล่าวบิสมิลลาห์"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "ทำ 3 ครั้ง",
+          "กล่าวบิสมิลลาห์"
+        ],
         "time_limit": 40,
         "rule": "Speed Up"
       },
@@ -650,8 +1115,19 @@
         "internal_name": "Advanced",
         "title": "แม่นยำ",
         "description": "เลือกอย่างระมัดระวัง",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["บ้วนปาก", "ล้างจมูก", "เริ่มข้างขวา", "กล่าวบิสมิลลาห์"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "บ้วนปาก",
+          "ล้างจมูก",
+          "เริ่มข้างขวา",
+          "กล่าวบิสมิลลาห์"
+        ],
         "time_limit": 45,
         "rule": "High Distraction"
       },
@@ -660,8 +1136,17 @@
         "internal_name": "Mastery Prep",
         "title": "เกือบเชี่ยวชาญ",
         "description": "ผิดพลาดครั้งเดียวจบเกม",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["ทำ 3 ครั้ง", "ล้างจมูก"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "ทำ 3 ครั้ง",
+          "ล้างจมูก"
+        ],
         "time_limit": 35,
         "rule": "Sudden Death"
       },
@@ -670,15 +1155,30 @@
         "internal_name": "Mastery",
         "title": "ผู้เชี่ยวชาญ",
         "description": "พิสูจน์ความรู้ของคุณ",
-        "steps": ["เจตนา (เนียต)", "ล้างหน้า", "ล้างแขน", "เช็ดศีรษะ", "ล้างเท้า"],
-        "distractors": ["กล่าวบิสมิลลาห์", "บ้วนปาก", "ล้างจมูก", "เริ่มข้างขวา", "ทำ 3 ครั้ง"],
+        "steps": [
+          "เจตนา (เนียต)",
+          "ล้างหน้า",
+          "ล้างแขน",
+          "เช็ดศีรษะ",
+          "ล้างเท้า"
+        ],
+        "distractors": [
+          "กล่าวบิสมิลลาห์",
+          "บ้วนปาก",
+          "ล้างจมูก",
+          "เริ่มข้างขวา",
+          "ทำ 3 ครั้ง"
+        ],
         "time_limit": 30,
         "rule": "Sudden Death"
       }
     ]
   },
   "es": {
-    "meta": { "language": "Spanish", "code": "es" },
+    "meta": {
+      "language": "Spanish",
+      "code": "es"
+    },
     "ui": {
       "time_attack": "Contrarreloj",
       "practice": "Práctica",
@@ -691,7 +1191,12 @@
       "time_remaining": "Tiempo Restante",
       "level_select": "Seleccionar Nivel",
       "game_over": "Fin del Juego",
-      "completed": "¡Nivel Completado!"
+      "completed": "¡Nivel Completado!",
+      "locked_level": "Completa el nivel anterior",
+      "final_score": "PUNTUACIÓN FINAL",
+      "level": "Nivel",
+      "view_top_scores": "Ver mejores puntuaciones",
+      "you": "Tú"
     },
     "feedback": {
       "correct": "¡Correcto!",
@@ -715,7 +1220,13 @@
         "internal_name": "Basics 1",
         "title": "Los Pilares",
         "description": "Ordena los pasos obligatorios (Rukun) del Wudhu.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
         "distractors": [],
         "time_limit": 90,
         "rule": "None"
@@ -725,8 +1236,16 @@
         "internal_name": "Basics 2",
         "title": "Enfoque en Orden",
         "description": "Mantén el orden correcto (Tertib).",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Enjuagar Boca"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Enjuagar Boca"
+        ],
         "time_limit": 80,
         "rule": "None"
       },
@@ -735,8 +1254,17 @@
         "internal_name": "Distraction 1",
         "title": "Verificación Sunnah",
         "description": "Concéntrate solo en lo obligatorio. Ignora lo opcional.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Decir Bismillah", "Lavar Nariz"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Lavar Nariz"
+        ],
         "time_limit": 70,
         "rule": "Ignore Optional Steps"
       },
@@ -745,8 +1273,17 @@
         "internal_name": "Speed 1",
         "title": "Rápido y Seguro",
         "description": "Completa la secuencia más rápido.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Enjuagar Boca", "Empezar por la Derecha"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Enjuagar Boca",
+          "Empezar por la Derecha"
+        ],
         "time_limit": 60,
         "rule": "Speed Up"
       },
@@ -755,8 +1292,18 @@
         "internal_name": "Distraction 2",
         "title": "Enfoque Total",
         "description": "No te confundas con pasos extra.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Repetir 3 veces", "Lavar Nariz", "Decir Bismillah"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Repetir 3 veces",
+          "Lavar Nariz",
+          "Decir Bismillah"
+        ],
         "time_limit": 60,
         "rule": "Ignore Optional Steps"
       },
@@ -765,8 +1312,17 @@
         "internal_name": "Intermediate",
         "title": "A Medio Camino",
         "description": "Mantén tu concentración.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Empezar por la Derecha", "Enjuagar Boca"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Empezar por la Derecha",
+          "Enjuagar Boca"
+        ],
         "time_limit": 50,
         "rule": "None"
       },
@@ -775,8 +1331,17 @@
         "internal_name": "Speed 2",
         "title": "Hora Punta",
         "description": "¡El tiempo se acaba!",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Repetir 3 veces", "Decir Bismillah"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Repetir 3 veces",
+          "Decir Bismillah"
+        ],
         "time_limit": 40,
         "rule": "Speed Up"
       },
@@ -785,8 +1350,19 @@
         "internal_name": "Advanced",
         "title": "Precisión",
         "description": "Selecciona cuidadosamente.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Enjuagar Boca", "Lavar Nariz", "Empezar por la Derecha", "Decir Bismillah"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Enjuagar Boca",
+          "Lavar Nariz",
+          "Empezar por la Derecha",
+          "Decir Bismillah"
+        ],
         "time_limit": 45,
         "rule": "High Distraction"
       },
@@ -795,8 +1371,17 @@
         "internal_name": "Mastery Prep",
         "title": "Casi Maestro",
         "description": "Un error termina la partida.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Repetir 3 veces", "Lavar Nariz"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Repetir 3 veces",
+          "Lavar Nariz"
+        ],
         "time_limit": 35,
         "rule": "Sudden Death"
       },
@@ -805,8 +1390,20 @@
         "internal_name": "Mastery",
         "title": "Maestro del Wudhu",
         "description": "Demuestra tu conocimiento.",
-        "steps": ["Intención (Niat)", "Lavar Cara", "Lavar Brazos", "Limpiar Cabeza", "Lavar Pies"],
-        "distractors": ["Decir Bismillah", "Enjuagar Boca", "Lavar Nariz", "Empezar por la Derecha", "Repetir 3 veces"],
+        "steps": [
+          "Intención (Niat)",
+          "Lavar Cara",
+          "Lavar Brazos",
+          "Limpiar Cabeza",
+          "Lavar Pies"
+        ],
+        "distractors": [
+          "Decir Bismillah",
+          "Enjuagar Boca",
+          "Lavar Nariz",
+          "Empezar por la Derecha",
+          "Repetir 3 veces"
+        ],
         "time_limit": 30,
         "rule": "Sudden Death"
       }

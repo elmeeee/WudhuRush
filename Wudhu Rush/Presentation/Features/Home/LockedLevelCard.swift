@@ -31,7 +31,7 @@ struct LockedLevelCard: View {
                 .foregroundColor(GameTheme.textLight)
                 .multilineTextAlignment(.leading)
             
-            Text("Complete previous level")
+            Text(LocalizationManager.shared.ui(\UIData.locked_level))
                 .font(.caption)
                 .foregroundColor(GameTheme.textLight.opacity(0.6))
                 .multilineTextAlignment(.leading)

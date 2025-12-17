@@ -55,7 +55,7 @@ struct ResultView: View {
                     
                     if case .level = mode {
                         VStack(spacing: 4) {
-                            Text("FINAL SCORE")
+                            Text(localization.ui(\UIData.final_score))
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(GameTheme.textLight)
@@ -77,7 +77,7 @@ struct ResultView: View {
                         statBox(title: localization.ui(\UIData.mistake), value: "\(mistakes)", color: GameTheme.error)
                         
                         if case .level(let level) = mode {
-                             statBox(title: "Level", value: level.id, color: GameTheme.textDark)
+                             statBox(title: localization.ui(\UIData.level), value: level.id, color: GameTheme.textDark)
                         }
                     }
                     .padding(.horizontal)

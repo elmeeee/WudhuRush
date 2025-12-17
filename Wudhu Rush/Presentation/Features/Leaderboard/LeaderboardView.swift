@@ -12,15 +12,17 @@ struct LeaderboardView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var localization = LocalizationManager.shared
     
-    let leaders: [(rank: Int, name: String, score: Int)] = [
-        (1, "Aisha", 1500),
-        (2, "Yusuf", 1420),
-        (3, "Fatima", 1350),
-        (4, "Omar", 1200),
-        (5, "Hassan", 1100),
-        (6, "You", 950),
-        (7, "Zainab", 900)
-    ]
+    private var leaders: [(rank: Int, name: String, score: Int)] {
+        [
+            (1, "Aisha", 1500),
+            (2, "Yusuf", 1420),
+            (3, "Fatima", 1350),
+            (4, "Omar", 1200),
+            (5, "Hassan", 1100),
+            (6, localization.ui(\UIData.you), 950),
+            (7, "Zainab", 900)
+        ]
+    }
     
     var body: some View {
         ZStack {

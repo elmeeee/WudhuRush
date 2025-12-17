@@ -46,6 +46,11 @@ struct UIData: Codable {
     let level_select: String
     let game_over: String
     let completed: String
+    let locked_level: String
+    let final_score: String
+    let level: String
+    let view_top_scores: String
+    let you: String
 }
 
 struct FeedbackData: Codable {

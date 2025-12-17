@@ -20,11 +20,6 @@ struct HomeView: View {
         ("ja", "🇯🇵"), ("th", "🇹🇭"), ("es", "🇪🇸")
     ]
     
-    enum NavigationDestination: Hashable {
-        case game(GameMode)
-        case leaderboard
-    }
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -32,7 +27,6 @@ struct HomeView: View {
                 
                 VStack(spacing: 0) {
                     
-                    // Top Bar: LEvel / Language
                     HStack {
                         Spacer()
                         Menu {
@@ -123,19 +117,12 @@ struct HomeView: View {
                         }
                         
                         NavigationLink(value: NavigationDestination.leaderboard) {
-                            HStack {
-                                Image(systemName: "chart.bar.fill")
-                                Text(localization.ui(\UIData.leaderboard))
-                            }
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .foregroundColor(GameTheme.primaryGreen)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.white.opacity(0.6))
-                            .cornerRadius(16)
+                            MenuButton(
+                                icon: "chart.bar.fill",
+                                title: localization.ui(\UIData.leaderboard),
+                                subtitle: localization.ui(\UIData.view_top_scores)
+                            )
                         }
-                        .padding(.horizontal, 60)
                     }
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20)

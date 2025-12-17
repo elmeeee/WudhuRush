@@ -14,6 +14,7 @@ struct GameView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var localization = LocalizationManager.shared
     @State private var scene: GameScene?
+    @State private var highlightedSlot: Int? = nil
     
     init(mode: GameMode) {
         _engine = StateObject(wrappedValue: GameEngine(mode: mode))
@@ -85,6 +86,32 @@ struct GameView: View {
                     .shadow(radius: 2)
                         
                     Spacer().allowsHitTesting(false)
+                    
+                    // Hint Button (for levels with hints)
+                    if engine.maxHints > 0 {
+                        Button(action: {
+                            if let slotIndex = engine.useHint() {
+                                highlightedSlot = slotIndex
+                                scene?.highlightSlot(at: slotIndex)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    highlightedSlot = nil
+                                }
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "lightbulb.fill")
+                                Text("\(engine.hintsRemaining)")
+                                    .monospacedDigit()
+                            }
+                            .font(.headline)
+                            .foregroundColor(engine.hintsRemaining > 0 ? GameTheme.gold : GameTheme.textLight)
+                            .padding(10)
+                            .background(Color.white)
+                            .cornerRadius(20)
+                            .shadow(radius: 2)
+                        }
+                        .disabled(engine.hintsRemaining == 0)
+                    }
                     
                     if case .level = engine.gameMode {
                         HStack(spacing: 4) {

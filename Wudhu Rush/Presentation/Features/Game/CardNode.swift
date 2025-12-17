@@ -37,7 +37,6 @@ class CardNode: SKNode {
         background.lineWidth = 1.5
         addChild(background)
         
-        // Text configuration
         label.text = step.title
         label.fontSize = 14
         label.fontColor = GameTheme.skTextDark
@@ -48,23 +47,6 @@ class CardNode: SKNode {
         label.position = CGPoint(x: 0, y: -size.height * 0.05)
         label.zPosition = 1
         addChild(label)
-        
-        if !step.isDistractor {
-            let bubbleRadius: CGFloat = 10
-            let numberBubble = SKShapeNode(circleOfRadius: bubbleRadius)
-            numberBubble.fillColor = GameTheme.skPrimaryGreen.withAlphaComponent(0.1)
-            numberBubble.strokeColor = .clear
-            numberBubble.position = CGPoint(x: -size.width/2 + 18, y: size.height/2 - 18)
-            addChild(numberBubble)
-            
-            let numText = SKLabelNode(text: "\(step.order)")
-            numText.fontName = "SFProRounded-Bold"
-            numText.fontSize = 12
-            numText.fontColor = GameTheme.skPrimaryGreen
-            numText.verticalAlignmentMode = .center
-            numText.position = CGPoint(x: 0, y: 0)
-            numberBubble.addChild(numText)
-        }
         
         self.name = "card-\(step.id)"
     }

@@ -15,6 +15,27 @@ class GameScene: SKScene {
         setupLayout()
     }
     
+    func highlightSlot(at index: Int) {
+        guard index < slots.count else { return }
+        let slot = slots[index]
+        
+        // Pulse animation
+        let scaleUp = SKAction.scale(to: 1.1, duration: 0.3)
+        let scaleDown = SKAction.scale(to: 1.0, duration: 0.3)
+        let pulse = SKAction.sequence([scaleUp, scaleDown])
+        let repeat3 = SKAction.repeat(pulse, count: 3)
+        
+        // Color change
+        let originalColor = slot.strokeColor
+        slot.strokeColor = GameTheme.skGold
+        slot.lineWidth = 4
+        
+        slot.run(repeat3) {
+            slot.strokeColor = originalColor
+            slot.lineWidth = 2
+        }
+    }
+    
     weak var gameEngine: GameEngine? {
         didSet {
              if self.scene != nil { setupLayout() }
@@ -61,18 +82,33 @@ class GameScene: SKScene {
             slot.userData = ["index": i]
             slot.position = CGPoint(x: 0, y: startY - (CGFloat(i) * slotSpacing))
             
-            let indicator = SKShapeNode(circleOfRadius: 14)
-            indicator.fillColor = GameTheme.skPrimaryGreen
-            indicator.strokeColor = .clear
-            indicator.position = CGPoint(x: -slotSize.width/2 + 25, y: 0)
-            slot.addChild(indicator)
+            // Determine if we should show numbers
+            let shouldShowNumber: Bool
+            if case .practice = engine.gameMode {
+                // Practice mode: always show numbers
+                shouldShowNumber = true
+            } else if case .level(let levelData) = engine.gameMode {
+                // Level 1: show numbers only for first 3 slots
+                // Level 2+: no numbers
+                shouldShowNumber = levelData.id == "L01" && i < 3
+            } else {
+                shouldShowNumber = false
+            }
             
-            let num = SKLabelNode(text: "\(i + 1)")
-            num.fontName = "SFProRounded-Bold"
-            num.fontSize = 16
-            num.fontColor = .white
-            num.verticalAlignmentMode = .center
-            indicator.addChild(num)
+            if shouldShowNumber {
+                let indicator = SKShapeNode(circleOfRadius: 14)
+                indicator.fillColor = GameTheme.skPrimaryGreen
+                indicator.strokeColor = .clear
+                indicator.position = CGPoint(x: -slotSize.width/2 + 25, y: 0)
+                slot.addChild(indicator)
+                
+                let num = SKLabelNode(text: "\(i + 1)")
+                num.fontName = "SFProRounded-Bold"
+                num.fontSize = 16
+                num.fontColor = .white
+                num.verticalAlignmentMode = .center
+                indicator.addChild(num)
+            }
             
             let placeholder = SKLabelNode(text: "Step \(i+1)")
             placeholder.fontName = "SFProRounded-Medium"
