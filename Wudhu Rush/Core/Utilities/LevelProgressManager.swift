@@ -14,7 +14,7 @@ class LevelProgressManager: ObservableObject {
     
     // ⚙️ DEBUG FLAG - Set to true to unlock ALL levels for testing
     // Set back to false before release!
-    static let DEBUG_UNLOCK_ALL_LEVELS = true
+    static let DEBUG_UNLOCK_ALL_LEVELS = false
     
     @Published var highestUnlockedIndex: Int {
         didSet {
