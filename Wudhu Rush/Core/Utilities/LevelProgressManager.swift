@@ -12,6 +12,10 @@ import Combine
 class LevelProgressManager: ObservableObject {
     static let shared = LevelProgressManager()
     
+    // ⚙️ DEBUG FLAG - Set to true to unlock ALL levels for testing
+    // Set back to false before release!
+    static let DEBUG_UNLOCK_ALL_LEVELS = true
+    
     @Published var highestUnlockedIndex: Int {
         didSet {
             UserDefaults.standard.set(highestUnlockedIndex, forKey: "highestUnlockedIndex")
@@ -29,6 +33,10 @@ class LevelProgressManager: ObservableObject {
     }
     
     func isLocked(index: Int) -> Bool {
+        // If debug flag is on, nothing is locked
+        if Self.DEBUG_UNLOCK_ALL_LEVELS {
+            return false
+        }
         return index > highestUnlockedIndex
     }
     
