@@ -25,6 +25,8 @@ struct GameView: View {
                 if let scene = scene {
                     SpriteView(scene: scene, options: [.allowsTransparency])
                         .frame(width: proxy.size.width, height: proxy.size.height)
+                        .focusable(false) // Disable focus engine for this view
+                        .focusEffectDisabled(true) // Disable focus effects
                 } else {
                     Color.clear
                         .onAppear {
@@ -38,6 +40,7 @@ struct GameView: View {
                 }
             }
             .ignoresSafeArea()
+            .focusable(false) // Ensure container is also not focusable
             
             // HUD Layer
             VStack {
@@ -82,7 +85,7 @@ struct GameView: View {
                     .cornerRadius(20)
                     .shadow(radius: 2)
                         
-                    Spacer()
+                    Spacer().allowsHitTesting(false)
                     
                     // Timer / Reset
                     if case .level = engine.gameMode {
@@ -140,7 +143,7 @@ struct GameView: View {
                         .padding(.top, 4)
                 }
                 
-                Spacer()
+                Spacer().allowsHitTesting(false)
                 
                 // Feedback Toast
                 if let step = engine.lastCorrectStep, engine.showFeedback {
@@ -172,7 +175,7 @@ struct GameView: View {
             }
             
             // Result Overlay
-            if engine.gameState == .finished {
+            if case .finished = engine.gameState {
                 Color.black.opacity(0.5)
                     .ignoresSafeArea()
                     .transition(.opacity)
@@ -181,6 +184,7 @@ struct GameView: View {
                     score: engine.score,
                     mistakes: engine.mistakes,
                     mode: engine.gameMode,
+                    engine: engine,
                     onRestart: {
                         withAnimation { 
                             engine.startGame()

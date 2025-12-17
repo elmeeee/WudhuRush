@@ -8,9 +8,11 @@ class CardNode: SKNode {
     let step: WudhuStepModel
     private let background: SKShapeNode
     private let label: SKLabelNode
+    private let cardSize: CGSize // Store size for hit testing
     
     init(step: WudhuStepModel, size: CGSize) {
         self.step = step
+        self.cardSize = size
         self.background = SKShapeNode(rectOf: size, cornerRadius: 12)
         self.label = SKLabelNode(fontNamed: "SFProRounded-Bold")
         
@@ -65,6 +67,19 @@ class CardNode: SKNode {
         }
         
         self.name = "card-\(step.id)"
+    }
+    
+    // Manual hit test is more reliable for SKNodes
+    func containsTouch(_ point: CGPoint) -> Bool {
+        // Point is in parent (Scene) coordinates.
+        // Check relative distance.
+        let dx = point.x - self.position.x
+        let dy = point.y - self.position.y
+        
+        let halfW = (cardSize.width / 2) + 20 // 20pt buffer for easier grabbing
+        let halfH = (cardSize.height / 2) + 20
+        
+        return abs(dx) < halfW && abs(dy) < halfH
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -130,13 +145,14 @@ class GameScene: SKScene {
         
         guard let engine = gameEngine else { return }
         
-        // Layout Config
+        // Layout Config - FIXED OVERLAP
         let safeAreaTop = view?.safeAreaInsets.top ?? 47
-        let topBarHeight: CGFloat = 80
+        // Increase top offset significantly (old: 80, new: 180) to clear the HUD
+        let topBarHeight: CGFloat = 180 
         let totalTopOffset = safeAreaTop + topBarHeight
         
-        let startY = (size.height / 2) - totalTopOffset - 25
-        let slotSpacing: CGFloat = 68 
+        let startY = (size.height / 2) - totalTopOffset
+        let slotSpacing: CGFloat = 72 // Slightly increased spacing
         
         // Render Slots based on engine.currentLevelSteps (Correct Slots)
         for (i, _) in engine.currentLevelSteps.enumerated() {
@@ -181,7 +197,8 @@ class GameScene: SKScene {
     
     private func setupCards(steps: [WudhuStepModel]) {
         let safeAreaBottom = view?.safeAreaInsets.bottom ?? 34
-        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 90
+        // Ensure cards are at bottom but accessible
+        let cardsCenterY = (-size.height / 2) + safeAreaBottom + 120 
         
         let spacingX: CGFloat = 145
         let spacingY: CGFloat = 65
@@ -209,30 +226,36 @@ class GameScene: SKScene {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         
-        // Iterate through cards in reverse Z order (top most first)
-        // We filter active cards and check if they contain the touch point
-        // Using `cards` array is safer than `nodes(at:)`
+        // Manual Hit Test (Brute Force)
+        // This is superior to nodes(at:) for this specific use case because:
+        // 1. It ignores SpriteKit's internal hit-test logic which can fail on SKNodes
+        // 2. It uses our custom 'containsTouch' with buffer
+        // 3. It respects Z-order explicitly by reversing the array
         
-        // We iterate reversed so we pick up the top-most card if they overlap
         for card in cards.reversed() {
-             if !card.isUserInteractionEnabled { continue }
+            // Check interaction enabled
+            if !card.isUserInteractionEnabled { continue }
             
-             // Create a slightly larger hit area for better UX
-             let hitFrame = card.calculateAccumulatedFrame().insetBy(dx: -10, dy: -10)
-            
-             if hitFrame.contains(location) {
-                 draggingCard = card
-                 originalPosition = card.position
-                 touchOffset = CGPoint(x: location.x - card.position.x, y: location.y - card.position.y)
-                 
-                 card.setHighlight(true)
-                 card.zPosition = 1000
-                 
-                 let impact = UIImpactFeedbackGenerator(style: .light)
-                 impact.impactOccurred()
-                 return
-             }
+            // Use the geometric check
+            if card.containsTouch(location) {
+                // Found the card!
+                dragStart(card: card, location: location)
+                return
+            }
         }
+    }
+    
+    // Helper to start drag (extracted for clarity)
+    private func dragStart(card: CardNode, location: CGPoint) {
+        draggingCard = card
+        originalPosition = card.position
+        touchOffset = CGPoint(x: location.x - card.position.x, y: location.y - card.position.y)
+        
+        card.setHighlight(true)
+        card.zPosition = 1000 // Bring to top
+        
+        let impact = UIImpactFeedbackGenerator(style: .medium)
+        impact.impactOccurred()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

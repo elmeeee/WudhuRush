@@ -85,7 +85,7 @@ class LocalizationManager: ObservableObject {
     private init() {
         loadData()
         // Default to English or System if available
-        let systemLang = Locale.current.languageCode ?? "en"
+        let systemLang = Locale.current.language.languageCode?.identifier ?? "en"
         if ["en", "id", "ms", "ja", "th", "es"].contains(systemLang) {
             setLanguage(systemLang)
         } else {
@@ -103,7 +103,7 @@ class LocalizationManager: ObservableObject {
         }
         
         guard let finalUrl = url else {
-            print("❌ CRITICAL: GameContent.json not found in Bundle.")
+            print("CRITICAL: GameContent.json not found in Bundle.")
             return
         }
         
@@ -111,12 +111,10 @@ class LocalizationManager: ObservableObject {
             let data = try Data(contentsOf: finalUrl)
             let decoder = JSONDecoder()
             self.allContent = try decoder.decode(GameContentRoot.self, from: data)
-            print("✅ Localization Loaded Successfully for languages: en, id, ms, ja, th, es")
         } catch {
-            print("❌ CRITICAL: Failed to decode GameContent.json: \(error)")
-            // Helpful debug: print a snippet of the JSON to see if it's readable
+            print("CRITICAL: Failed to decode GameContent.json: \(error)")
              if let string = try? String(contentsOf: finalUrl) {
-                 print("📄 JSON Snippet: \(string.prefix(100))")
+                 print("JSON Snippet: \(string.prefix(100))")
              }
         }
     }

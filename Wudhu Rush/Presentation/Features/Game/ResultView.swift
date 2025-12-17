@@ -5,6 +5,7 @@ struct ResultView: View {
     let score: Int
     let mistakes: Int
     let mode: GameMode
+    let engine: GameEngine // Pass engine to check state
     let onRestart: () -> Void
     let onHome: () -> Void
     
@@ -16,15 +17,28 @@ struct ResultView: View {
             VStack(spacing: 0) {
                 // Top Banner
                 ZStack {
-                    GameTheme.primaryGreen
+                    if case .finished(let result) = engine.gameState, result == .loss {
+                        GameTheme.error // Red background for loss
+                    } else {
+                        GameTheme.primaryGreen
+                    }
+                    
                     VStack {
-                        if case .level = mode {
-                            Text(localization.feedback(\FeedbackData.level_completed).uppercased())
-                                .font(.system(size: 18, weight: .black))
-                                .foregroundColor(GameTheme.goldHighlight)
-                                .multilineTextAlignment(.center)
-                                .padding()
+                        if case .finished(let result) = engine.gameState {
+                            if result == .win {
+                                Text(localization.feedback(\FeedbackData.level_completed).uppercased())
+                                    .font(.system(size: 18, weight: .black))
+                                    .foregroundColor(GameTheme.goldHighlight)
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                            } else {
+                                Text(localization.ui(\UIData.game_over).uppercased()) // "GAME OVER"
+                                    .font(.system(size: 24, weight: .black))
+                                    .foregroundColor(.white) // White text on Red background
+                                    .padding()
+                            }
                         } else {
+                             // Fallback
                             Text(localization.ui(\UIData.completed).uppercased())
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(.white)

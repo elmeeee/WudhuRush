@@ -10,7 +10,12 @@ enum GameMode: Hashable {
 
 enum GameState {
     case playing
-    case finished
+    case finished(GameResult)
+}
+
+enum GameResult {
+    case win
+    case loss // Time's up or sudden death
 }
 
 class GameEngine: ObservableObject {
@@ -127,9 +132,28 @@ class GameEngine: ObservableObject {
     
     func finishGame() {
         stopGame()
-        gameState = .finished
         
-        // Save score if needed
+        let isWin: Bool
+        if case .level = gameMode {
+            // Win if all target slots are filled correctly
+            // (Assuming validation happens on drop, so filledSlots only contains correct drops?
+            // Wait, validateDrop adds to filledSlots ONLY if correct. So check count.)
+            isWin = filledSlots.count == targetSlotCount
+        } else {
+            // Practice mode doesn't really 'win' unless endless logic steps in, 
+            // but for now let's say filling all slots is a win.
+            isWin = filledSlots.count == targetSlotCount
+        }
+        
+        if isWin, case .level(let levelData) = gameMode {
+             // Unlock next level logic
+             if let allLevels = LocalizationManager.shared.content?.levels,
+                let currentIndex = allLevels.firstIndex(where: { $0.id == levelData.id }) {
+                 LevelProgressManager.shared.unlockLevel(at: currentIndex + 1)
+             }
+        }
+        
+        gameState = .finished(isWin ? .win : .loss)
     }
     
     func validateDrop(step: WudhuStepModel, atSlotIndex index: Int) -> Bool {

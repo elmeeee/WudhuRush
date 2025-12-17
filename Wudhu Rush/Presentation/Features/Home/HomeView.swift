@@ -90,9 +90,16 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
-                                ForEach(localization.content?.levels ?? []) { level in
-                                    NavigationLink(value: NavigationDestination.game(.level(level))) {
-                                        LevelCard(level: level)
+                                let levels = localization.content?.levels ?? []
+                                ForEach(Array(levels.enumerated()), id: \.element.id) { index, level in
+                                    let isLocked = LevelProgressManager.shared.isLocked(index: index)
+                                    
+                                    if isLocked {
+                                        LockedLevelCard(level: level)
+                                    } else {
+                                        NavigationLink(value: NavigationDestination.game(.level(level))) {
+                                            LevelCard(level: level)
+                                        }
                                     }
                                 }
                             }
@@ -185,6 +192,46 @@ struct LevelCard: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 3)
+    }
+}
+
+struct LockedLevelCard: View {
+    let level: LevelData
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                // Lock Icon
+                ZStack {
+                    Circle()
+                        .fill(GameTheme.textLight.opacity(0.2))
+                        .frame(width: 32, height: 32)
+                    Image(systemName: "lock.fill")
+                        .font(.caption)
+                        .foregroundColor(GameTheme.textLight)
+                }
+                Spacer()
+            }
+            
+            Text(level.title)
+                .font(.headline)
+                .fontWeight(.bold)
+                .foregroundColor(GameTheme.textLight) // Grayed out
+                .multilineTextAlignment(.leading)
+            
+            Text("Complete previous level")
+                .font(.caption)
+                .foregroundColor(GameTheme.textLight.opacity(0.6))
+                .multilineTextAlignment(.leading)
+        }
+        .padding()
+        .frame(width: 160, height: 140)
+        .background(Color.white.opacity(0.6)) // Dimmed background
+        .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.black.opacity(0.05), lineWidth: 1)
+        )
     }
 }
 
