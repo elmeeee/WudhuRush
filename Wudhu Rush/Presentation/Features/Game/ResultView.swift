@@ -20,6 +20,7 @@ struct ResultView: View {
     @ObservedObject var localization = LocalizationManager.shared
     @StateObject private var userProfile = UserProfileManager.shared
     @State private var scoreSubmitted = false
+    @State private var levelUnlocked = false
     
     var body: some View {
         ZStack {
@@ -191,9 +192,37 @@ struct ResultView: View {
                 score: score,
                 level: levelData.title
             )
-            print("✅ Score submitted to leaderboard")
         } catch {
-            print("❌ Failed to submit score: \(error)")
+            print("Failed to submit score: \(error)")
+        }
+        
+        // Unlock next level after submitting score
+        await unlockNextLevel()
+    }
+    
+    private func unlockNextLevel() async {
+        // Only unlock once
+        guard !levelUnlocked else { return }
+        
+        // Only for level mode
+        guard case .level(let currentLevel) = mode else { return }
+        
+        // Only if won
+        guard case .finished(let result) = engine.gameState, result == .win else { return }
+        
+        levelUnlocked = true
+        
+        // Find the current level index and unlock the next one
+        if let allLevels = LocalizationManager.shared.content?.levels,
+           let currentIndex = allLevels.firstIndex(where: { $0.id == currentLevel.id }) {
+            let nextIndex = currentIndex + 1
+            
+            // Only unlock if there is a next level
+            if nextIndex < allLevels.count {
+                await MainActor.run {
+                    LevelProgressManager.shared.unlockLevel(at: nextIndex)
+                }
+            }
         }
     }
 }

@@ -43,8 +43,13 @@ final class UserProfileManager: ObservableObject {
     private let usersCollection = "users"
     private var authStateListener: AuthStateDidChangeListenerHandle?
     
+    // UserDefaults keys for persistence
+    private let userDefaultsPlayerNameKey = "anonymousPlayerName"
+    private let userDefaultsHasSetNameKey = "hasSetAnonymousName"
+    private let userDefaultsUserIdKey = "anonymousUserId"
+    
     var playerName: String {
-        userProfile?.playerName ?? ""
+        userProfile?.playerName ?? UserDefaults.standard.string(forKey: userDefaultsPlayerNameKey) ?? ""
     }
     
     var userId: String {
@@ -52,15 +57,48 @@ final class UserProfileManager: ObservableObject {
     }
     
     private init() {
+        // Load persisted data from UserDefaults
+        loadPersistedData()
+        
         // Listen to auth state changes
         authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             Task { @MainActor [weak self] in
                 self?.currentUser = user
                 if let user = user {
                     await self?.loadUserProfile(userId: user.uid)
+                } else {
+                    // User signed out, check if we have persisted anonymous data
+                    self?.loadPersistedData()
                 }
             }
         }
+    }
+    
+    // MARK: - UserDefaults Persistence
+    
+    private func loadPersistedData() {
+        let savedHasSetName = UserDefaults.standard.bool(forKey: userDefaultsHasSetNameKey)
+        let savedPlayerName = UserDefaults.standard.string(forKey: userDefaultsPlayerNameKey)
+        
+        if savedHasSetName, let name = savedPlayerName, !name.isEmpty {
+            hasSetName = true
+        } else {
+            hasSetName = false
+        }
+    }
+    
+    private func saveToUserDefaults(playerName: String, userId: String) {
+        UserDefaults.standard.set(playerName, forKey: userDefaultsPlayerNameKey)
+        UserDefaults.standard.set(true, forKey: userDefaultsHasSetNameKey)
+        UserDefaults.standard.set(userId, forKey: userDefaultsUserIdKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    private func clearUserDefaults() {
+        UserDefaults.standard.removeObject(forKey: userDefaultsPlayerNameKey)
+        UserDefaults.standard.removeObject(forKey: userDefaultsHasSetNameKey)
+        UserDefaults.standard.removeObject(forKey: userDefaultsUserIdKey)
+        UserDefaults.standard.synchronize()
     }
     
     deinit {
@@ -78,14 +116,50 @@ final class UserProfileManager: ObservableObject {
         do {
             let result = try await Auth.auth().signInAnonymously()
             currentUser = result.user
-            print("✅ Signed in anonymously: \(result.user.uid)")
         } catch {
-            print("❌ Error signing in anonymously: \(error)")
             throw error
         }
     }
     
-    // MARK: - Profile Management
+    /// Automatically restore session if user has persisted data but is not signed in
+    func restoreSessionIfNeeded() async {
+        // If already signed in, no need to restore
+        if currentUser != nil {
+            return
+        }
+        
+        // Check if we have persisted data
+        let savedHasSetName = UserDefaults.standard.bool(forKey: userDefaultsHasSetNameKey)
+        let savedPlayerName = UserDefaults.standard.string(forKey: userDefaultsPlayerNameKey)
+        
+        if savedHasSetName, let name = savedPlayerName, !name.isEmpty {
+            print("🔄 Restoring anonymous session for: \(name)")
+            do {
+                try await signInAnonymously()
+            } catch {
+                print("Failed to restore session: \(error)")
+            }
+        }
+    }
+    
+    /// Check if a player name already exists in the database
+    func isPlayerNameTaken(_ name: String) async throws -> Bool {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        // Query Firestore for existing users with this name (case-insensitive)
+        let snapshot = try await db.collection(usersCollection)
+            .whereField("player_name_lowercase", isEqualTo: trimmedName)
+            .getDocuments()
+        
+        // If we find any documents, the name is taken
+        // But exclude the current user's document if they're updating their name
+        if let currentUserId = currentUser?.uid {
+            let otherUsers = snapshot.documents.filter { $0.documentID != currentUserId }
+            return !otherUsers.isEmpty
+        }
+        
+        return !snapshot.documents.isEmpty
+    }
     
     func setPlayerName(_ name: String) async throws {
         guard let userId = currentUser?.uid else {
@@ -97,28 +171,45 @@ final class UserProfileManager: ObservableObject {
             throw NSError(domain: "UserProfile", code: -2, userInfo: [NSLocalizedDescriptionKey: "Name cannot be empty"])
         }
         
+        // Check if name is already taken
+        let isTaken = try await isPlayerNameTaken(trimmedName)
+        if isTaken {
+            throw NSError(
+                domain: "UserProfile",
+                code: -3,
+                userInfo: [NSLocalizedDescriptionKey: "This name is already taken. Please choose a different name."]
+            )
+        }
+        
         // Check if profile exists
         let docRef = db.collection(usersCollection).document(userId)
         let document = try await docRef.getDocument()
+        
+        let playerNameLowercase = trimmedName.lowercased()
         
         if document.exists {
             // Update existing profile
             try await docRef.updateData([
                 "player_name": trimmedName,
+                "player_name_lowercase": playerNameLowercase,
                 "updated_at": FieldValue.serverTimestamp()
             ])
         } else {
-            // Create new profile
-            let newProfile = UserProfile(
-                userId: userId,
-                playerName: trimmedName,
-                totalScore: 0,
-                gamesPlayed: 0,
-                createdAt: Date(),
-                updatedAt: Date()
-            )
-            try docRef.setData(from: newProfile)
+            let profileData: [String: Any] = [
+                "user_id": userId,
+                "player_name": trimmedName,
+                "player_name_lowercase": playerNameLowercase,
+                "total_score": 0,
+                "games_played": 0,
+                "created_at": FieldValue.serverTimestamp(),
+                "updated_at": FieldValue.serverTimestamp()
+            ]
+            
+            try await docRef.setData(profileData)
         }
+        
+        // Save to UserDefaults for persistence
+        saveToUserDefaults(playerName: trimmedName, userId: userId)
         
         hasSetName = true
         await loadUserProfile(userId: userId)
@@ -132,11 +223,16 @@ final class UserProfileManager: ObservableObject {
             if let profile = try? document.data(as: UserProfile.self) {
                 self.userProfile = profile
                 self.hasSetName = !profile.playerName.isEmpty
+                
+                // Sync with UserDefaults
+                if !profile.playerName.isEmpty {
+                    saveToUserDefaults(playerName: profile.playerName, userId: userId)
+                }
             } else {
                 self.hasSetName = false
             }
         } catch {
-            print("❌ Error loading user profile: \(error)")
+            print("Error loading user profile: \(error)")
         }
     }
     
@@ -161,6 +257,7 @@ final class UserProfileManager: ObservableObject {
         currentUser = nil
         userProfile = nil
         hasSetName = false
+        clearUserDefaults()
     }
 }
 

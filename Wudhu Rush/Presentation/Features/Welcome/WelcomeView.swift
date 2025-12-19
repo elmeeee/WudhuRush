@@ -58,11 +58,27 @@ struct WelcomeView: View {
                         .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                         .padding(.horizontal, 40)
                         .disabled(isLoading)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(showError ? Color.red : Color.clear, lineWidth: 2)
+                                .padding(.horizontal, 40)
+                        )
                     
                     if showError {
-                        Text(errorMessage)
+                        HStack(spacing: 8) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.red)
+                            Text(errorMessage)
+                                .font(.subheadline)
+                                .foregroundColor(.red)
+                        }
+                        .padding(.horizontal, 40)
+                        .multilineTextAlignment(.center)
+                    } else {
+                        Text("Choose a unique name for the leaderboard")
                             .font(.caption)
-                            .foregroundColor(.red)
+                            .foregroundColor(GameTheme.textLight)
+                            .padding(.horizontal, 40)
                     }
                 }
                 

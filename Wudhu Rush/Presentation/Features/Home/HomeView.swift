@@ -12,6 +12,7 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject private var localization = LocalizationManager.shared
     @StateObject private var userProfile = UserProfileManager.shared
+    @ObservedObject private var levelProgress = LevelProgressManager.shared
     @State private var navigateToGame = false
     @State private var selectedLevel: LevelData?
     @State private var gameMode: GameMode = .practice
@@ -30,6 +31,10 @@ struct HomeView: View {
             } else {
                 mainContent
             }
+        }
+        .task {
+            // Restore session if user has persisted data
+            await userProfile.restoreSessionIfNeeded()
         }
     }
     
@@ -101,7 +106,7 @@ struct HomeView: View {
                             HStack(spacing: 16) {
                                 let levels = localization.content?.levels ?? []
                                 ForEach(Array(levels.enumerated()), id: \.element.id) { index, level in
-                                    let isLocked = LevelProgressManager.shared.isLocked(index: index)
+                                    let isLocked = levelProgress.isLocked(index: index)
                                     
                                     if isLocked {
                                         LockedLevelCard(level: level)

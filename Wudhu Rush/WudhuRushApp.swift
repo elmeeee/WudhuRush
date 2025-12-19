@@ -11,6 +11,7 @@ import FirebaseCore
 
 @main
 struct WudhuRushApp: App {
+    @State private var showSplash = true
     
     init() {
         // Configure Firebase first
@@ -23,7 +24,19 @@ struct WudhuRushApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            ZStack {
+                if showSplash {
+                    SplashScreenView {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            showSplash = false
+                        }
+                    }
+                    .transition(.opacity)
+                } else {
+                    HomeView()
+                        .transition(.opacity)
+                }
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ struct LeaderboardEntry: Codable, Identifiable {
     @DocumentID var id: String?
     let playerName: String
     let score: Int
+    let totalScore: Int
+    let gamesPlayed: Int
+    let bestScore: Int
     let level: String
     let timestamp: Date
     let userId: String
@@ -24,6 +27,9 @@ struct LeaderboardEntry: Codable, Identifiable {
         case id
         case playerName = "player_name"
         case score
+        case totalScore = "total_score"
+        case gamesPlayed = "games_played"
+        case bestScore = "best_score"
         case level
         case timestamp
         case userId = "user_id"
@@ -52,24 +58,50 @@ final class FirebaseManager: ObservableObject {
             throw NSError(domain: "FirebaseManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
         }
         
-        let entry = LeaderboardEntry(
-            playerName: playerName,
-            score: score,
-            level: level,
-            timestamp: Date(),
-            userId: userId
-        )
+        // Check if user already has a leaderboard entry
+        let query = db.collection(leaderboardCollection)
+            .whereField("user_id", isEqualTo: userId)
+            .limit(to: 1)
         
-        do {
-            _ = try db.collection(leaderboardCollection).addDocument(from: entry)
-            print("Score submitted successfully")
-        } catch {
-            print("Error submitting score: \(error)")
-            throw error
+        let snapshot = try await query.getDocuments()
+        
+        if let existingDoc = snapshot.documents.first {
+            // Update existing entry
+            let data = existingDoc.data()
+            let currentTotalScore = data["total_score"] as? Int ?? 0
+            let currentGamesPlayed = data["games_played"] as? Int ?? 0
+            let currentBestScore = data["best_score"] as? Int ?? 0
+            
+            let newTotalScore = currentTotalScore + score
+            let newGamesPlayed = currentGamesPlayed + 1
+            let newBestScore = max(currentBestScore, score)
+            
+            try await existingDoc.reference.updateData([
+                "player_name": playerName, // Update in case name changed
+                "score": newTotalScore, // Main score for sorting (total)
+                "total_score": newTotalScore,
+                "games_played": newGamesPlayed,
+                "best_score": newBestScore,
+                "level": level, // Last played level
+                "timestamp": FieldValue.serverTimestamp()
+            ])
+            
+        } else {
+            // Create new entry
+            let entry: [String: Any] = [
+                "player_name": playerName,
+                "score": score, // Main score for sorting
+                "total_score": score,
+                "games_played": 1,
+                "best_score": score,
+                "level": level,
+                "timestamp": FieldValue.serverTimestamp(),
+                "user_id": userId
+            ]
+            
+            try await db.collection(leaderboardCollection).addDocument(data: entry)
         }
     }
-    
-    // MARK: - Fetch Leaderboard
     
     func fetchLeaderboard(limit: Int = 100, level: String? = nil) async throws -> [LeaderboardEntry] {
         isLoading = true
@@ -77,13 +109,12 @@ final class FirebaseManager: ObservableObject {
         
         var query: Query = db.collection(leaderboardCollection)
             .order(by: "score", descending: true)
+            .limit(to: limit)
         
-        // Filter by level if specified
+        // Filter by level if specified (optional - shows last played level)
         if let level = level {
             query = query.whereField("level", isEqualTo: level)
         }
-        
-        query = query.limit(to: limit)
         
         do {
             let snapshot = try await query.getDocuments()
@@ -109,16 +140,10 @@ final class FirebaseManager: ObservableObject {
     }
     
     func getPlayerRank(userId: String) async throws -> Int? {
-        let allScores = try await fetchLeaderboard(limit: 1000)
+        let leaderboard = try await fetchLeaderboard(limit: 1000)
         
-        // Find player's best score
-        let playerScores = allScores.filter { $0.userId == userId }
-        guard let bestScore = playerScores.max(by: { $0.score < $1.score }) else {
-            return nil
-        }
-        
-        // Find rank
-        if let rank = allScores.firstIndex(where: { $0.id == bestScore.id }) {
+        // Find the player's rank
+        if let rank = leaderboard.firstIndex(where: { $0.userId == userId }) {
             return rank + 1
         }
         
