@@ -29,9 +29,11 @@ struct WelcomeView: View {
                 
                 // Logo/Icon
                 VStack(spacing: 16) {
-                    Image(systemName: "hands.sparkles.fill")
-                        .font(.system(size: 80))
-                        .foregroundColor(GameTheme.primaryGreen)
+                    Image("main-icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 102, height: 127)
+                        .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 20, x: 0, y: 10)
                     
                     Text("Wudhu Rush")
                         .font(.system(size: 42, weight: .bold))
@@ -231,7 +233,23 @@ struct WelcomeView: View {
                                 try await userProfile.signInAnonymously()
                             }
                             
-                            // Set player name from Game Center
+                            // Check if name is already taken by another user
+                            let isTaken = try await userProfile.isPlayerNameTaken(gcPlayerName)
+                            
+                            if isTaken {
+                                // Name is taken by another user - show error and allow manual input
+                                await MainActor.run {
+                                    showError = true
+                                    errorMessage = "Your Game Center name '\(gcPlayerName)' is already taken by another user. Please enter a different name below."
+                                    isLoading = false
+                                    // Show anonymous input so user can enter different name
+                                    showAnonymousInput = true
+                                    playerName = "" // Clear any existing name
+                                }
+                                return
+                            }
+                            
+                            // Name is available - set it
                             try await userProfile.setPlayerName(gcPlayerName)
                             
                             await MainActor.run {

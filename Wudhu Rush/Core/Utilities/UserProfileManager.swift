@@ -253,6 +253,29 @@ final class UserProfileManager: ObservableObject {
     // MARK: - Sign Out
     
     func signOut() throws {
+        // Delete user data from Firestore before signing out
+        if let userId = currentUser?.uid {
+            Task {
+                do {
+                    // Delete user profile
+                    try await db.collection(usersCollection).document(userId).delete()
+                    
+                    // Delete all leaderboard entries for this user
+                    let leaderboardSnapshot = try await db.collection("leaderboard")
+                        .whereField("user_id", isEqualTo: userId)
+                        .getDocuments()
+                    
+                    for document in leaderboardSnapshot.documents {
+                        try await document.reference.delete()
+                    }
+                    
+                    print("User data deleted from Firestore")
+                } catch {
+                    print("Error deleting user data: \(error)")
+                }
+            }
+        }
+        
         try Auth.auth().signOut()
         currentUser = nil
         userProfile = nil
