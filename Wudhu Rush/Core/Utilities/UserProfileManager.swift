@@ -146,19 +146,27 @@ final class UserProfileManager: ObservableObject {
     func isPlayerNameTaken(_ name: String) async throws -> Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
+        print("🔍 Checking if name '\(trimmedName)' is taken...")
+        
         // Query Firestore for existing users with this name (case-insensitive)
         let snapshot = try await db.collection(usersCollection)
             .whereField("player_name_lowercase", isEqualTo: trimmedName)
             .getDocuments()
         
+        print("📊 Found \(snapshot.documents.count) documents with player_name_lowercase = '\(trimmedName)'")
+        
         // If we find any documents, the name is taken
         // But exclude the current user's document if they're updating their name
         if let currentUserId = currentUser?.uid {
             let otherUsers = snapshot.documents.filter { $0.documentID != currentUserId }
+            print("👤 Current user: \(currentUserId)")
+            print("👥 Other users with same name: \(otherUsers.count)")
             return !otherUsers.isEmpty
         }
         
-        return !snapshot.documents.isEmpty
+        let isTaken = !snapshot.documents.isEmpty
+        print("✅ Result: Name is \(isTaken ? "TAKEN" : "AVAILABLE")")
+        return isTaken
     }
     
     func setPlayerName(_ name: String) async throws {

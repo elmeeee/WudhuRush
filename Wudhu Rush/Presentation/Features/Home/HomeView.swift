@@ -54,11 +54,11 @@ struct HomeView: View {
                         }) {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
                                 .font(.title3)
-                                .foregroundColor(.white)
+                                .foregroundColor(GameTheme.primaryGreen)
                                 .frame(width: 40, height: 40)
-                                .background(GameTheme.error)
+                                .background(Color.white.opacity(0.9))
                                 .clipShape(Circle())
-                                .shadow(color: GameTheme.error.opacity(0.3), radius: 4, x: 0, y: 2)
+                                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                         }
                         .padding(.leading, 20)
                         .padding(.top, 10)
@@ -169,114 +169,18 @@ struct HomeView: View {
                     LeaderboardView()
                 }
             }
-            
-            // Sign Out Confirmation Dialog
-            if showSignOutConfirmation {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        showSignOutConfirmation = false
-                    }
-                
-                VStack(spacing: 0) {
-                    // Icon
-                    ZStack {
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [GameTheme.error.opacity(0.2), GameTheme.error.opacity(0.1)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 80, height: 80)
-                        
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .font(.system(size: 40))
-                            .foregroundColor(GameTheme.error)
-                    }
-                    .padding(.top, 30)
-                    
-                    // Title
-                    Text("Sign Out?")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(GameTheme.textDark)
-                        .padding(.top, 20)
-                    
-                    // Message
-                    VStack(spacing: 8) {
-                        Text("Are you sure you want to sign out?")
-                            .font(.body)
-                            .foregroundColor(GameTheme.textLight)
-                        
-                        Text("All your progress and scores will be permanently deleted.")
-                            .font(.subheadline)
-                            .foregroundColor(GameTheme.error)
-                            .fontWeight(.semibold)
-                    }
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 30)
-                    .padding(.top, 12)
-                    
-                    // Buttons
-                    VStack(spacing: 12) {
-                        // Sign Out Button
-                        Button(action: {
-                            showSignOutConfirmation = false
-                            do {
-                                try userProfile.signOut()
-                            } catch {
-                                print("Error signing out: \(error)")
-                            }
-                        }) {
-                            Text("Yes, Sign Out")
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(
-                                    LinearGradient(
-                                        colors: [GameTheme.error, GameTheme.error.opacity(0.8)],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .cornerRadius(12)
-                        }
-                        
-                        // Cancel Button
-                        Button(action: {
-                            showSignOutConfirmation = false
-                        }) {
-                            Text("Cancel")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(GameTheme.primaryGreen)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.white)
-                                .cornerRadius(12)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(GameTheme.primaryGreen, lineWidth: 2)
-                                )
-                        }
-                    }
-                    .padding(.horizontal, 30)
-                    .padding(.top, 30)
-                    .padding(.bottom, 30)
+        }
+        .alert("Sign Out?", isPresented: $showSignOutConfirmation) {
+            Button("Cancel", role: .cancel) { }
+            Button("Sign Out", role: .destructive) {
+                do {
+                    try userProfile.signOut()
+                } catch {
+                    print("Error signing out: \(error)")
                 }
-                .frame(maxWidth: 340)
-                .background(
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(Color.white)
-                        .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
-                )
-                .transition(.scale.combined(with: .opacity))
-                .animation(.spring(response: 0.3, dampingFraction: 0.8), value: showSignOutConfirmation)
             }
+        } message: {
+            Text("All your progress and scores will be permanently deleted.")
         }
     }
 }
