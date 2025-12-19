@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ResultView: View {
     let score: Int
@@ -19,6 +20,7 @@ struct ResultView: View {
     
     @ObservedObject var localization = LocalizationManager.shared
     @StateObject private var userProfile = UserProfileManager.shared
+    @StateObject private var gameCenter = GameCenterManager.shared
     @State private var scoreSubmitted = false
     @State private var levelUnlocked = false
     
@@ -187,11 +189,40 @@ struct ResultView: View {
         scoreSubmitted = true
         
         do {
+            // Submit to Firebase
             try await FirebaseManager.shared.submitScore(
                 playerName: userProfile.playerName,
                 score: score,
                 level: levelData.title
             )
+            
+            // Submit to Game Center if authenticated
+            if gameCenter.isAuthenticated {
+                await gameCenter.submitScore(score)
+                
+                // Get user stats for achievements
+                if let userId = userProfile.currentUser?.uid {
+                    // Fetch leaderboard to get user stats
+                    let leaderboard = try? await FirebaseManager.shared.fetchLeaderboard(limit: 1000)
+                    if let userEntry = leaderboard?.first(where: { $0.userId == userId }) {
+                        let gamesPlayed = userEntry.gamesPlayed
+                        let totalScore = userEntry.totalScore
+                        let bestScore = userEntry.bestScore
+                        
+                        // Check if all levels completed
+                        let allLevelsCount = LocalizationManager.shared.content?.levels.count ?? 0
+                        let allLevelsCompleted = LevelProgressManager.shared.highestUnlockedIndex >= allLevelsCount - 1
+                        
+                        // Report achievements
+                        await gameCenter.checkAndReportAchievements(
+                            gamesPlayed: gamesPlayed,
+                            totalScore: totalScore,
+                            bestScore: bestScore,
+                            allLevelsCompleted: allLevelsCompleted
+                        )
+                    }
+                }
+            }
         } catch {
             print("Failed to submit score: \(error)")
         }

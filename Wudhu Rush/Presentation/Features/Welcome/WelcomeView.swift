@@ -10,10 +10,12 @@ import SwiftUI
 
 struct WelcomeView: View {
     @StateObject private var userProfile = UserProfileManager.shared
+    @StateObject private var gameCenter = GameCenterManager.shared
     @State private var playerName = ""
     @State private var showError = false
     @State private var errorMessage = ""
     @State private var isLoading = false
+    @State private var showAnonymousInput = false
     
     var onComplete: () -> Void
     
@@ -42,79 +44,219 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                // Name Input
-                VStack(spacing: 20) {
-                    Text("What's your name?")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(GameTheme.textDark)
-                    
-                    TextField("Enter your name", text: $playerName)
-                        .font(.title3)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(16)
-                        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-                        .padding(.horizontal, 40)
-                        .disabled(isLoading)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(showError ? Color.red : Color.clear, lineWidth: 2)
+                if showAnonymousInput {
+                    // Anonymous Name Input
+                    VStack(spacing: 20) {
+                        Text("What's your name?")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(GameTheme.textDark)
+                        
+                        TextField("Enter your name", text: $playerName)
+                            .font(.title3)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+                            .padding(.horizontal, 40)
+                            .disabled(isLoading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(showError ? Color.red : Color.clear, lineWidth: 2)
+                                    .padding(.horizontal, 40)
+                            )
+                        
+                        if showError {
+                            HStack(spacing: 8) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.red)
+                                Text(errorMessage)
+                                    .font(.subheadline)
+                                    .foregroundColor(.red)
+                            }
+                            .padding(.horizontal, 40)
+                            .multilineTextAlignment(.center)
+                        } else {
+                            Text("Choose a unique name for the leaderboard")
+                                .font(.caption)
+                                .foregroundColor(GameTheme.textLight)
                                 .padding(.horizontal, 40)
-                        )
-                    
-                    if showError {
-                        HStack(spacing: 8) {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundColor(.red)
-                            Text(errorMessage)
-                                .font(.subheadline)
-                                .foregroundColor(.red)
+                        }
+                    }
+                } else {
+                    // Login Options
+                    VStack(spacing: 20) {
+                        Text("Choose how to play")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(GameTheme.textDark)
+                        
+                        // Sign in with Game Center
+                        Button(action: handleGameCenterSignIn) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "gamecontroller.fill")
+                                    .font(.title3)
+                                Text("Sign in with Game Center")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                LinearGradient(
+                                    colors: [GameTheme.primaryGreen, GameTheme.darkGreen],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(16)
+                            .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 10, x: 0, y: 5)
                         }
                         .padding(.horizontal, 40)
-                        .multilineTextAlignment(.center)
-                    } else {
-                        Text("Choose a unique name for the leaderboard")
-                            .font(.caption)
-                            .foregroundColor(GameTheme.textLight)
+                        .disabled(isLoading)
+                        
+                        // Divider
+                        HStack {
+                            Rectangle()
+                                .fill(GameTheme.textLight.opacity(0.3))
+                                .frame(height: 1)
+                            Text("or")
+                                .font(.caption)
+                                .foregroundColor(GameTheme.textLight)
+                                .padding(.horizontal, 8)
+                            Rectangle()
+                                .fill(GameTheme.textLight.opacity(0.3))
+                                .frame(height: 1)
+                        }
+                        .padding(.horizontal, 60)
+                        
+                        // Play as Guest
+                        Button(action: {
+                            withAnimation {
+                                showAnonymousInput = true
+                            }
+                        }) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "person.fill")
+                                    .font(.title3)
+                                Text("Play as Guest")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                            }
+                            .foregroundColor(GameTheme.primaryGreen)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(GameTheme.primaryGreen, lineWidth: 2)
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+                        }
+                        .padding(.horizontal, 40)
+                        .disabled(isLoading)
+                        
+                        if showError {
+                            HStack(spacing: 8) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.red)
+                                Text(errorMessage)
+                                    .font(.subheadline)
+                                    .foregroundColor(.red)
+                            }
                             .padding(.horizontal, 40)
+                            .multilineTextAlignment(.center)
+                        }
                     }
                 }
                 
                 Spacer()
                 
-                // Continue Button
-                Button(action: handleContinue) {
-                    if isLoading {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    } else {
-                        Text("Let's Start!")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
+                // Continue Button (only show when anonymous input is visible)
+                if showAnonymousInput {
+                    Button(action: handleAnonymousContinue) {
+                        if isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        } else {
+                            Text("Let's Start!")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                        }
                     }
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(
-                    LinearGradient(
-                        colors: [GameTheme.primaryGreen, GameTheme.primaryGreen.opacity(0.8)],
-                        startPoint: .leading,
-                        endPoint: .trailing
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(
+                        LinearGradient(
+                            colors: [GameTheme.primaryGreen, GameTheme.primaryGreen.opacity(0.8)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
                     )
-                )
-                .cornerRadius(16)
-                .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 10, x: 0, y: 5)
-                .padding(.horizontal, 40)
-                .padding(.bottom, 40)
-                .disabled(isLoading)
+                    .cornerRadius(16)
+                    .shadow(color: GameTheme.primaryGreen.opacity(0.3), radius: 10, x: 0, y: 5)
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 40)
+                    .disabled(isLoading)
+                }
             }
         }
     }
     
-    private func handleContinue() {
+    private func handleGameCenterSignIn() {
+        isLoading = true
+        showError = false
+        
+        Task {
+            // Authenticate with Game Center
+            await gameCenter.authenticatePlayer()
+            
+            // Wait longer for authentication to complete
+            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+            
+            await MainActor.run {
+                // Check if authentication succeeded
+                if gameCenter.isAuthenticated, !gameCenter.playerName.isEmpty {
+                    // Use Game Center player name
+                    let gcPlayerName = gameCenter.playerName
+                    
+                    Task {
+                        do {
+                            // Sign in anonymously with Firebase
+                            if userProfile.currentUser == nil {
+                                try await userProfile.signInAnonymously()
+                            }
+                            
+                            // Set player name from Game Center
+                            try await userProfile.setPlayerName(gcPlayerName)
+                            
+                            await MainActor.run {
+                                isLoading = false
+                                onComplete()
+                            }
+                        } catch {
+                            await MainActor.run {
+                                showError = true
+                                errorMessage = error.localizedDescription
+                                isLoading = false
+                            }
+                        }
+                    }
+                } else {
+                    // Authentication failed or player name not available
+                    showError = true
+                    errorMessage = "Failed to sign in with Game Center. Please try again or play as guest."
+                    isLoading = false
+                }
+            }
+        }
+    }
+    
+    private func handleAnonymousContinue() {
         let trimmedName = playerName.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard !trimmedName.isEmpty else {

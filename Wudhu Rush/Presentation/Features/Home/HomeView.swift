@@ -47,7 +47,30 @@ struct HomeView: View {
                 VStack(spacing: 0) {
                     
                     HStack {
+                        // Sign Out Button
+                        Button(action: {
+                            do {
+                                try userProfile.signOut()
+                            } catch {
+                                print("Error signing out: \(error)")
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "rectangle.portrait.and.arrow.right")
+                                Text("Sign Out")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                            }
+                            .padding(8)
+                            .background(GameTheme.error.opacity(0.1))
+                            .clipShape(Capsule())
+                            .foregroundColor(GameTheme.error)
+                        }
+                        .padding(.leading, 20)
+                        
                         Spacer()
+                        
+                        // Language Selector
                         Menu {
                             ForEach(languages, id: \.0) { lang in
                                 Button(action: {
